@@ -166,6 +166,8 @@ REST_FRAMEWORK = {
     ]
 }
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+
 REST_USE_JWT = True
 
 JWT_AUTH = {
