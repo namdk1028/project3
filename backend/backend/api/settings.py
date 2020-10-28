@@ -25,7 +25,7 @@ SECRET_KEY = '#hab9gv1(hhyao8@2muqm3l#vztein%c&r5d(_7-y5dnq7v10p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#Production Level
+# Production Level
 #DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
@@ -51,30 +51,30 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #DRF
+    # DRF
     'rest_framework',
     'rest_framework.authtoken',
 
-    #allauth
+    # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
     'rest_auth',
-    'rest_auth.registration'
+    'rest_auth.registration',
 
-    #custom app
-    
+    # custom app
+    'accounts',
 ]
 
 SITE_ID = 1
 
 SOCIAL_ACCOUNT_PROVIDER = {
-    'kakao':{
-        'APP':{
-            'client_id':'',
-            'secret':'',
-            'key':'',
+    'kakao': {
+        'APP': {
+            'client_id': '',
+            'secret': '',
+            'key': '',
         }
     }
 }
@@ -116,8 +116,15 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'HowAboutMe',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '33061'
     }
 }
 
@@ -160,6 +167,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# JWT TOKEN
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
@@ -178,3 +186,5 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
 }
 
+# USE CUSTOM USER
+AUTH_USER_MODEL = 'accounts.User'
