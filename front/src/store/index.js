@@ -15,7 +15,7 @@ export default new Vuex.Store({
   },
   plugins: [
     createPersistedState({
-      paths: ["QuestionList", "UserStore", "InterviewStore"],
+      paths: [],
     }),
   ],
 })
