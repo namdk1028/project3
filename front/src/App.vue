@@ -1,0 +1,33 @@
+<template>
+  <v-app id='app'>
+    <h1>HELLO</h1>
+  </v-app>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld';
+
+export default {
+  name: 'App',
+
+  components: {
+    HelloWorld,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
+<style>
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+
+</style>
