@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import datetime
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +25,7 @@ SECRET_KEY = '#hab9gv1(hhyao8@2muqm3l#vztein%c&r5d(_7-y5dnq7v10p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-#Production Level
+# Production Level
 #DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
@@ -51,24 +51,30 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
-    #allauth
+    # DRF
+    'rest_framework',
+    'rest_framework.authtoken',
+
+    # allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.kakao',
+    'rest_auth',
+    'rest_auth.registration',
 
-    #custom app
-    
+    # custom app
+    'accounts',
 ]
 
 SITE_ID = 1
 
 SOCIAL_ACCOUNT_PROVIDER = {
-    'kakao':{
-        'APP':{
-            'client_id':'',
-            'secret':'',
-            'key':'',
+    'kakao': {
+        'APP': {
+            'client_id': '',
+            'secret': '',
+            'key': '',
         }
     }
 }
@@ -110,8 +116,15 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'HowAboutMe',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': '127.0.0.1',
+        'PORT': '33061'
     }
 }
 
@@ -153,3 +166,23 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# JWT TOKEN
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    ]
+}
+
+REST_USE_JWT = True
+
+JWT_AUTH = {
+    'JWT_SECRET_KEY': SECRET_KEY,
+    'JWT_ALGORITHM': 'HS256',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=28),
+}
+
+# USE CUSTOM USER
+AUTH_USER_MODEL = 'accounts.User'
