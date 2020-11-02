@@ -18,10 +18,20 @@
             </div>
             <div class="control-item">
                 <p class="control-title">나이</p>
-                <!-- <input type="range" name="foo">
-                <output for="foo" onforminput="value = foo.valueAsNumber;"></output> -->
+                <div class="container-bubbles">
+                    <span class="bubble bubbleRight">{{ sliderTop }}</span>
+                    <output class="bubble bubbleLeft">{{ sliderBottom }}</output>
+                </div>
                 <div class="sliderContainer">
-                    <input type="range" min="20" max="50" value="25" class="slider">
+                    <input type="range" min="20" max="50" v-model="sliderTop" @change="moveRight" class="slider" id="sliderTop">
+                    <input type="range" min="20" max="50" v-model="sliderBottom" @change="moveLeft" class="slider" id="sliderbottom">
+                    
+                    <div class="multi-slider">
+                        <div class="track"></div>
+                        <div class="range"></div>
+                        <div class="thumb left"></div>
+                        <div class="thumb right"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,11 +40,51 @@
 </template>
 
 <script>
+
 export default {
+    data() {
+        return {
+            sliderBottom: 20, 
+            sliderTop: 50, 
+        }
+    },
     methods: {
         closeControls() {
             document.querySelector(".container-controls").classList.add("hide");
-        }
+        },
+        confirmChanges() {
+
+        },
+        moveRight() {
+            this.sliderTop = Math.max(parseInt(this.sliderTop), parseInt(this.sliderBottom))
+            // var color = "linear-gradient(90deg, rgb(252, 166, 157) " + (this.sliderTop-20)/30*100 + "%, silver " + (this.sliderTop-20)/30*100 + "%)"
+            // var slider = document.querySelector("#sliderTop");
+            // slider.style.background = color;
+
+            var range = document.querySelector(".range");
+            var right = document.querySelector(".right");
+            var bubble = document.querySelector(".bubbleRight")
+
+            range.style.right = 100-((this.sliderTop-20)/30*100) + "%"
+            right.style.right = 100-((this.sliderTop-20)/30*100) + "%"
+            bubble.style.right = 100-((this.sliderTop-20)/30*100) + "%"
+
+        },
+        moveLeft() {
+            this.sliderBottom = Math.min(parseInt(this.sliderTop), parseInt(this.sliderBottom))
+
+            var range = document.querySelector(".range");
+            var left = document.querySelector(".left");
+            var bubble = document.querySelector(".bubbleLeft")
+
+            var newVal = (this.sliderBottom-20)/30*100
+
+            range.style.left = newVal + "%"
+            left.style.left = newVal + "%"
+            bubble.style.left = newVal + "%"
+            // bubble.style.left = `calc(${ newVal }% + (${ 5 - newVal * 0.2}px))`;
+
+        },
     }
 }
 </script>
