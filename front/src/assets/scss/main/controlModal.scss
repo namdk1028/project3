@@ -151,7 +151,6 @@
     font-size: 0.8rem;
     font-weight: 100;
     margin: 0;
-    // transform: rotate(90deg);
   }
   .bubble::before {
     content: "";
@@ -166,7 +165,7 @@
     border-right: 4px solid transparent;
     margin-left: -4px;
     margin-top: -1px;
-    transform: rotate(45deg) 2;
+    transform: rotate(45deg);
   }
   .bubbleLeft {
     left: 0;
