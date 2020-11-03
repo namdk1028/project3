@@ -21,7 +21,12 @@
                 <Age />
             </div>
             <div class="control-item">
+                <p class="control-title">키</p>
                 <Height />
+            </div>
+            <div class="control-item">
+                <p class="control-title">체형</p>
+                <BodyType />
             </div>
         </div>
         <div class="modal-footer">
@@ -34,11 +39,13 @@
 <script>
 import Age from "@/components/controls/Age.vue"
 import Height from "@/components/controls/Height.vue"
+import BodyType from "@/components/controls/BodyType.vue"
 
 export default {
     components: {
         Age,
         Height,
+        BodyType,
     },
     data() {
         return {
