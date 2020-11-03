@@ -2,6 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+//user
+import Login from '../views/user/Login.vue'
+import Signup from '../views/user/Signup.vue'
+import UserInfo from '../views/user/UserInfo.vue'
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -29,6 +34,21 @@ const routes = [
     path: "/chat/:partner",
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
+  //user
+  {
+    path: '/user/login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/user/signup',
+    name: 'Signup',
+    component: Signup
+  },
+  {
+    path: '/user/userinfo',
+    name: 'userinfo',
+    component: UserInfo
   },
 ]
 
