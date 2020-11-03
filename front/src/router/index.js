@@ -34,6 +34,7 @@ const routes = [
     path: "/chat/:partner",
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
+  },
   //user
   {
     path: '/user/login',
