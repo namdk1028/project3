@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import ControlModal from "@/components/header/ControlModal.vue"
+import ControlModal from "@/components/controls/ControlModal.vue"
 
 export default {
     name: "Header",

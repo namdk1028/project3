@@ -34,14 +34,24 @@
                     </div>
                 </div>
             </div>
+            <div class="control-item">
+                <Height />
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-detail">세부 설정</button>
         </div>
       </div>
   </div>
 </template>
 
 <script>
+import Height from "@/components/controls/Height.vue"
 
 export default {
+    components: {
+        Height,
+    },
     data() {
         return {
             sliderBottom: 20, 
@@ -65,9 +75,11 @@ export default {
             var right = document.querySelector(".right");
             var bubble = document.querySelector(".bubbleRight")
 
-            range.style.right = 100-((this.sliderTop-20)/30*100) + "%"
-            right.style.right = 100-((this.sliderTop-20)/30*100) + "%"
-            bubble.style.right = 100-((this.sliderTop-20)/30*100) + "%"
+            var newVal = 100-(this.sliderTop-20)/30*100
+
+            range.style.right = newVal + "%"
+            right.style.right = newVal + "%"
+            bubble.style.right = newVal + "%"
 
         },
         moveLeft() {
@@ -90,5 +102,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "@/assets/scss/main/controlModal.scss"
+    @import "@/assets/scss/controls/controlModal.scss"
 </style>
