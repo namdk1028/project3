@@ -1,0 +1,30 @@
+.container-btns {
+  .wrapper-btn {
+    display: inline-block;
+    // border-top: 1px solid rgb(211, 211, 211);
+    // border-bottom: 1px solid rgb(211, 211, 211);
+    // border-right: 1px solid rgb(211, 211, 211);
+  }
+  .wrapper-left {
+    // border-left: 1px solid rgb(211, 211, 211);
+    border-radius: 6px 0 0 6px;
+  }
+  .wrapper-right {
+    border-radius: 0 6px 6px 0;
+  }
+  .btn {
+    padding: 5px 5.5px;
+    // border-radius: 6px;
+    outline: none;
+    border-top: 1px solid rgb(211, 211, 211);
+    border-bottom: 1px solid rgb(211, 211, 211);
+    border-right: 1px solid rgb(211, 211, 211);
+  }
+  .btn-left {
+    border-left: 1px solid rgb(211, 211, 211);
+    border-radius: 6px 0 0 6px;
+  }
+  .btn-right {
+    border-radius: 0 6px 6px 0;
+  }
+}
