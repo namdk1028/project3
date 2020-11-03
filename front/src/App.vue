@@ -1,6 +1,7 @@
 <template>
   <v-app id='app'>
-    <h1>HELLO</h1>
+    <!-- <h1>HELLO</h1> -->
+    <router-view />
   </v-app>
 </template>
 
@@ -28,7 +29,7 @@ export default {
   color: #2c3e50;
   width: 375px;
   margin: auto;
-  background-color: lightgray;
+  /* background-color: lightgray; */
 }
 
 </style>
