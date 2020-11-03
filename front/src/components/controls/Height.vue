@@ -1,21 +1,21 @@
 <template>
-<div>
-    <div class="container-bubbles">
-        <span class="bubble bubbleRight height-bubbleRight">{{ sliderTop }}</span>
-        <output class="bubble bubbleLeft height-bubbleLeft">{{ sliderBottom }}</output>
-    </div>
-    <div class="sliderContainer">
-        <input type="range" min="140" max="200" v-model="sliderTop" @change="moveRight" class="slider" id="heightTop">
-        <input type="range" min="140" max="200" v-model="sliderBottom" @change="moveLeft" class="slider" id="heightBottom">
-        
-        <div class="multi-slider">
-            <div class="track"></div>
-            <div class="range height-range"></div>
-            <div class="thumb left height-left"></div>
-            <div class="thumb right height-right"></div>
+    <div>
+        <div class="container-bubbles">
+            <span class="bubble bubbleRight height-bubbleRight">{{ sliderTop }}</span>
+            <output class="bubble bubbleLeft height-bubbleLeft">{{ sliderBottom }}</output>
+        </div>
+        <div class="sliderContainer">
+            <input type="range" min="140" max="200" v-model="sliderTop" @change="moveRight" class="slider" id="heightTop">
+            <input type="range" min="140" max="200" v-model="sliderBottom" @change="moveLeft" class="slider" id="heightBottom">
+            
+            <div class="multi-slider">
+                <div class="track"></div>
+                <div class="range height-range"></div>
+                <div class="thumb left height-left"></div>
+                <div class="thumb right height-right"></div>
+            </div>
         </div>
     </div>
-</div>
 </template>
 
 <script>
