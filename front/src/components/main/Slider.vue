@@ -13,23 +13,32 @@
               fab
               dark
               small
-              color="pink"
-            >
-              <v-icon dark>
-                mdi-heart
-              </v-icon>
+              color="green"
+              @click="$router.push('/chat/test')"
+            ><i class="fas fa-comment main-message"></i>
             </v-btn>
-            <p>천우희 30</p>
+            <div>
+              <div class='main-name'>천우희 30</div>
+              <div class='main-region'>서울</div>
+            </div>
             <v-btn
               class="mx-2"
               fab
               dark
               small
               color="pink"
+              @click="likeBtn"
             >
-              <v-icon dark>
+              <v-icon v-if="like" color="yellow">
+                mdi-heart
+              </v-icon>
+              <v-icon v-else>
+                mdi-heart
               </v-icon>
             </v-btn>
+          </div>
+          <div class='swiper-bottom'>
+
           </div>
           </v-img>
       </div>
@@ -53,6 +62,18 @@ import 'swiper/components/effect-cube/effect-cube.scss';
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCoverflow ]);
 
 export default {
+  data() {
+    return {
+      like: false,
+    }
+  },
+  
+  methods: {
+    likeBtn() {
+      this.like = !this.like
+      console.log(this.like)
+    }
+  },
   mounted() {
       new Swiper('.swiper-container', {
         effect: 'coverflow',
@@ -69,48 +90,75 @@ export default {
         loop: true,
 
       });
-    }
+    },
 }
 </script>
 
 <style>
-    .swiper {
-      background: #fff;
-      font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-      font-size: 14px;
-      color: #000;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 50vh;
-    }
+  .swiper {
+    background: #fff;
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+  }
 
-    .swiper-container {
-      width: 100%;
-      padding-top: 50px;
-      padding-bottom: 50px;
-    }
+  .swiper-container {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
 
-    .swiper-slide {
-      background-position: center;
-      background-size: cover;
-      width: 240px;
-      height: 400px;
-      background: white;
-      border-radius: 20px 20px;
-      position: relative;
-      display: flex;
-      justify-content: center;
-    }
+  .swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 240px;
+    height: 400px;
+    background: white;
+    border-radius: 20px 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
 
-    .swiper-btns {
-      display: flex;
-      justify-content: space-around;
-      position: absolute;
-      bottom: 10px;
-      width: 100%;
-    }
+  .swiper-btns {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+  }
+
+  .swiper-bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 60px;
+    background-color: lightgray;
+    opacity: 30%;
+    z-index: -1;
+  }
+
+
+  .main-name {
+    margin: 0;
+    font-size: 1rem;
+    color: #78909C;
+  }
+
+  .main-region {
+    margin: 0;
+    color: gray;
+    font-size: 0.8rem;
+  }
+  
+  .main-message {
+    font-size: 20px;
+  }
 
 </style>
