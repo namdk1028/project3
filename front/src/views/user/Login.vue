@@ -41,4 +41,4 @@ export default {
   },
 };
 </script>
-<style src="../../assets/static/login.scss" lang="scss">
+<style scoped src="../../assets/static/login.scss" lang="scss">
