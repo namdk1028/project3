@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h1>프로필</h1>
+  <div style="max-width: 300px">
+    <h3>프로필</h3>
     <v-row class="my-2" justify="center">
       <v-btn
         rounded
@@ -10,8 +10,8 @@
       >
         <p style="margin: 0px; color: #8c8c8c">성별</p>
       </v-btn>
-      <v-dialog v-model="dialog_gender" max-width="290">
-        <Gender />
+      <v-dialog v-model="dialog_gender" max-width="280">
+        <Gender @getGender="gender" />
       </v-dialog>
     </v-row>
     <v-row class="my-2" justify="center">
@@ -23,7 +23,7 @@
       >
         <p style="margin: 0px; color: #8c8c8c">생일</p>
       </v-btn>
-      <v-dialog v-model="dialog_birth" max-width="290">
+      <v-dialog v-model="dialog_birth" max-width="280">
         <Birth />
       </v-dialog>
     </v-row>
@@ -36,7 +36,7 @@
       >
         <p style="margin: 0px; color: #8c8c8c">닉네임</p>
       </v-btn>
-      <v-dialog v-model="dialog_nickname" max-width="290">
+      <v-dialog v-model="dialog_nickname" max-width="280">
         <Nickname />
       </v-dialog>
     </v-row>
@@ -49,7 +49,7 @@
       >
         <p style="margin: 0px; color: #8c8c8c">지역</p>
       </v-btn>
-      <v-dialog v-model="dialog_area" max-width="290">
+      <v-dialog v-model="dialog_area" max-width="280">
         <Area />
       </v-dialog>
     </v-row>
@@ -90,6 +90,8 @@ export default {
   name: "UserData",
   data() {
     return {
+      gender: "",
+      birth: "",
       dialog_gender: false,
       dialog_birth: false,
       dialog_nickname: false,

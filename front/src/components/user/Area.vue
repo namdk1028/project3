@@ -9,7 +9,7 @@
               <v-select :items="religion" label="활동 지역" outlined></v-select>
             </v-col>
           </v-row>
-          <v-btn color="red lighten-3" dark @click="dialog_gender = false">
+          <v-btn color="red lighten-3" dark @click="dialog_area = false">
             입력완료
           </v-btn>
         </div>

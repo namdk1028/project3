@@ -4,7 +4,12 @@
     <v-card-actions>
       <v-divider></v-divider>
       <div>
-        <v-btn color="pink lighten-1" text @click="dialog_gender = false">
+        <v-btn
+          value="여자"
+          color="pink lighten-1"
+          text
+          @click="emitGender(value)"
+        >
           여자
         </v-btn>
         <v-btn color="blue darken-1" text @click="dialog_gender = false">
@@ -18,10 +23,19 @@
 <script>
 export default {
   name: "Gender",
+  // props: {
+  //   emitgender: "",
+  // },
   data() {
     return {
+      gender: "",
       dialog_gender: false,
     };
+  },
+  methods: {
+    emitGender(value) {
+      this.$emit("getGender", value);
+    },
   },
 };
 </script>

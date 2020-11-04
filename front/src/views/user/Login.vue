@@ -23,7 +23,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <div class="text-center">
+        <div class="text-center" @click="googleLogin">
           <v-btn class="submit-btn" rounded color="black" dark> Login </v-btn>
           <v-btn class="submit-btn" rounded color="white">
             Login with Google
@@ -34,10 +34,23 @@
   </div>
 </template>
 <script>
+// import API from "@/api/UserApi";
+import axios from "axios";
+
 export default {
   name: "Login",
   data() {
     return {};
+  },
+  methods: {
+    googleLogin() {
+      axios
+        .get("http://127.0.0.1:8000/accounts/login/kakao/")
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err.response));
+    },
   },
 };
 </script>

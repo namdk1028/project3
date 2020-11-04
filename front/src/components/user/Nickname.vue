@@ -12,7 +12,7 @@
             ></v-text-field>
           </v-col>
         </v-row>
-        <v-btn color="red lighten-3" dark @click="dialog_gender = false">
+        <v-btn color="red lighten-3" dark @click="dialog_nickname = false">
           입력완료
         </v-btn>
       </div>

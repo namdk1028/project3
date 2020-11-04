@@ -29,7 +29,7 @@
             @change="save"
           ></v-date-picker>
         </v-menu>
-        <v-btn color="red lighten-3" dark @click="dialog_gender = false">
+        <v-btn color="red lighten-3" dark @click="dialog_birth = false">
           입력완료
         </v-btn>
       </div>
