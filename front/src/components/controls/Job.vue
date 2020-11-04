@@ -1,29 +1,29 @@
 <template>
     <div class="container-btns">
         <div class="wrapper-btn wrapper-left">
-            <button class="btn btn-body btn-left" @click="selectOption" value="기독교">기독교</button>
+            <button class="btn btn-body btn-left" @click="selectOption" value="학생">학생</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="천주교">천주교</button>
+            <button class="btn btn-body" @click="selectOption" value="전문직">전문직</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="불교">불교</button>
+            <button class="btn btn-body" @click="selectOption" value="회사원">회사원</button>
         </div>
-        <!-- <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="기타">기타</button>
-        </div> -->
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="무교">무교</button>
+            <button class="btn btn-body" @click="selectOption" value="자영업자">자영업자</button>
+        </div>
+        <div class="wrapper-btn">
+            <button class="btn btn-body" @click="selectOption" value="프리랜서">프리랜서</button>
         </div>
         <div class="wrapper-btn wrapper-right">
-            <button class="btn btn-body btn-right" @click="selectOption" value="상관 없음">상관 없음</button>
+            <button class="btn btn-body btn-right" @click="selectOption" value="무직">무직</button>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Religion",
+    name: "Job",
     data() {
         return {
             selected: []
@@ -58,6 +58,6 @@ export default {
 <style lang="scss" scoped>
     @import "@/assets/scss/controls/optionButtons.scss";
     .btn {
-      padding: 5px 11px !important;
+        padding: 5px 5px !important;
     }
 </style>

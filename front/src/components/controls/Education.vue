@@ -47,5 +47,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "@/assets/scss/controls/optionButtons.scss"
+    @import "@/assets/scss/controls/optionButtons.scss";
+    .btn {
+      padding: 5px 13px !important;
+    }
 </style>

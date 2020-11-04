@@ -6,9 +6,11 @@
     </div>
     <div class="control-item">
         <p class="control-title">직업</p>
+        <Job />
     </div>
     <div class="control-item">
         <p class="control-title">종교</p>
+        <Religion />
     </div>
     <div class="control-item">
         <p class="control-title">음주 여부</p>
@@ -23,6 +25,8 @@
 
 <script>
 import Education from "@/components/controls/Education.vue"
+import Job from "@/components/controls/Job.vue"
+import Religion from "@/components/controls/Religion.vue"
 import Drink from "@/components/controls/Drink.vue"
 import Smoke from "@/components/controls/Smoke.vue"
 
@@ -30,6 +34,8 @@ export default {
     name: "ControlDetail",
     components: {
       Education,
+      Job,
+      Religion,
       Drink,
       Smoke,
     },
