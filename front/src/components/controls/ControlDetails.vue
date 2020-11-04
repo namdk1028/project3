@@ -12,20 +12,26 @@
     </div>
     <div class="control-item">
         <p class="control-title">음주 여부</p>
+        <Drink />
     </div>
     <div class="control-item">
         <p class="control-title">흡연 여부</p>
+        <Smoke />
     </div>
   </div>
 </template>
 
 <script>
 import Education from "@/components/controls/Education.vue"
+import Drink from "@/components/controls/Drink.vue"
+import Smoke from "@/components/controls/Smoke.vue"
 
 export default {
     name: "ControlDetail",
     components: {
       Education,
+      Drink,
+      Smoke,
     },
     data() {
         return {
@@ -39,6 +45,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "@/assets/scss/controls/controlDetails.scss", "@/assets/scss/controls/controlModal.scss"
-  // @import "@/assets/scss/controls/controlModal.scss"
+  @import "@/assets/scss/controls/controlDetails.scss", "@/assets/scss/controls/controlModal.scss";
 </style>
