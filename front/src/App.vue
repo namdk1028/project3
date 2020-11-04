@@ -31,7 +31,7 @@ export default {
   // width: 375px;
   position: relative;
   margin: auto;
-  background-color: whtie;
+  background-color: white;
   p {
     margin: 0;
   }
