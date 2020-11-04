@@ -9,7 +9,8 @@
           </div>
           <div class="navbar-item">
               <button class="navbar-btn" @click="moveToChat">
-                <img class="navbar-btn-img" src="@/assets/images/navbar/chat.png" alt="">
+                <!-- <img class="navbar-btn-img" src="@/assets/images/navbar/chat.png" alt=""> -->
+                <chatSVG />
               </button>
           </div>
           <div class="navbar-item">
@@ -23,11 +24,13 @@
 
 <script>
 import homeSVG from "@/components/image_svg/homeSVG.vue"
+import chatSVG from "@/components/image_svg/chatSVG.vue"
 
 export default {
     name: "Navbar",
     components: {
-      homeSVG
+      homeSVG,
+      chatSVG,
     },
     methods: {
       moveToMain() {
