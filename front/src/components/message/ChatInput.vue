@@ -6,6 +6,9 @@
     <div class="chat-input-message">
       <input class="content" type="text" placeholder="메시지를 입력해주세요" >
     </div>
+    <div class="chat-input-emoticon">
+      <i class="far fa-grin" type="button"></i>
+    </div>
     <div class="chat-input-send">
       <i class="fas fa-paper-plane" type="button"></i>
     </div>
@@ -25,10 +28,11 @@ export default {
 }
 .chat-input-other {
   width: 15%;
+  font-size: 1.2rem;
   color: #fca69d;
 }
 .chat-input-message {
-  width: 70%;
+  width: 60%;
   text-align: left;
   font-size: 0.8rem;
 }
@@ -36,8 +40,14 @@ export default {
   width: 100%;
   outline: none;
 }
+.chat-input-emoticon {
+  width: 12%;
+  font-size: 1.25rem;
+  color: #fca69d;
+}
 .chat-input-send {
-  width: 15%;
+  width: 13%;
+  font-size: 1.25rem;
   color: #fca69d;
 }
 </style>
