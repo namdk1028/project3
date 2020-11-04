@@ -16,9 +16,19 @@ const routes = [
     component: Home
   },
   {
-    path: "/about",
-    name: "About",
-    component: () => import("../views/About.vue"),
+    path: "/main",
+    name: "Main",
+    component: () => import("../views/MainPage.vue"),
+  },
+  {
+    path: "/message",
+    name: "Message",
+    component: () => import("../views/Message.vue"),
+  },
+  {
+    path: "/chat/:partner",
+    name: "ChatRoom",
+    component: () => import("../views/ChatRoom.vue"),
   },
   //user
   {

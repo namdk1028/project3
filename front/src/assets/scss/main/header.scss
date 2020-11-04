@@ -1,0 +1,27 @@
+.container-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: white;
+  border-radius: 0 0 24px 24px;
+  .header-logo-name {
+    font-size: 24px;
+    color: rgb(0, 0, 0, 0.8);
+  }
+  .header-btn-img {
+    width: 20px;
+  }
+}
+
+.control-modal {
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  overflow-y: scroll;
+}
