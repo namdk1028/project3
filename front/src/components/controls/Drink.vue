@@ -1,11 +1,11 @@
 <template>
 <div>
-    <v-select class="select" v-model="selected">
+    <select class="select" v-model="selected">
         <option selected>상관 없음</option>
         <option>안함</option>
         <option>가끔</option>
         <option>자주</option>
-    </v-select>
+    </select>
 </div>
 </template>
 
