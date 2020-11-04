@@ -12,7 +12,10 @@
             </button>
         </div>
       </div>
-      <ControlModal />
+      <div class="control-modal">
+        <ControlModal />
+          
+      </div>
   </div>
 </template>
 
@@ -33,5 +36,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-    @import "@/assets/scss/main/header.scss"
+    @import "@/assets/scss/main/header.scss";
+
 </style>

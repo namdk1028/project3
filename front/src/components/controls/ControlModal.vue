@@ -66,13 +66,17 @@ export default {
         },
         openDetails() {
             this.showDetails = true;
-            var modal = document.querySelector(".modal-controls");
-            modal.style.height = "100vh";
+            // var modal = document.querySelector(".modal-controls");
+            var background = document.querySelector(".background-controls");
+            // modal.style.height = "auto";
+            background.style.height = "140vh";
         },
         closeDetails() {
             this.showDetails = false;
-            var modal = document.querySelector(".modal-controls");
-            modal.style.height = "80%";
+            // var modal = document.querySelector(".modal-controls");
+            var background = document.querySelector(".background-controls");
+            // modal.style.height = "80%";
+            background.style.height = "100vh";
         }
     }
 }

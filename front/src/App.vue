@@ -36,6 +36,7 @@ export default {
   position: relative;
   margin: auto;
   background-color: lightgray;
+
   p {
     margin: 0;
   }
