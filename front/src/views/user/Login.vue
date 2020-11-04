@@ -54,4 +54,4 @@ export default {
   },
 };
 </script>
-<style scoped src="../../assets/static/login.scss" lang="scss">
+<style scoped src="../../assets/scss/login.scss" lang="scss">
