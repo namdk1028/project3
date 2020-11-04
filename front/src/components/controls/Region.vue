@@ -11,6 +11,11 @@
 <script>
 export default {
     name: "Region",
+    data() {
+        return {
+            selected: "",
+        }
+    }
 }
 </script>
 
