@@ -24,7 +24,6 @@
         </v-avatar>
       </div>
     </div>
-    <hr>
   </div>
 </template>
 

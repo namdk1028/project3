@@ -96,11 +96,12 @@ export default {
 
 <style>
   .swiper {
-    background: #fff;
+    /* background: #fff; */
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
     color: #000;
     margin: 0;
+    margin-top: 70px;
     padding: 0;
     display: flex;
     justify-content: center;

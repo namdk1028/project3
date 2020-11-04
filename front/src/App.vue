@@ -1,21 +1,17 @@
 <template>
   <v-app id="app">
-    <h1>HELLO</h1>
-    <router-view />
-    <Header />
     <Navbar />
+    <router-view />
   </v-app>
 </template>
 
 <script>
-import Header from "@/views/Header.vue";
-import Navbar from "@/views/Navbar.vue";
+import Navbar from "@/components/common/Navbar.vue";
 
 export default {
   name: "App",
 
   components: {
-    Header,
     Navbar,
   },
 
@@ -35,8 +31,7 @@ export default {
   width: 375px;
   position: relative;
   margin: auto;
-  background-color: lightgray;
-
+  background-color: white;
   p {
     margin: 0;
   }
