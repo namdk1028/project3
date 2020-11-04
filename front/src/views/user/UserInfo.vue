@@ -11,7 +11,7 @@
         <p style="margin: 0px; color: #8c8c8c">성별</p>
       </v-btn>
       <v-dialog v-model="dialog_gender" max-width="280">
-        <Gender @getGender="gender" />
+        <Gender @closeGender="closeGender" @getGender="getGender" />
       </v-dialog>
     </v-row>
     <v-row class="my-2" justify="center">
@@ -92,7 +92,18 @@ export default {
     return {
       gender: "",
       birth: "",
-      dialog_gender: false,
+      nickname: "",
+      area: "",
+      height: "",
+      blood: "",
+      religion: "",
+      drink: "",
+      smoke: "",
+      education: "",
+      hoby: "",
+      body: "",
+      job: "",
+      dialog_gender: true,
       dialog_birth: false,
       dialog_nickname: false,
       dialog_area: false,
@@ -107,6 +118,16 @@ export default {
       dialog_job: false,
     };
   },
+  methods: {
+    getGender(gender) {
+      this.gender = gender;
+    },
+    closeGender() {
+      this.dialog_gender = false;
+      this.dialog_birth = true;
+    },
+  },
+  watch: {},
 };
 </script>
 
