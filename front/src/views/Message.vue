@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Messages</h2><hr> 
+    <Title :title="title" />
     <MessageEach />
     <MessageEach />
     <MessageEach />
@@ -10,10 +10,17 @@
 
 <script>
 import MessageEach from '../components/message/MessageEach.vue'
+import Title from '../components/common/Title'
 
 export default {
+  data() {
+    return {
+      title: 'Message',
+    }
+  },
   components: {
     MessageEach,
+    Title
   },
   methods: {
   },

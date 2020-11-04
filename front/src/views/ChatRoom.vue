@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Title :title="title" />
     <div class='chat'>
       <div class='chat-back'>
         <i class="fas fa-chevron-left" type='button' @click="$router.push('/message')"></i>
@@ -28,11 +29,18 @@
 <script>
 import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
+import Title from "../components/common/Title"
 
 export default {
+  data() {
+    return {
+      title:"Kimnayu"
+    }
+  },
   components: {
     ChatBubble,
     ChatInput,
+    Title
   }
 
 }
