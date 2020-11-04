@@ -1,5 +1,5 @@
 <template>
-  <div class='message-each' @click="$router.push('/chat/'+partner)" type="button" >
+  <div class='message-each' @click="$router.push('/chat/'+partner)">
     <div class='message-profile-img'>
       <v-avatar style='background-color: white;' class='mx-auto' size='50'>
         <v-img
@@ -40,9 +40,11 @@ export default {
 
 <style>
 .message-each {
-  height: 80px;
+  height: 12vh;
   display: flex;
   border: white solid 1px;
+  cursor: pointer;
+  border-bottom: gray 0.2px solid;
 }
 .message-profile-img {
   width: 25%;
@@ -80,7 +82,7 @@ export default {
   padding: 5px 20px 0 0;
   display: flex;
   justify-content: flex-end;
-  font-size: 0.3rem;
+  font-size: 0.5rem;
   color: white;
 }
 </style>

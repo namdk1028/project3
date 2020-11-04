@@ -1,10 +1,19 @@
 <template>
   <div>
-    <div v-if="!user" class='chat-bubble-partner'>
+    <div v-if="user === 'user'" class='chat-bubble-partner'>
       <div class='chat-bubble-left chat-bubble--left'>
         남동규 하이
       </div>
     </div>
+
+    <!-- 날릴 부분 -->
+    <div v-if="user === 'emoticon'" class='chat-bubble-partner'>
+      <div class='chat-bubble-left chat-bubble--left'>
+        <i class="far fa-laugh-beam" style="font-size: 40px;"></i>
+      </div>
+    </div>
+    <!--  -->
+
     <div v-else class='chat-bubble-user'>
       <div class='chat-bubble-right chat-bubble--right'>
         하이 김나연
@@ -16,7 +25,7 @@
 <script>
 export default {
   props: {
-    user: Boolean
+    user: String
   },
 }
 </script>

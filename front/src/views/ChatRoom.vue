@@ -4,7 +4,7 @@
     <div class='chat'>
       <div class='chat-header'>
         <div class='chat-back'>
-          <i class="fas fa-chevron-left" type='button' @click="$router.push('/message')"></i>
+          <i class="fas fa-chevron-left" @click="$router.push('/message')"></i>
         </div>
         <div class='chat-profile'>
           <v-avatar style='background-color: white;' size='30'>
@@ -14,17 +14,17 @@
           {{ $route.params.partner }}
         </div>
         <div class='chat-feature'>
-          <i class="fas fa-video" type="button"></i>
+          <i class="fas fa-video"></i>
         </div>
       </div>
       <div id="app_chat_list" class='chat-content'>
         <ChatBubble :user=user />
+        <ChatBubble :user=emoticon />
+        <ChatBubble :user="!user" />
         <ChatBubble :user=user />
-        <ChatBubble :user=!user />
-        <ChatBubble :user=user />
-        <ChatBubble :user=user />
-        <ChatBubble :user=!user />
-        <ChatBubble :user=!user />
+        <ChatBubble :user="user" />
+        <ChatBubble :user=emoticon />
+        <ChatBubble :user="!user" />
         <ChatBubble :user=user />
       </div>
       <div class="chat-input">
@@ -43,13 +43,14 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "True"
+      user: "user",
+      emoticon: 'emoticon'
     }
   },
   components: {
     ChatBubble,
     ChatInput,
-    Title
+    Title,
   },
   methods: {
   },
@@ -76,6 +77,7 @@ export default {
 }
   .chat-back {
     width: 15%;
+    cursor: pointer;
   }
   .chat-profile {
     text-align: left;
@@ -83,6 +85,7 @@ export default {
   }
   .chat-feature {
     width: 15%;
+    cursor: pointer;
   }
 .chat-content {
   height: 80%;
