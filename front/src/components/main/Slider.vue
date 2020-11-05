@@ -107,6 +107,7 @@ export default {
     justify-content: center;
     align-items: center;
     min-height: 50vh;
+    height: 70vh;
   }
 
   .swiper-container {

@@ -21,7 +21,7 @@ export default {
     font-style: normal;
 }
 .title {
-  height: 70px;
+  height: 12vh;
   display: flex;
   background-color: rgb(241, 195, 195);
   border-radius: 0 0 25px 25px;
