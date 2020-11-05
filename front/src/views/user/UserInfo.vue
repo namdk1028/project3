@@ -13,7 +13,7 @@
         >
           <div class="info-key">성별</div>
           <div class="info-value">
-            {{ this.gender }}
+            {{ this.UserData.gender }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_gender" max-width="280">
@@ -31,7 +31,7 @@
         >
           <div class="info-key">생일</div>
           <div class="info-value">
-            {{ this.birth }}
+            {{ this.UserData.birth }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_birth" max-width="280">
@@ -48,7 +48,7 @@
         >
           <div class="info-key">닉네임</div>
           <div class="info-value">
-            {{ this.nickname }}
+            {{ this.UserData.nickname }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_nickname" max-width="280">
@@ -65,11 +65,29 @@
         >
           <div class="info-key">관심지역</div>
           <div class="info-value">
-            {{ this.area }}
+            {{ this.UserData.area }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_area" max-width="280">
-          <Area />
+          <Area @closeArea="closeArea" @getArea="getArea" />
+        </v-dialog>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_height = true"
+        >
+          <div class="info-key">키</div>
+          <div class="info-value">
+            {{ this.UserData.height }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_height" max-width="280">
+          <Height @closeHeight="closeHeight" @getHeight="getHeight" />
         </v-dialog>
       </v-row>
     </div>
@@ -83,7 +101,7 @@ import Gender from "../../components/user/Gender.vue";
 import Birth from "../../components/user/Birth.vue";
 import Nickname from "../../components/user/Nickname.vue";
 import Area from "../../components/user/Area.vue";
-// import Height from "../../components/user/Height.vue";
+import Height from "../../components/user/Height.vue";
 // import Blood from "../../components/user/Blood.vue";
 // import Religion from "../../components/user/Religion.vue";
 // import Drink from "../../components/user/Drink.vue";
@@ -100,7 +118,7 @@ export default {
     Birth,
     Nickname,
     Area,
-    // Height,
+    Height,
     // Blood,
     // Religion,
     // Drink,
@@ -110,23 +128,25 @@ export default {
     // Body,
     // Job,
   },
-  name: "UserData",
+  name: "Userinfo",
   data() {
     return {
       title: "프로필등록",
-      gender: "",
-      birth: "",
-      nickname: "",
-      area: "",
-      height: "",
-      blood: "",
-      religion: "",
-      drink: "",
-      smoke: "",
-      education: "",
-      hoby: "",
-      body: "",
-      job: "",
+      UserData: {
+        gender: "",
+        birth: "",
+        nickname: "",
+        area: "",
+        height: "",
+        blood: "",
+        religion: "",
+        drink: "",
+        smoke: "",
+        education: "",
+        hoby: "",
+        body: "",
+        job: "",
+      },
       dialog_gender: true,
       dialog_birth: false,
       dialog_nickname: false,
@@ -144,25 +164,39 @@ export default {
   },
   methods: {
     getGender(gender) {
-      this.gender = gender;
+      this.UserData.gender = gender;
     },
     closeGender() {
       this.dialog_gender = false;
       this.dialog_birth = true;
     },
     getBirth(birth) {
-      this.birth = birth;
+      this.UserData.birth = birth;
     },
     closeBirth() {
       this.dialog_birth = false;
       this.dialog_nickname = true;
     },
     getNickname(nickname) {
-      this.nickname = nickname;
+      this.UserData.nickname = nickname;
     },
     closeNickname() {
       this.dialog_nickname = false;
       this.dialog_area = true;
+    },
+    getArea(area) {
+      this.UserData.area = area;
+    },
+    closeArea() {
+      this.dialog_area = false;
+      this.dialog_height = true;
+    },
+    getHeight(height) {
+      this.UserData.height = height;
+    },
+    closeHeight() {
+      this.dialog_height = false;
+      this.dialog_blood = true;
     },
   },
   watch: {},

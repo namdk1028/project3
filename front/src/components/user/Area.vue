@@ -4,12 +4,32 @@
     <v-card-actions>
       <v-container>
         <div>
-          <v-row>
-            <v-col>
-              <v-select :items="area" label="활동 지역" outlined></v-select>
-            </v-col>
-          </v-row>
-          <v-btn color="red lighten-3" dark @click="dialog_area = false">
+          <select class="select" v-model="area">
+            <option selected>모든 지역</option>
+            <option>서울</option>
+            <option>경기도</option>
+            <option>부산</option>
+            <option>인천</option>
+            <option>대구</option>
+            <option>대전</option>
+            <option>광주</option>
+            <option>울산</option>
+            <option>세종시</option>
+            <option>충청남도</option>
+            <option>충청북도</option>
+            <option>경상남도</option>
+            <option>경상북도</option>
+            <option>전라남도</option>
+            <option>전라북도</option>
+            <option>강원도</option>
+            <option>제주도</option>
+          </select>
+          <v-btn
+            class="info-btn mx-auto my-3"
+            color="red lighten-3"
+            dark
+            @click="emitArea"
+          >
             입력완료
           </v-btn>
         </div>
@@ -24,32 +44,20 @@ export default {
   data() {
     return {
       dialog_area: false,
-      area: [
-        "서울",
-        "경기",
-        "부산",
-        "인천",
-        "대구",
-        "대전",
-        "광주",
-        "울산",
-        "세종시",
-        "충청남도",
-        "충청북도",
-        "경상남도",
-        "경상북도",
-        "전라남도",
-        "전라북도",
-        "강원도",
-        "제주도",
-      ],
+      area: "",
     };
+  },
+  methods: {
+    emitArea() {
+      this.dialog_area = true;
+      this.$emit("getArea", this.area);
+      this.$emit("closeArea", this.dialog_area);
+    },
   },
 };
 </script>
 
-<style>
-.v-menu__content.theme--light.v-menu__content--fixed.menuable__content__active {
-  width: 200px;
-}
+<style lang="scss" scoped>
+@import "../../assets/scss/userinfo.scss",
+  "@/assets/scss/controls/selectBox.scss";
 </style>
