@@ -17,7 +17,9 @@
           </div>
           <div class="navbar-item">
               <button class="navbar-btn" @click="moveToProfile">
-                <img class="navbar-btn-img" src="@/assets/images/navbar/user.png" alt="">
+                <!-- <img class="navbar-btn-img" src="@/assets/images/navbar/user.png" alt=""> -->
+                <profileSVG v-if="!profileActive" />
+                <profilefilledSVG v-if="profileActive" />
               </button>
           </div>
       </div>
@@ -27,16 +29,20 @@
 <script>
 import homeSVG from "@/components/image_svg/homeSVG.vue"
 import chatSVG from "@/components/image_svg/chatSVG.vue"
+import profileSVG from "@/components/image_svg/profileSVG.vue"
 import homefilledSVG from "@/components/image_svg/homefilledSVG.vue"
 import chatfilledSVG from "@/components/image_svg/chatfilledSVG.vue"
+import profilefilledSVG from "@/components/image_svg/profilefilledSVG.vue"
 
 export default {
     name: "Navbar",
     components: {
       homeSVG,
       chatSVG,
+      profileSVG,
       homefilledSVG,
       chatfilledSVG,
+      profilefilledSVG,
     },
     data() {
       return {
