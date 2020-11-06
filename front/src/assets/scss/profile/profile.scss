@@ -1,0 +1,41 @@
+.container-profile {
+  height: 78vh;
+}
+.profile-header {
+  position: relative;
+  height: calc(30% + 60px);
+  .header-background {
+    height: calc(100% - 60px);
+    background: linear-gradient(
+      0.25turn,
+      rgb(250, 237, 237),
+      rgb(241, 195, 195)
+    );
+  }
+  .header-contents {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 24px;
+    .profile-img {
+      bottom: 0;
+      height: calc(4px * 30 + 6px);
+      width: calc(3px * 30 + 6px);
+      border-radius: 6px;
+      padding: 3px;
+      background-color: white;
+      //   border: 3px solid white;
+      //   background-image: url("https://lh3.googleusercontent.com/proxy/VNVQxSPnPmbLae2Er3rIOFVMDoDTAcOPyqCqQXCtYAHwMjq7U83yv8feV5BEJUaBaOZUuNhKSVUQ3PsBcVdyZGfqL22aQqsA59l16hX1PzT_uAzFmNsmCSTyoxPUf5yfTMRCnP380ui6ttNVPeXAgC_cFN6Q95R2pg70mshEdyjvEjuesEz433wpndgiL2PiEEAC_XoWcEf2bKYdlUqZANu3n9BASbWb0nqfQ9sardswtFF20tIo_xQSqtIeDhonpf7IetnJqSzsurYP7qP9e54JcAfsK_67OvTe1UdAlpK4ZF_UKRvEKj9Kg1OxK6ZAJPzJc72WgQ9GgVWynyp6");
+      img {
+        border-radius: 6px;
+        background-size: cover;
+        background-position: center;
+        height: calc(4px * 30);
+        width: calc(3px * 30);
+      }
+    }
+  }
+}
