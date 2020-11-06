@@ -30,6 +30,11 @@ const routes = [
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import("../views/Profile.vue"),
+  },
   //user
   {
     path: '/user/login',
