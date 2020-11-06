@@ -5,11 +5,13 @@
     left: 0;
     right: 0;
     height: 60px;
-    background-color: rgb(241, 195, 195);
+    background-color: white;
+    box-shadow: inset;
     display: flex;
     align-items: center;
     justify-content: space-around;
-    // border-radius: 24px 24px 0 0;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0px -5px 100px rgb(211, 211, 211);
   }
   .navbar-item {
     .navbar-btn {
