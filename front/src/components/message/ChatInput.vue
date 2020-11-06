@@ -1,20 +1,51 @@
 <template>
   <div class='chat-input'>
-    <div class='chat-input-other'>
-      <i class="fas fa-plus" type='button'></i>
+    <Emoticon @addEmoticon="addEmoticon" />
+    <div class='chat-input-other' @click="exitEmoticon">
+      <i class="fas fa-plus"></i>
     </div>
-    <div class="chat-input-message">
-      <input class="content" type="text" placeholder="메시지를 입력해주세요" >
+    <div class="chat-input-message" @click="exitEmoticon">
+      <input class="content" type="text" v-model="chat_text" @keypress.enter="test">
     </div>
-    <div class="chat-input-send">
-      <i class="fas fa-paper-plane" type="button"></i>
+    <div class="chat-input-emoticon" @click="emoticonBtn">
+      <i class="far fa-grin"></i>
+    </div>
+    <div class="chat-input-send" @click="sendBtn">
+      <i class="fas fa-paper-plane"></i>
     </div>
   </div>
 </template>
 
 <script>
+import Emoticon from "../message/Emoticon"
 export default {
-
+  data() {
+    return {
+      chat_text: ""
+    }
+  },
+  components: {
+    Emoticon
+  },
+  methods: {
+    emoticonBtn() {
+      var emoticon = document.querySelector(".emoticon")
+      emoticon.classList.remove("hide")
+    },
+    exitEmoticon() {
+      document.querySelector('.emoticon').classList.add('hide')
+    },
+    sendBtn() {
+      this.exitEmoticon()
+      this.test()
+    },
+    addEmoticon() {
+    },
+    test() {
+      console.log(this.chat_text)
+      this.chat_text = ''
+    }
+  }
 }
 </script>
 
@@ -25,10 +56,12 @@ export default {
 }
 .chat-input-other {
   width: 15%;
+  font-size: 1.2rem;
   color: #fca69d;
+  cursor: pointer;
 }
 .chat-input-message {
-  width: 70%;
+  width: 60%;
   text-align: left;
   font-size: 0.8rem;
 }
@@ -36,8 +69,16 @@ export default {
   width: 100%;
   outline: none;
 }
-.chat-input-send {
-  width: 15%;
+.chat-input-emoticon {
+  width: 12%;
+  font-size: 1.25rem;
   color: #fca69d;
+  cursor: pointer;
+}
+.chat-input-send {
+  width: 13%;
+  font-size: 1.25rem;
+  color: #fca69d;
+  cursor: pointer;
 }
 </style>
