@@ -1,112 +1,236 @@
 <template>
   <div>
-    <h1>프로필</h1>
-    <v-row class="my-2" justify="center">
-      <v-btn
-        rounded
-        color="deep-orange lighten-5"
-        dark
-        @click.stop="dialog_gender = true"
-      >
-        <p style="margin: 0px; color: #8c8c8c">성별</p>
-      </v-btn>
-      <v-dialog v-model="dialog_gender" max-width="290">
-        <Gender />
-      </v-dialog>
-    </v-row>
-    <v-row class="my-2" justify="center">
-      <v-btn
-        rounded
-        color="deep-orange lighten-5"
-        dark
-        @click.stop="dialog_birth = true"
-      >
-        <p style="margin: 0px; color: #8c8c8c">생일</p>
-      </v-btn>
-      <v-dialog v-model="dialog_birth" max-width="290">
-        <Birth />
-      </v-dialog>
-    </v-row>
-    <v-row class="my-2" justify="center">
-      <v-btn
-        rounded
-        color="deep-orange lighten-5"
-        dark
-        @click.stop="dialog_nickname = true"
-      >
-        <p style="margin: 0px; color: #8c8c8c">닉네임</p>
-      </v-btn>
-      <v-dialog v-model="dialog_nickname" max-width="290">
-        <Nickname />
-      </v-dialog>
-    </v-row>
-    <v-row class="my-2" justify="center">
-      <v-btn
-        rounded
-        color="deep-orange lighten-5"
-        dark
-        @click.stop="dialog_area = true"
-      >
-        <p style="margin: 0px; color: #8c8c8c">지역</p>
-      </v-btn>
-      <v-dialog v-model="dialog_area" max-width="290">
-        <Area />
-      </v-dialog>
-    </v-row>
+    <Title :title="title" />
+    <div class="my-4 mx-auto" style="max-width: 300px">
+      <h3>프로필</h3>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_gender = true"
+        >
+          <div class="info-key">성별</div>
+          <div class="info-value">
+            {{ this.UserData.gender }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_gender" max-width="280">
+          <Gender @closeGender="closeGender" @getGender="getGender" />
+        </v-dialog>
+      </v-row>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          style="margin: 0 auto"
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_birth = true"
+        >
+          <div class="info-key">생일</div>
+          <div class="info-value">
+            {{ this.UserData.birth }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_birth" max-width="280">
+          <Birth @closeBirth="closeBirth" @getBirth="getBirth" />
+        </v-dialog>
+      </v-row>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_nickname = true"
+        >
+          <div class="info-key">닉네임</div>
+          <div class="info-value">
+            {{ this.UserData.nickname }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_nickname" max-width="280">
+          <Nickname @closeNickname="closeNickname" @getNickname="getNickname" />
+        </v-dialog>
+      </v-row>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_area = true"
+        >
+          <div class="info-key">관심지역</div>
+          <div class="info-value">
+            {{ this.UserData.area }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_area" max-width="280">
+          <Area @closeArea="closeArea" @getArea="getArea" />
+        </v-dialog>
+      </v-row>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_hobby = true"
+        >
+          <div class="info-key">취미</div>
+          <div class="info-value">
+            {{ this.UserData.hobby1 }}, {{ this.UserData.hobby2 }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_hobby" max-width="280">
+          <Hobby @closeHobby="closeHobby" @getHobby="getHobby" />
+        </v-dialog>
+      </v-row>
+      <v-divider></v-divider>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_height = true"
+        >
+          <div class="info-key">키</div>
+          <div class="info-value">
+            {{ this.UserData.height }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_height" max-width="280">
+          <Height @closeHeight="closeHeight" @getHeight="getHeight" />
+        </v-dialog>
+      </v-row>
+    </div>
   </div>
 </template>
 
 <script>
+import Title from "../../components/common/Title";
+
 import Gender from "../../components/user/Gender.vue";
 import Birth from "../../components/user/Birth.vue";
 import Nickname from "../../components/user/Nickname.vue";
 import Area from "../../components/user/Area.vue";
-// import Height from "../../components/user/Height.vue";
+import Hobby from "../../components/user/Hobby.vue";
+import Height from "../../components/user/Height.vue";
+
 // import Blood from "../../components/user/Blood.vue";
 // import Religion from "../../components/user/Religion.vue";
 // import Drink from "../../components/user/Drink.vue";
 // import Smoke from "../../components/user/Smoke.vue";
 // import Education from "../../components/user/Education.vue";
-// import Hobby from "../../components/user/Hobby.vue";
 // import Body from "../../components/user/Body.vue";
 // import Job from "../../components/user/Job.vue";
 
 export default {
   components: {
+    Title,
     Gender,
     Birth,
     Nickname,
     Area,
-    // Height,
+    Hobby,
+    Height,
     // Blood,
     // Religion,
     // Drink,
     // Smoke,
     // Education,
-    // Hobby,
     // Body,
     // Job,
   },
-  name: "UserData",
+  name: "Userinfo",
   data() {
     return {
-      dialog_gender: false,
+      title: "프로필등록",
+      UserData: {
+        gender: "",
+        birth: "",
+        nickname: "",
+        area: "",
+        hobby1: "",
+        hobby2: "",
+        height: "",
+        blood: "",
+        religion: "",
+        drink: "",
+        smoke: "",
+        education: "",
+        body: "",
+        job: "",
+        intro: "",
+      },
+      hobbies: [],
+      dialog_gender: true,
       dialog_birth: false,
       dialog_nickname: false,
       dialog_area: false,
+      dialog_hobby: false,
       dialog_height: false,
       dialog_blood: false,
       dialog_religion: false,
       dialog_drink: false,
       dialog_smoke: false,
       dialog_education: false,
-      dialog_hobby: false,
       dialog_body: false,
       dialog_job: false,
     };
   },
+  methods: {
+    getGender(gender) {
+      this.UserData.gender = gender;
+    },
+    closeGender() {
+      this.dialog_gender = false;
+      this.dialog_birth = true;
+    },
+    getBirth(birth) {
+      this.UserData.birth = birth;
+    },
+    closeBirth() {
+      this.dialog_birth = false;
+      this.dialog_nickname = true;
+    },
+    getNickname(nickname) {
+      this.UserData.nickname = nickname;
+    },
+    closeNickname() {
+      this.dialog_nickname = false;
+      this.dialog_area = true;
+    },
+    getArea(area) {
+      this.UserData.area = area;
+    },
+    closeArea() {
+      this.dialog_area = false;
+      this.dialog_height = true;
+    },
+    getHobby(hobbies) {
+      this.hobbies = hobbies;
+      this.UserData.hobby1 = hobbies[0];
+      this.UserData.hobby2 = hobbies[1];
+    },
+    closeHobby() {
+      this.dialog_hobby = false;
+      this.dialog_height = true;
+    },
+    getHeight(height) {
+      this.UserData.height = height;
+    },
+    closeHeight() {
+      this.dialog_height = false;
+      this.dialog_blood = true;
+    },
+  },
+  watch: {},
 };
 </script>
 
-<style>
-</style>
+<style scoped src="../../assets/scss/userinfo.scss" lang="scss">

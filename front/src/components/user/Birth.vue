@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="headline"> 당신의 생일은? </v-card-title>
-    <v-card-actions>
+    <v-card-actions class="d-block">
       <div>
         <v-menu
           ref="menu"
@@ -29,7 +29,12 @@
             @change="save"
           ></v-date-picker>
         </v-menu>
-        <v-btn color="red lighten-3" dark @click="dialog_gender = false">
+        <v-btn
+          class="info-btn mx-auto my-3"
+          color="red lighten-3"
+          dark
+          @click="emitBirth"
+        >
           입력완료
         </v-btn>
       </div>
@@ -56,9 +61,13 @@ export default {
     save(date) {
       this.$refs.menu.save(date);
     },
+    emitBirth() {
+      this.dialog_birth = true;
+      this.$emit("getBirth", this.date);
+      this.$emit("closeBirth", this.dialog_birth);
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style scoped src="../../assets/scss/userinfo.scss" lang="scss">

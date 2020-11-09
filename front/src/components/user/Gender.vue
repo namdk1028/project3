@@ -1,14 +1,16 @@
 <template>
-  <v-card>
+  <v-card class="mx-auto">
     <v-card-title class="headline"> 당신의 성별은? </v-card-title>
     <v-card-actions>
-      <v-divider></v-divider>
-      <div>
-        <v-btn color="pink lighten-1" text @click="dialog_gender = false">
-          여자
+      <!-- <v-divider></v-divider> -->
+      <br />
+      <div class="submit-btn">
+        <v-btn color="#F3CAC7" class="info-btn my-1">
+          <button value="여자" text @click="emitGender">여자</button>
+          <!-- 여자 -->
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog_gender = false">
-          남자
+        <v-btn color="#B4DEEC" class="info-btn my-1">
+          <button value="남자" text @click="emitGender">남자</button>
         </v-btn>
       </div>
     </v-card-actions>
@@ -18,13 +20,27 @@
 <script>
 export default {
   name: "Gender",
+  // props: {
+  //   emitgender: "",
+  // },
   data() {
     return {
+      gender: "",
       dialog_gender: false,
     };
+  },
+  methods: {
+    emitGender(event) {
+      // console.log(event.target.value);
+      this.gender = event.target.value;
+      this.dialog_gender = true;
+      // console.log(gender);
+      // this.gender = this.attrs("value");
+      this.$emit("getGender", this.gender);
+      this.$emit("closeGender", this.dialog_gender);
+    },
   },
 };
 </script>
 
-<style>
-</style>
+<style scoped src="../../assets/scss/userinfo.scss" lang="scss">
