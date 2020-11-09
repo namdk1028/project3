@@ -72,6 +72,23 @@
           <Area @closeArea="closeArea" @getArea="getArea" />
         </v-dialog>
       </v-row>
+      <v-row class="my-2" justify="center">
+        <v-btn
+          width="300px"
+          rounded
+          color="deep-orange lighten-5"
+          dark
+          @click.stop="dialog_hobby = true"
+        >
+          <div class="info-key">취미</div>
+          <div class="info-value">
+            {{ this.UserData.hobby1 }}, {{ this.UserData.hobby2 }}
+          </div>
+        </v-btn>
+        <v-dialog v-model="dialog_hobby" max-width="280">
+          <Hobby @closeHobby="closeHobby" @getHobby="getHobby" />
+        </v-dialog>
+      </v-row>
       <v-divider></v-divider>
       <v-row class="my-2" justify="center">
         <v-btn
@@ -101,13 +118,14 @@ import Gender from "../../components/user/Gender.vue";
 import Birth from "../../components/user/Birth.vue";
 import Nickname from "../../components/user/Nickname.vue";
 import Area from "../../components/user/Area.vue";
+import Hobby from "../../components/user/Hobby.vue";
 import Height from "../../components/user/Height.vue";
+
 // import Blood from "../../components/user/Blood.vue";
 // import Religion from "../../components/user/Religion.vue";
 // import Drink from "../../components/user/Drink.vue";
 // import Smoke from "../../components/user/Smoke.vue";
 // import Education from "../../components/user/Education.vue";
-// import Hobby from "../../components/user/Hobby.vue";
 // import Body from "../../components/user/Body.vue";
 // import Job from "../../components/user/Job.vue";
 
@@ -118,13 +136,13 @@ export default {
     Birth,
     Nickname,
     Area,
+    Hobby,
     Height,
     // Blood,
     // Religion,
     // Drink,
     // Smoke,
     // Education,
-    // Hobby,
     // Body,
     // Job,
   },
@@ -137,27 +155,30 @@ export default {
         birth: "",
         nickname: "",
         area: "",
+        hobby1: "",
+        hobby2: "",
         height: "",
         blood: "",
         religion: "",
         drink: "",
         smoke: "",
         education: "",
-        hoby: "",
         body: "",
         job: "",
+        intro: "",
       },
+      hobbies: [],
       dialog_gender: true,
       dialog_birth: false,
       dialog_nickname: false,
       dialog_area: false,
+      dialog_hobby: false,
       dialog_height: false,
       dialog_blood: false,
       dialog_religion: false,
       dialog_drink: false,
       dialog_smoke: false,
       dialog_education: false,
-      dialog_hobby: false,
       dialog_body: false,
       dialog_job: false,
     };
@@ -189,6 +210,15 @@ export default {
     },
     closeArea() {
       this.dialog_area = false;
+      this.dialog_height = true;
+    },
+    getHobby(hobbies) {
+      this.hobbies = hobbies;
+      this.UserData.hobby1 = hobbies[0];
+      this.UserData.hobby2 = hobbies[1];
+    },
+    closeHobby() {
+      this.dialog_hobby = false;
       this.dialog_height = true;
     },
     getHeight(height) {
