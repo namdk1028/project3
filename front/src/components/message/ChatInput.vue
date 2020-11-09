@@ -19,9 +19,14 @@
 <script>
 import Emoticon from "../message/Emoticon"
 export default {
+  props: {
+    partner: String
+  },
   data() {
     return {
-      chat_text: ""
+      chat_text: "",
+      myId: 'Kim',
+      myPartner: this.partner
     }
   },
   components: {
@@ -37,6 +42,12 @@ export default {
     },
     sendBtn() {
       this.exitEmoticon()
+      const messageInfo = {
+        'sender': this.myId,
+        'reciever': this.myPartner,
+        'text': this.chat_text
+      }
+      this.$socket.emit('new-message', messageInfo)
       this.test()
     },
     addEmoticon() {
@@ -44,7 +55,20 @@ export default {
     test() {
       console.log(this.chat_text)
       this.chat_text = ''
+    },
+    reply() {
+      this.$socket.emit('reply-init', this.myId)
     }
+  },
+  created: function() {
+    //채팅방 접속 후 socket.id 전송
+    console.log(this.myPartner)
+
+    this.$socket.emit('partner-info-request', this.myPartner)
+    this.$socket.on('partner-info-reply', partnerSocketId => {
+      this.socketInfo.partnerSocketId = partnerSocketId
+      console.log(this.socketInfo.partnerSocketId);
+    })
   }
 }
 </script>

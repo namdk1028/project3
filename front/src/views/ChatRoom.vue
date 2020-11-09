@@ -28,7 +28,7 @@
         <ChatBubble :user=user />
       </div>
       <div class="chat-input">
-        <ChatInput />
+        <ChatInput v-bind:partner="$route.params.partner" />
       </div>
     </div>
   </div>
@@ -44,7 +44,7 @@ export default {
     return {
       title:"Message",
       user: "user",
-      emoticon: 'emoticon'
+      emoticon: 'emoticon',
     }
   },
   components: {
@@ -60,7 +60,7 @@ export default {
       var objDiv = document.getElementById("app_chat_list");
           // 채팅창 스크롤 바닥 유지
           objDiv.scrollTop = objDiv.scrollHeight;
-  }
+  },
 }
 </script>
 
