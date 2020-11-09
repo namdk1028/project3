@@ -22,11 +22,18 @@
     }
     .container-tabs {
       // display: flex;
+      z-index: 1;
       .btn-tab {
         margin: 0px 12px;
         padding-bottom: 3px;
         font-size: 12px;
-        border-bottom: 3px solid black;
+        outline: none;
+      }
+      #tab-userinfo {
+        border-bottom: 3px solid rgb(241, 195, 195);
+      }
+      #tab-logininfo {
+        border-bottom: 3px solid transparent;
       }
     }
   }
@@ -45,14 +52,28 @@
       border-radius: 6px;
       padding: 3px;
       background-color: white;
-      //   border: 3px solid white;
-      //   background-image: url("https://lh3.googleusercontent.com/proxy/VNVQxSPnPmbLae2Er3rIOFVMDoDTAcOPyqCqQXCtYAHwMjq7U83yv8feV5BEJUaBaOZUuNhKSVUQ3PsBcVdyZGfqL22aQqsA59l16hX1PzT_uAzFmNsmCSTyoxPUf5yfTMRCnP380ui6ttNVPeXAgC_cFN6Q95R2pg70mshEdyjvEjuesEz433wpndgiL2PiEEAC_XoWcEf2bKYdlUqZANu3n9BASbWb0nqfQ9sardswtFF20tIo_xQSqtIeDhonpf7IetnJqSzsurYP7qP9e54JcAfsK_67OvTe1UdAlpK4ZF_UKRvEKj9Kg1OxK6ZAJPzJc72WgQ9GgVWynyp6");
+      :hover {
+        opacity: 0.8;
+      }
       img {
         border-radius: 6px;
         background-size: cover;
         background-position: center;
         height: calc(4px * 30);
         width: calc(3px * 30);
+      }
+    }
+    .btn-img {
+      width: 28px;
+      height: 28px;
+      position: absolute;
+      bottom: 3px;
+      right: 258.2px;
+      background: rgb(0, 0, 0, 0.3);
+      border-radius: 50%;
+      outline: none;
+      i {
+        color: rgb(255, 255, 255, 0.7);
       }
     }
   }
