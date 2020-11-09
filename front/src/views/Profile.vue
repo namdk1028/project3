@@ -1,13 +1,20 @@
 <template>
   <div class="container-profile">
     <div class="profile-header">
-      <div class="header-background"></div>
+      <div class="header-background">
+        <h2 class="header-title">회원정보 수정</h2>
+        <div class="container-tabs">
+          <button class="btn-tab">회원정보 수정</button>
+          <button class="btn-tab">아이디 / 비밀번호 변경</button>
+        </div>
+        </div>
       <div class="header-contents">
-        <div class="profile-img"><img src="https://lh3.googleusercontent.com/proxy/VNVQxSPnPmbLae2Er3rIOFVMDoDTAcOPyqCqQXCtYAHwMjq7U83yv8feV5BEJUaBaOZUuNhKSVUQ3PsBcVdyZGfqL22aQqsA59l16hX1PzT_uAzFmNsmCSTyoxPUf5yfTMRCnP380ui6ttNVPeXAgC_cFN6Q95R2pg70mshEdyjvEjuesEz433wpndgiL2PiEEAC_XoWcEf2bKYdlUqZANu3n9BASbWb0nqfQ9sardswtFF20tIo_xQSqtIeDhonpf7IetnJqSzsurYP7qP9e54JcAfsK_67OvTe1UdAlpK4ZF_UKRvEKj9Kg1OxK6ZAJPzJc72WgQ9GgVWynyp6"></div>
-        <div class=""></div>
+        <div class="profile-img"><img src="https://lh3.googleusercontent.com/proxy/t4rhb4PfO1RFHoZm_RU0m8uxgiGRFe8H71NV99pabLNYEBBFHjYSo9ZS9tR73DpoGPkCgIywpx1BXeMYEaAEV92vMO0lPh5_c33934ZcdpbNhjj-gHcvZD84tV77p6PGsiITNwKMzAF8tRQ6AB5vmkHIztF1Zqs4KjLzSQYl8XOpTBk8As6cV9AcuV1zbeNiMLfalWZq1WDGYOo46zgi4fJS2a0aovHxApf77pmy1uFKzl330LwXqLfXPSAMrCNVTGBe2FiszSsIt6RoaC718ik_g4shDp8KJoj-Sv0ov_K8igEuw3D13oU9PY5Y9K2HsGCH4Rgv75xGSg0STsKZ"></div>
       </div>
     </div>
-    <div class="profile-body"></div>
+    <div class="profile-body">
+
+    </div>
     <!-- <Title :title="title" /> -->
   </div>
 </template>
