@@ -4,7 +4,7 @@
         <div class="header-item">
         </div>
         <div class="header-item">
-            <p class="header-logo-name">나는 어때?</p>
+            <h2 class="header-logo-name">나는 어때?</h2>
         </div>
         <div class="header-item">
             <button class="header-btn" @click="openControlModal">
@@ -13,8 +13,7 @@
         </div>
       </div>
       <div class="control-modal">
-        <ControlModal />
-          
+        <ControlModal /> 
       </div>
   </div>
 </template>
