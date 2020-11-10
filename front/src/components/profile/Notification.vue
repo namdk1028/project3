@@ -2,7 +2,7 @@
   <div class="container-notification">
       <div class="notification-header">
         <div class="profile-img">
-          <img src="https://img.insight.co.kr/static/2018/09/22/700/8n6ze13j22kxh0mj9p7f.jpg">
+          <img src="https://img.insight.co.kr/static/2018/09/22/700/8n6ze13j22kxh0mj9p7f.jpg" @click="moveToProfile">
           <div class="notification-icon"><i class="fas fa-heart"></i></div>
         </div>
       </div>
@@ -11,7 +11,7 @@
           나연
         </div> -->
         <div class='notification-content-body'>
-          태민님이 호감을 표시하셨습니다.
+          <span class="notification-username" @click="moveToProfile">{{ user }}</span>님이 호감을 표시하셨습니다.
         </div>
         <div class="notification-time">
           1시간 전
@@ -24,9 +24,15 @@
 export default {
     name: "Notification",
     data() {
-        return {}
+        return {
+          user: "태민"
+        }
     },
-    methods: {}
+    methods: {
+      moveToProfile() {
+        console.log("유저페이지로 이동")
+      }
+    }
 }
 </script>
 
