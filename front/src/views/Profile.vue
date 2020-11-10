@@ -2,10 +2,10 @@
   <div class="container-profile">
     <div class="profile-header">
       <div class="header-background">
-        <h2 class="header-title">회원정보 수정</h2>
+        <h2 class="header-title">마이페이지</h2>
         <div class="container-tabs">
+          <button id="tab-notifications" class="btn-tab" @click="openNotifications">알림함</button>
           <button id="tab-userinfo" class="btn-tab" @click="openUserInfo">회원정보 수정</button>
-          <button id="tab-logininfo" class="btn-tab" @click="openLoginInfo">아이디 / 비밀번호 변경</button>
         </div>
         </div>
       <div class="header-contents">
@@ -16,42 +16,43 @@
       </div>
     </div>
     <div class="profile-body">
+      <NotificationBox />
       <UserInfo v-if="showUserInfo" />
-      <LoginInfo v-if="showLoginInfo" />
     </div>
   </div>
 </template>
 
 <script>
-import LoginInfo from '../components/profile/LoginInfo.vue'
+// import LoginInfo from '../components/profile/LoginInfo.vue'
+import NotificationBox from "@/components/profile/NotificationBox.vue"
 import UserInfo from '../views/user/UserInfo.vue'
 
 export default {
   components: {
+    NotificationBox,
     UserInfo,
-    LoginInfo,
   },
   data() {
     return {
       title: "Profile",
-      showLoginInfo: false,
-      showUserInfo: true,
+      showNotifications: true,
+      showUserInfo: false,
     }
   },
   methods: {
-    openUserInfo() {
-      this.showUserInfo = true;
-      this.showLoginInfo = false;
-      console.log("click")
-      document.querySelector("#tab-userinfo").style.borderColor = "rgb(241, 195, 195)"
-      document.querySelector("#tab-logininfo").style.borderColor = "transparent"
-    },
-    openLoginInfo() {
+    openNotifications() {
+      this.showNotifications = true;
       this.showUserInfo = false;
-      this.showLoginInfo = true;
+      document.querySelector("#tab-notifications").style.borderColor = "rgb(241, 195, 195)"
       document.querySelector("#tab-userinfo").style.borderColor = "transparent"
-      document.querySelector("#tab-logininfo").style.borderColor = "rgb(241, 195, 195)"
-    }
+    },
+    openUserInfo() {
+      this.showNotifications = false;
+      this.showUserInfo = true;
+      console.log("click")
+      document.querySelector("#tab-notifications").style.borderColor = "transparent"
+      document.querySelector("#tab-userinfo").style.borderColor = "rgb(241, 195, 195)"
+    },
   }
 }
 </script>
