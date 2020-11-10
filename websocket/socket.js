@@ -63,14 +63,36 @@ io.on('connection', (socket) => {
       console.log(partnerSocketId)
     })
     
+    //Socket Id Update
+    socket.on('socket-init', userId => {
+      const socketRef = database.ref('/socketId')
+      socketRef.once('value').then(function(snapshot) {
+        if (snapshot.hasChild(userId)){
+          console.log('new user socket id')
+          socketRef.set({userId: socket.id});
+        } else {
+          console.log('update previous socket id')
+          socketRef.child(userId).set(socket.id)
+        }
+      })
+    })
+
+
+
+
+
     //Sending new message
     socket.on('new-message', messageInfo => {
       console.log('new message detected')
+      const date = new Date()
+      const today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
+      const time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
       const messageFormat = {
         'text': messageInfo.text,
         'sender': messageInfo.sender,
         'reciever': messageInfo.reciever,
-        'date': new Date(),
+        'date': today,
+        'time': time,
         'isRead': false
       }
 
@@ -80,10 +102,6 @@ io.on('connection', (socket) => {
       .then(function(snapshot) {
         //if exists add new message
         //and alert reciever
-        // console.log(snapshot.val())
-        // console.log(snapshot.hasChild('Park'))
-        // console.log(snapshot.hasChild('park'))
-
         if (!snapshot.hasChild(messageFormat.reciever)) {
           myMessageLogRef.child(messageFormat.reciever).set('messages')
         }
@@ -123,8 +141,22 @@ io.on('connection', (socket) => {
           })
         }
       })
-
+      socket.emit('new-message-fin')
     })
+    
+    //ChatLog fetcher
+    socket.on('fetch-chatlog', chatInfo => {
+      const sender = chatInfo.sender;
+      const receiver = chatInfo.receiver;
+      const chatlogRef = database.ref(`/Logs/${sender}/Receiver/${receiver}`)
+      chatlogRef.child('messages').once('value').then(function(snapshot) {
+        console.log(snapshot.val());
+        socket.emit('fetch-chatlog-callback', snapshot.val())
+      })
+    })
+
+
+
 
     //initialize new chat
     //info contains my id and recipient's user id
@@ -156,17 +188,5 @@ io.on('connection', (socket) => {
       })
       console.log(info.msg)
 
-    //   socket.join(roomForMe);
-    //   const msg = `${socket.id} has joined the ${roomForMe}`
-    //   socket.to(roomForMe).emit('user-connected', msg)
-    //   socket.to().emit('')
-    })
-
-    socket.on('newMessage', (info) => {
-        io.to(info.roomId).emit("update", info.msg);
-    })
-
-    socket.on('hello-from-vue', ()=> {
-        console.log('found vue page')
     })
 })

@@ -10,7 +10,7 @@
     <div class="chat-input-emoticon" @click="emoticonBtn">
       <i class="far fa-grin"></i>
     </div>
-    <div class="chat-input-send" @click="sendBtn">
+    <div class="chat-input-send" @click="sendBtn" @enter="sendBtn">
       <i class="fas fa-paper-plane"></i>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
     return {
       chat_text: "",
       myId: 'Kim',
-      myPartner: this.partner
+      myPartner: 'park'
     }
   },
   components: {
@@ -48,7 +48,13 @@ export default {
         'text': this.chat_text
       }
       this.$socket.emit('new-message', messageInfo)
+      this.$socket.on('new-message-fin', () => {
+        this.emitUpdate()
+      })
       this.test()
+    },
+    emitUpdate() {
+      this.$emit('update')
     },
     addEmoticon() {
     },
@@ -56,20 +62,7 @@ export default {
       console.log(this.chat_text)
       this.chat_text = ''
     },
-    reply() {
-      this.$socket.emit('reply-init', this.myId)
-    }
   },
-  created: function() {
-    //채팅방 접속 후 socket.id 전송
-    console.log(this.myPartner)
-
-    this.$socket.emit('partner-info-request', this.myPartner)
-    this.$socket.on('partner-info-reply', partnerSocketId => {
-      this.socketInfo.partnerSocketId = partnerSocketId
-      console.log(this.socketInfo.partnerSocketId);
-    })
-  }
 }
 </script>
 
