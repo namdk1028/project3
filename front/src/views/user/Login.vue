@@ -3,37 +3,16 @@
     <v-form class="login-form" v-model="valid">
       <v-container>
         <v-row>
-          <h2>계정에<br />로그인하세요.</h2>
+          <div class="login-slogan">
+            <h2>계정에<br />로그인하세요.</h2>
+            <small>더 이상, 사진에 속지 마세요!</small>
+          </div>
         </v-row>
-        <v-row>
-          <v-col cols="12" md="4">
-            <v-text-field
-              color="white"
-              :rules="nameRules"
-              label="이름"
-              clearable
-            ></v-text-field>
-          </v-col>
-
-          <v-col cols="12" md="4">
-            <v-text-field
-              color="white"
-              label="비밀번호"
-              clearable
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <div class="text-center" @click="googleLogin">
-          <v-btn class="submit-btn" rounded color="black" dark> Login </v-btn>
-          <v-btn class="submit-btn" rounded color="white" @click="googleLogin">
-            Login with Google
-          </v-btn>
-          <v-btn class="submit-btn" rounded color="white" @click="kakaoLogin">
-            Login with Kakao
-          </v-btn>
-          <v-btn class="submit-btn" rounded color="white" @click="naverLogin">
-            Login with Naver
-          </v-btn>
+        <div class="text-center">
+          <v-btn height="38px"
+          width="300px" @click="googleLogin"><img class="login-btn" src="@/assets/images/icon/googlelogin.png"></v-btn>
+          <v-btn height="38px" width="200px" @click="kakaoLogin"><img class="login-btn" src="@/assets/images/icon/kakaologin.png"></v-btn>
+          <v-btn height="38px" width="200px" @click="naverLogin"><img class="login-btn" src="@/assets/images/icon/naverlogin.png"></v-btn>
         </div>
       </v-container>
     </v-form>
@@ -49,7 +28,9 @@ export default {
   },
   methods: {
     googleLogin() {
+      console.log('000')
       axios.get("http://127.0.0.1:8000/accounts/login/google/").then((res) => {
+        console.log(res.data)
         window.open(res.data.url);
       });
     },
@@ -178,9 +159,9 @@ export default {
           console.log(res);
           this.$cookie.set("token", res.data.token);
         })
-        .then(() => {
-          window.close();
-        });
+        // .then(() => {
+        //   window.close();
+        // });
     } else {
       console.log("no");
     }
