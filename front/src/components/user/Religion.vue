@@ -15,9 +15,6 @@
         <button class="btn" value="천주교" text @click="emitReligion;">
           천주교
         </button>
-        <button class="btn" value="원불교" text @click="emitReligion;">
-          원불교
-        </button>
         <button class="btn" value="기타" text @click="emitReligion;">
           기타
         </button>

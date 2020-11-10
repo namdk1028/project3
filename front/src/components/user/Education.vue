@@ -6,17 +6,11 @@
         <button class="btn" value="고등학교 졸업" text @click="emitEducation">
           고등학교 졸업
         </button>
-        <button class="btn" value="전문대학교" text @click="emitEducation;">
-          전문대학교
+        <button class="btn" value="대학교 졸업" text @click="emitEducation;">
+          대학교 졸업
         </button>
-        <button class="btn" value="대학교" text @click="emitEducation;">
-          대학교
-        </button>
-        <button class="btn" value="외국 대학교" text @click="emitEducation">
-          외국대학교
-        </button>
-        <button class="btn" value="대학원" text @click="emitEducation;">
-          대학원
+        <button class="btn" value="대학원 이상" text @click="emitEducation;">
+          대학원 이상
         </button>
       </div>
     </v-card-actions>
