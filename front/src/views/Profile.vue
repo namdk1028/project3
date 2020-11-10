@@ -10,13 +10,13 @@
         </div>
       <div class="header-contents">
         <div class="profile-img">
-          <img src="https://lh3.googleusercontent.com/proxy/t4rhb4PfO1RFHoZm_RU0m8uxgiGRFe8H71NV99pabLNYEBBFHjYSo9ZS9tR73DpoGPkCgIywpx1BXeMYEaAEV92vMO0lPh5_c33934ZcdpbNhjj-gHcvZD84tV77p6PGsiITNwKMzAF8tRQ6AB5vmkHIztF1Zqs4KjLzSQYl8XOpTBk8As6cV9AcuV1zbeNiMLfalWZq1WDGYOo46zgi4fJS2a0aovHxApf77pmy1uFKzl330LwXqLfXPSAMrCNVTGBe2FiszSsIt6RoaC718ik_g4shDp8KJoj-Sv0ov_K8igEuw3D13oU9PY5Y9K2HsGCH4Rgv75xGSg0STsKZ">
+          <img src="https://lh3.googleusercontent.com/proxy/VP_-0YKTJ5tMzBv3ZyLJ10TKlSA6nXN0FqW8SW-yWT8RC2lJemZC0c_m4dAn7cEjkJcUfC9qw8oLZ-oI-EytNA6yITpHKHNb16W2c9TbI5Bt7otha74Qo-kDxNfrxNQj1pPtgtqxTwGnKL641yYJVXmVj52qEJsVCPqi08XYPoUxQV8QA6kaAZ--PkmoRV4mvnF_7Ktj48cxg2BsVC7IFTgHMZfhqHKZIAyPvLga_0NVZn604FMWO0wyO4pn6rP2_uIQSHRRqze-T7-2NKpcjccvxQdz1T5HXmq2wjXQ8eMzRLLDrFUeazck9JR1G-sYYD1aqQcRBVfNt8e8s2AZ">
           <button class="btn-img"><i class="fas fa-camera"></i></button>
         </div>
       </div>
     </div>
     <div class="profile-body">
-      <NotificationBox />
+      <NotificationBox v-if="showNotifications" />
       <UserInfo v-if="showUserInfo" />
     </div>
   </div>

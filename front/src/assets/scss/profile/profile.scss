@@ -3,9 +3,9 @@
 }
 .profile-header {
   position: relative;
-  height: calc(30% + 60px);
+  height: calc(30% + 45px);
   .header-background {
-    height: calc(100% - 60px);
+    height: calc(100% - 45px);
     background: linear-gradient(
       0.25turn,
       rgb(250, 237, 237),
@@ -16,9 +16,10 @@
     align-items: flex-start;
     justify-content: space-between;
     padding-left: 120px;
-    padding-top: 90.11px;
+    padding-top: 75.11px;
     .header-title {
       margin: 0px 12px;
+      color: rgb(241, 141, 141);
     }
     .container-tabs {
       // display: flex;
@@ -77,4 +78,8 @@
       }
     }
   }
+}
+
+.profile-body {
+  margin: 14px 28px;
 }
