@@ -1,10 +1,10 @@
 <template>
   <v-card>
     <v-card-title class="headline"> 활동 지역은 어디인가요? </v-card-title>
-    <v-card-actions>
+    <v-card-actions class="d-block">
       <v-container>
         <div>
-          <select class="select" v-model="area">
+          <select class="mb-4 select" v-model="area">
             <option selected>모든 지역</option>
             <option>서울</option>
             <option>경기도</option>
@@ -43,13 +43,13 @@ export default {
   name: "Birth",
   data() {
     return {
-      dialog_area: false,
+      dialog_area: true,
       area: "",
     };
   },
   methods: {
     emitArea() {
-      this.dialog_area = true;
+      // this.dialog_area = true;
       this.$emit("getArea", this.area);
       this.$emit("closeArea", this.dialog_area);
     },

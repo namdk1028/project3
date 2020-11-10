@@ -2,7 +2,6 @@
   <div>
     <Title :title="title" />
     <div class="my-4 mx-auto" style="max-width: 300px">
-      <h3>프로필</h3>
       <v-row class="my-2" justify="center">
         <v-btn
           width="300px"
@@ -81,7 +80,10 @@
           @click.stop="dialog_hobby = true"
         >
           <div class="info-key">취미</div>
-          <div class="info-value">
+          <div v-if="this.hobbies.length === 1" class="info-value">
+            {{ this.UserData.hobby1 }}
+          </div>
+          <div v-if="this.hobbies.length === 2" class="info-value">
             {{ this.UserData.hobby1 }}, {{ this.UserData.hobby2 }}
           </div>
         </v-btn>
@@ -89,24 +91,201 @@
           <Hobby @closeHobby="closeHobby" @getHobby="getHobby" />
         </v-dialog>
       </v-row>
-      <v-divider></v-divider>
-      <v-row class="my-2" justify="center">
+      <v-divider class="my-3 mb-2"></v-divider>
+      <v-row justify="center">
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_height = true"
+          >
+            <div class="info-key">키</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.height }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_height" max-width="280">
+            <Height @closeHeight="closeHeight" @getHeight="getHeight" />
+          </v-dialog>
+        </v-col>
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_blood = true"
+          >
+            <div class="info-key">혈액형</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.blood }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_blood" max-width="280">
+            <Blood @closeBlood="closeBlood" @getBlood="getBlood" />
+          </v-dialog>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_religion = true"
+          >
+            <div class="info-key">종교</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.religion }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_religion" max-width="280">
+            <Religion
+              @closeReligion="closeReligion"
+              @getReligion="getReligion"
+            />
+          </v-dialog>
+        </v-col>
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_drink = true"
+          >
+            <div class="info-key">음주</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.drink }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_drink" max-width="280">
+            <Drink @closeDrink="closeDrink" @getDrink="getDrink" />
+          </v-dialog>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_smoke = true"
+          >
+            <div class="info-key">흡연</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.smoke }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_smoke" max-width="280">
+            <Smoke @closeSmoke="closeSmoke" @getSmoke="getSmoke" />
+          </v-dialog>
+        </v-col>
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_education = true"
+          >
+            <div class="info-key">학력</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.education }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_education" max-width="280">
+            <Education
+              @closeEducation="closeEducation"
+              @getEducation="getEducation"
+            />
+          </v-dialog>
+        </v-col>
+      </v-row>
+      <v-row justify="center">
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_body = true"
+          >
+            <div class="info-key">체형</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.body }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_body" max-width="280">
+            <Body @closeBody="closeBody" @getBody="getBody" />
+          </v-dialog>
+        </v-col>
+        <v-col class="px-0 py-1 col-6">
+          <v-btn
+            width="140px"
+            rounded
+            color="deep-orange lighten-5"
+            dark
+            @click.stop="dialog_job = true"
+          >
+            <div class="info-key">직업</div>
+            <div class="info-value info-value-half">
+              {{ this.UserData.job }}
+            </div>
+          </v-btn>
+          <v-dialog v-model="dialog_job" max-width="280">
+            <Job @closeJob="closeJob" @getJob="getJob" />
+          </v-dialog>
+        </v-col>
+      </v-row>
+      <v-row class="my-1 mb-1" justify="center">
         <v-btn
           width="300px"
+          height="55px"
           rounded
           color="deep-orange lighten-5"
           dark
-          @click.stop="dialog_height = true"
+          @click.stop="dialog_intro = true"
         >
-          <div class="info-key">키</div>
-          <div class="info-value">
-            {{ this.UserData.height }}
+          <div class="info-key">간단 자기소개</div>
+          <div class="info-value info-value-intro">
+            {{ this.UserData.intro }}
           </div>
         </v-btn>
-        <v-dialog v-model="dialog_height" max-width="280">
-          <Height @closeHeight="closeHeight" @getHeight="getHeight" />
+        <v-dialog v-model="dialog_intro" max-height="100" max-width="280">
+          <Intro @closeIntro="closeIntro" @getIntro="getIntro" />
         </v-dialog>
       </v-row>
+      <v-btn
+        width="300px"
+        class="info-btn mx-auto my-1"
+        color="red lighten-3"
+        dark
+        v-if="isValid"
+        @click="emitUserInfo"
+      >
+        다음
+      </v-btn>
+      <v-btn
+        style="
+          height: 48px;
+          width: 48px;
+          position: fixed;
+          bottom: 95px;
+          right: 20px;
+        "
+        color="#F27F7F"
+        fab
+        dark
+        v-else
+        @click="emitUserInfo"
+      >
+        다음
+      </v-btn>
     </div>
   </div>
 </template>
@@ -120,14 +299,14 @@ import Nickname from "../../components/user/Nickname.vue";
 import Area from "../../components/user/Area.vue";
 import Hobby from "../../components/user/Hobby.vue";
 import Height from "../../components/user/Height.vue";
-
-// import Blood from "../../components/user/Blood.vue";
-// import Religion from "../../components/user/Religion.vue";
-// import Drink from "../../components/user/Drink.vue";
-// import Smoke from "../../components/user/Smoke.vue";
-// import Education from "../../components/user/Education.vue";
-// import Body from "../../components/user/Body.vue";
-// import Job from "../../components/user/Job.vue";
+import Blood from "../../components/user/Blood.vue";
+import Religion from "../../components/user/Religion.vue";
+import Drink from "../../components/user/Drink.vue";
+import Smoke from "../../components/user/Smoke.vue";
+import Education from "../../components/user/Education.vue";
+import Body from "../../components/user/Body.vue";
+import Job from "../../components/user/Job.vue";
+import Intro from "../../components/user/Intro.vue";
 
 export default {
   components: {
@@ -138,13 +317,14 @@ export default {
     Area,
     Hobby,
     Height,
-    // Blood,
-    // Religion,
-    // Drink,
-    // Smoke,
-    // Education,
-    // Body,
-    // Job,
+    Blood,
+    Religion,
+    Drink,
+    Smoke,
+    Education,
+    Body,
+    Job,
+    Intro,
   },
   name: "Userinfo",
   data() {
@@ -181,9 +361,37 @@ export default {
       dialog_education: false,
       dialog_body: false,
       dialog_job: false,
+      dialog_intro: false,
     };
   },
+  computed: {
+    isValid() {
+      return (
+        this.UserData.gender &&
+        this.UserData.birth &&
+        this.UserData.nickname &&
+        this.UserData.area &&
+        this.UserData.hobby1 &&
+        this.UserData.height &&
+        this.UserData.blood &&
+        this.UserData.religion &&
+        this.UserData.drink &&
+        this.UserData.smoke &&
+        this.UserData.education &&
+        this.UserData.body &&
+        this.UserData.job &&
+        this.UserData.intro
+      );
+    },
+  },
   methods: {
+    emitUserInfo() {
+      if (this.isValid) {
+        console.log("요청보내기!");
+      } else {
+        alert("모든 항목은 필수입니다.");
+      }
+    },
     getGender(gender) {
       this.UserData.gender = gender;
     },
@@ -210,7 +418,7 @@ export default {
     },
     closeArea() {
       this.dialog_area = false;
-      this.dialog_height = true;
+      this.dialog_hobby = true;
     },
     getHobby(hobbies) {
       this.hobbies = hobbies;
@@ -227,6 +435,61 @@ export default {
     closeHeight() {
       this.dialog_height = false;
       this.dialog_blood = true;
+    },
+    getBlood(blood) {
+      this.UserData.blood = blood;
+    },
+    closeBlood() {
+      this.dialog_blood = false;
+      this.dialog_religion = true;
+    },
+    getReligion(religion) {
+      this.UserData.religion = religion;
+    },
+    closeReligion() {
+      this.dialog_religion = false;
+      this.dialog_drink = true;
+    },
+    getDrink(drink) {
+      this.UserData.drink = drink;
+    },
+    closeDrink() {
+      this.dialog_drink = false;
+      this.dialog_smoke = true;
+    },
+    getSmoke(smoke) {
+      this.UserData.smoke = smoke;
+    },
+    closeSmoke() {
+      this.dialog_smoke = false;
+      this.dialog_education = true;
+    },
+    getEducation(education) {
+      this.UserData.education = education;
+    },
+    closeEducation() {
+      this.dialog_education = false;
+      this.dialog_body = true;
+    },
+    getBody(body) {
+      this.UserData.body = body;
+    },
+    closeBody() {
+      this.dialog_body = false;
+      this.dialog_job = true;
+    },
+    getJob(job) {
+      this.UserData.job = job;
+    },
+    closeJob() {
+      this.dialog_job = false;
+      this.dialog_intro = true;
+    },
+    getIntro(intro) {
+      this.UserData.intro = intro;
+    },
+    closeIntro() {
+      this.dialog_intro = false;
     },
   },
   watch: {},

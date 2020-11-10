@@ -1,17 +1,12 @@
 <template>
   <v-card class="mx-auto">
     <v-card-title class="headline"> 당신의 성별은? </v-card-title>
-    <v-card-actions>
-      <!-- <v-divider></v-divider> -->
-      <br />
+    <v-card-actions class="d-block">
       <div class="submit-btn">
-        <v-btn color="#F3CAC7" class="info-btn my-1">
-          <button value="여자" text @click="emitGender">여자</button>
-          <!-- 여자 -->
-        </v-btn>
-        <v-btn color="#B4DEEC" class="info-btn my-1">
-          <button value="남자" text @click="emitGender">남자</button>
-        </v-btn>
+        <button class="btn" value="여자" text @click="emitGender">여자</button>
+        <button class="btn-male" value="남자" text @click="emitGender">
+          남자
+        </button>
       </div>
     </v-card-actions>
   </v-card>
@@ -20,22 +15,17 @@
 <script>
 export default {
   name: "Gender",
-  // props: {
-  //   emitgender: "",
-  // },
+
   data() {
     return {
       gender: "",
-      dialog_gender: false,
+      dialog_gender: true,
     };
   },
   methods: {
     emitGender(event) {
-      // console.log(event.target.value);
       this.gender = event.target.value;
-      this.dialog_gender = true;
-      // console.log(gender);
-      // this.gender = this.attrs("value");
+      // this.dialog_gender = true;
       this.$emit("getGender", this.gender);
       this.$emit("closeGender", this.dialog_gender);
     },
