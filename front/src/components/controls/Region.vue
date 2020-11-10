@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "Region",
@@ -38,12 +38,17 @@ export default {
             controlInfo: "control/getControlInfo",
         })
     },
+    methods: {
+        ...mapMutations({
+            setRegion: "control/setRegion",
+        })
+    },
     mounted() {
-        this.selected = this.controlInfo["region"];
+        this.selected = this.controlInfo.region;
     },
     watch: {
         selected() {
-            this.$emit("setRegion", this.selected);
+            this.setRegion(this.selected);
         } 
     }
 }

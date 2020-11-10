@@ -1,27 +1,29 @@
 <template>
     <div class="container-btns">
         <div class="wrapper-btn wrapper-left">
-            <button class="btn btn-body btn-left" @click="selectOption" value="학생">학생</button>
+            <button class="btn btn-job btn-left" @click="selectOption" value="학생">학생</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="전문직">전문직</button>
+            <button class="btn btn-job" @click="selectOption" value="전문직">전문직</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="회사원">회사원</button>
+            <button class="btn btn-job" @click="selectOption" value="회사원">회사원</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="자영업자">자영업자</button>
+            <button class="btn btn-job" @click="selectOption" value="자영업자">자영업자</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="프리랜서">프리랜서</button>
+            <button class="btn btn-job" @click="selectOption" value="프리랜서">프리랜서</button>
         </div>
         <div class="wrapper-btn wrapper-right">
-            <button class="btn btn-body btn-right" @click="selectOption" value="무직">무직</button>
+            <button class="btn btn-job btn-right" @click="selectOption" value="무직">무직</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Job",
     data() {
@@ -29,7 +31,15 @@ export default {
             selected: []
         }
     },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        })
+    },
     methods: {
+        ...mapMutations({
+            setJob: "control/setJob",
+        }),
         selectOption(event) {
             if (this.selected.includes(event.target.value)) {
                 var index = this.selected.indexOf(event.target.value)
@@ -50,7 +60,19 @@ export default {
                 event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
                 event.target.style.color = "white"
             }
+            this.setJob(this.selected)
         }
+    },
+    mounted() {
+      var jobs = this.controlInfo.job
+      var btns = document.querySelectorAll(".btn-job");
+      for (var job of jobs) {
+        for (var btn of btns) {
+          if (job === btn["value"]) {
+            btn.click();
+          }
+        }
+      }
     }
 }
 </script>

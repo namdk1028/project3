@@ -10,12 +10,32 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Smoke",
     data() {
         return {
             selected: "상관 없음",
         }
+    },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        })
+    },
+    methods: {
+        ...mapMutations({
+            setSmoke: "control/setSmoke",
+        })
+    },
+    mounted() {
+        this.selected = this.controlInfo.smoke;
+    },
+    watch: {
+        selected() {
+            this.setSmoke(this.selected);
+        } 
     }
 }
 </script>

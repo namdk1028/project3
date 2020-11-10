@@ -14,8 +14,8 @@ export default {
             education: [],
             job: "",
             religion: "",
-            drink: "",
-            smoke: "",
+            drink: "상관 없음",
+            smoke: "상관 없음",
         },
     },
     getters: {
