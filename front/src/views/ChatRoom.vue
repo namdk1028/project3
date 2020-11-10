@@ -58,6 +58,7 @@ export default {
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
+      unreadCount: 0,
     }
   },
   components: {
@@ -71,6 +72,12 @@ export default {
       console.log(chatlog)
       this.chatlog = chatlog;
     },
+    getUnreadCount: function(count){
+      console.log('unread count function activated')
+      console.log('unread count: ' + count)
+      this.unreadCount = count;
+    },
+
     updateChatLog: function(){
       console.log('updating the chat')
       this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': this.myPartner});
@@ -88,16 +95,28 @@ export default {
           objDiv.scrollTop = objDiv.scrollHeight;
   },
   created: function() {
-    const chatInfo = {
-        'sender': this.user,
-        'receiver': this.myPartner
-      };
+      const chatInfo = {
+          'sender': this.user,
+          'receiver': this.myPartner
+        };
+
+      //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         this.getChat(chatlog);
       })
-    //Testing purpose event handler
-    this.$socket.emit('socket-init', 'Kim')
+
+      //Emit event to receive unread message count <= use it when user is not in chat room to alert unread message
+      this.$socket.emit('fetch-unread-count', chatInfo);
+      this.$socket.on('fetch-unread-count-callback', count => {
+        this.getUnreadCount(count);
+      })
+
+      //Emit event to erase unread message
+      this.$socket.emit('read-message', chatInfo);
+        
+      //Testing purpose event handler
+      this.$socket.emit('socket-init', 'Kim')
   }
 }
 </script>
