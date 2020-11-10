@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
     name: "Age",
@@ -31,10 +31,14 @@ export default {
     },
     computed: {
         ...mapGetters ({
-            getControlInfo: "control/getControlInfo",
+            controlInfo: "control/getControlInfo",
         })
     },
     methods: {
+        ...mapMutations({
+            setMaxAge: "control/setMaxAge",
+            setMinAge: "control/setMinAge",
+        }),
         moveRight() {
             this.sliderTop = Math.max(parseInt(this.sliderTop), parseInt(this.sliderBottom))
 
@@ -47,7 +51,8 @@ export default {
             range.style.right = newVal + "%"
             right.style.right = newVal + "%"
             bubble.style.right = newVal + "%"
-            this.$emit("setMaxAge", this.sliderTop)
+            
+            this.setMaxAge(this.sliderTop)
 
         },
         moveLeft() {
@@ -62,14 +67,15 @@ export default {
             range.style.left = newVal + "%"
             left.style.left = newVal + "%"
             bubble.style.left = newVal + "%"
-            this.$emit("setMinAge", this.sliderBottom)
+            
+            this.setMinAge(this.sliderBottom)
 
 
         },
     },
     mounted() {
-        this.sliderTop = this.getControlInfo["max_age"];
-        this.sliderBottom = this.getControlInfo["min_age"];
+        this.sliderTop = this.controlInfo.max_age;
+        this.sliderBottom = this.controlInfo.min_age;
         this.moveRight();
         this.moveLeft();
     }

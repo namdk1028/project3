@@ -24,12 +24,27 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
     name: "Region",
     data() {
         return {
             selected: "모든 지역",
         }
+    },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        })
+    },
+    mounted() {
+        this.selected = this.controlInfo["region"];
+    },
+    watch: {
+        selected() {
+            this.$emit("setRegion", this.selected);
+        } 
     }
 }
 </script>
