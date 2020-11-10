@@ -8,11 +8,10 @@
         <button class="btn" value="교육직" text @click="emitJob">교육직</button>
         <button class="btn" value="공무원" text @click="emitJob">공무원</button>
         <button class="btn" value="사업가" text @click="emitJob">사업가</button>
-        <button class="btn" value="연구직" text @click="emitJob">
+        <button class="btn" value="연구,기술직" text @click="emitJob">
           연구,기술직
         </button>
         <button class="btn" value="군인" text @click="emitJob">군인</button>
-        <button class="btn" value="금융직" text @click="emitJob">기타</button>
         <button class="btn" value="무직" text @click="emitJob">무직</button>
         <button class="btn" value="기타" text @click="emitJob">기타</button>
       </div>
