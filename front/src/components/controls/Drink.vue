@@ -10,12 +10,32 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Drink",
     data() {
         return {
             selected: "상관 없음",
         }
+    },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        }),
+    },
+    methods: {
+        ...mapMutations({
+            setDrink: "control/setDrink",
+        })
+    },
+    mounted() {
+        this.selected = this.controlInfo.drink;
+    },
+    watch: {
+        selected() {
+            this.setDrink(this.selected);
+        } 
     }
 }
 </script>

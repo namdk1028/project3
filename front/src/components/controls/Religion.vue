@@ -1,27 +1,29 @@
 <template>
     <div class="container-btns">
         <div class="wrapper-btn wrapper-left">
-            <button class="btn btn-body btn-left" @click="selectOption" value="기독교">기독교</button>
+            <button class="btn btn-religion btn-left" @click="selectOption" value="기독교">기독교</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="천주교">천주교</button>
+            <button class="btn btn-religion" @click="selectOption" value="천주교">천주교</button>
         </div>
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="불교">불교</button>
+            <button class="btn btn-religion" @click="selectOption" value="불교">불교</button>
         </div>
         <!-- <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="기타">기타</button>
+            <button class="btn btn-religion" @click="selectOption" value="기타">기타</button>
         </div> -->
         <div class="wrapper-btn">
-            <button class="btn btn-body" @click="selectOption" value="무교">무교</button>
+            <button class="btn btn-religion" @click="selectOption" value="무교">무교</button>
         </div>
         <div class="wrapper-btn wrapper-right">
-            <button class="btn btn-body btn-right" @click="selectOption" value="상관 없음">상관 없음</button>
+            <button class="btn btn-religion btn-right" @click="selectOption" value="상관 없음">상관 없음</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Religion",
     data() {
@@ -29,7 +31,15 @@ export default {
             selected: []
         }
     },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo"
+        })
+    },
     methods: {
+        ...mapMutations({
+            setReligion: "control/setReligion",
+        }),
         selectOption(event) {
             if (this.selected.includes(event.target.value)) {
                 var index = this.selected.indexOf(event.target.value)
@@ -50,7 +60,19 @@ export default {
                 event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
                 event.target.style.color = "white"
             }
+            this.setReligion(this.selected)
         }
+    },
+    mounted() {
+      var religions = this.controlInfo.religion
+      var btns = document.querySelectorAll(".btn-religion");
+      for (var religion of religions) {
+        for (var btn of btns) {
+          if (religion === btn["value"]) {
+            btn.click();
+          }
+        }
+      }
     }
 }
 </script>

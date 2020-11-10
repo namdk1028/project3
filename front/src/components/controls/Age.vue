@@ -19,20 +19,28 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Age",
     data() {
         return {
-            sliderTop: 50,
-            sliderBottom: 20,
+            sliderTop: "",
+            sliderBottom: "",
         }
     },
+    computed: {
+        ...mapGetters ({
+            controlInfo: "control/getControlInfo",
+        })
+    },
     methods: {
-                moveRight() {
+        ...mapMutations({
+            setMaxAge: "control/setMaxAge",
+            setMinAge: "control/setMinAge",
+        }),
+        moveRight() {
             this.sliderTop = Math.max(parseInt(this.sliderTop), parseInt(this.sliderBottom))
-            // var color = "linear-gradient(90deg, rgb(252, 166, 157) " + (this.sliderTop-20)/30*100 + "%, silver " + (this.sliderTop-20)/30*100 + "%)"
-            // var slider = document.querySelector("#sliderTop");
-            // slider.style.background = color;
 
             var range = document.querySelector(".age-range");
             var right = document.querySelector(".age-right");
@@ -43,6 +51,8 @@ export default {
             range.style.right = newVal + "%"
             right.style.right = newVal + "%"
             bubble.style.right = newVal + "%"
+            
+            this.setMaxAge(this.sliderTop)
 
         },
         moveLeft() {
@@ -57,9 +67,17 @@ export default {
             range.style.left = newVal + "%"
             left.style.left = newVal + "%"
             bubble.style.left = newVal + "%"
-            // bubble.style.left = `calc(${ newVal }% + (${ 5 - newVal * 0.2}px))`;
+            
+            this.setMinAge(this.sliderBottom)
+
 
         },
+    },
+    mounted() {
+        this.sliderTop = this.controlInfo.max_age;
+        this.sliderBottom = this.controlInfo.min_age;
+        this.moveRight();
+        this.moveLeft();
     }
 }
 </script>
