@@ -1,9 +1,10 @@
 <template>
   <div>
     <Title :title="title" />
-    <div class="my-4 mx-auto" style="max-width: 300px">
+    <div class="my-5 mx-auto" style="max-width: 300px">
       <v-row class="my-2" justify="center">
         <v-btn
+          height="38px"
           width="300px"
           rounded
           color="deep-orange lighten-5"
@@ -21,6 +22,7 @@
       </v-row>
       <v-row class="my-2" justify="center">
         <v-btn
+          height="38px"
           style="margin: 0 auto"
           width="300px"
           rounded
@@ -39,6 +41,7 @@
       </v-row>
       <v-row class="my-2" justify="center">
         <v-btn
+          height="38px"
           width="300px"
           rounded
           color="deep-orange lighten-5"
@@ -56,6 +59,7 @@
       </v-row>
       <v-row class="my-2" justify="center">
         <v-btn
+          height="38px"
           width="300px"
           rounded
           color="deep-orange lighten-5"
@@ -73,6 +77,7 @@
       </v-row>
       <v-row class="my-2" justify="center">
         <v-btn
+          height="38px"
           width="300px"
           rounded
           color="deep-orange lighten-5"
@@ -95,6 +100,7 @@
       <v-row justify="center">
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -112,6 +118,7 @@
         </v-col>
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -131,6 +138,7 @@
       <v-row justify="center">
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -151,6 +159,7 @@
         </v-col>
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -170,6 +179,7 @@
       <v-row justify="center">
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -187,6 +197,7 @@
         </v-col>
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -209,6 +220,7 @@
       <v-row justify="center">
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -226,6 +238,7 @@
         </v-col>
         <v-col class="px-0 py-1 col-6">
           <v-btn
+            height="38px"
             width="140px"
             rounded
             color="deep-orange lighten-5"
@@ -245,7 +258,7 @@
       <v-row class="my-1 mb-1" justify="center">
         <v-btn
           width="300px"
-          height="55px"
+          height="60px"
           rounded
           color="deep-orange lighten-5"
           dark
@@ -260,7 +273,7 @@
           <Intro @closeIntro="closeIntro" @getIntro="getIntro" />
         </v-dialog>
       </v-row>
-      <v-btn
+      <!-- <v-btn
         width="300px"
         class="info-btn mx-auto my-1"
         color="red lighten-3"
@@ -275,13 +288,24 @@
           height: 48px;
           width: 48px;
           position: fixed;
-          bottom: 95px;
+          top: 30px;
           right: 20px;
         "
         color="#F27F7F"
         fab
         dark
         v-else
+        @click="emitUserInfo"
+      >
+        다음
+      </v-btn> -->
+      <v-btn
+        width="300px"
+        height="38px"
+        rounded
+        class="info-btn mx-auto my-3"
+        color="#DDDDDD"
+        dark
         @click="emitUserInfo"
       >
         다음
