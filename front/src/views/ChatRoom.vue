@@ -34,7 +34,7 @@
       </div>
       <div class="chat-input">
         <ChatInput 
-        v-bind:partner="$route.params.partner"
+        v-bind:partner="partner"
         v-on:update="updateChatLog"
         />
       </div>
@@ -48,10 +48,14 @@ import ChatInput from "../components/message/ChatInput"
 import Title from "../components/common/Title"
 
 export default {
+  props: {
+    partner: String,
+  },
   data() {
     return {
       title:"Message",
       user: "Kim",
+      myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
     }
@@ -69,7 +73,7 @@ export default {
     },
     updateChatLog: function(){
       console.log('updating the chat')
-      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': 'park'});
+      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         this.getChat(chatlog);
       })
@@ -85,8 +89,8 @@ export default {
   },
   created: function() {
     const chatInfo = {
-        'sender': 'Kim',
-        'receiver': 'park'
+        'sender': this.user,
+        'receiver': this.myPartner
       };
       this.$socket.emit('fetch-chatlog', chatInfo);
       this.$socket.on('fetch-chatlog-callback', chatlog => {

@@ -24,11 +24,14 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
+let rooms = []
+
 //on socket connection
 io.on('connection', (socket) => {
     console.log(`new socket detected, socket id: ${socket.id}`)
     //Emit initial event to retrieve userid
     var username = ''
+    //Enter user to his own room name
     
 
     //On retrieval of initial event, 
@@ -63,13 +66,19 @@ io.on('connection', (socket) => {
       console.log(partnerSocketId)
     })
     
-    //Socket Id Update
+    //Socket Id Update **2020.11.10** function confirmed
     socket.on('socket-init', userId => {
+      if (rooms.includes(userId)){
+        socket.join(userId)
+      } else {
+        rooms.push(userId)
+        socket.join(userId)
+      }
       const socketRef = database.ref('/socketId')
       socketRef.once('value').then(function(snapshot) {
         if (snapshot.hasChild(userId)){
           console.log('new user socket id')
-          socketRef.set({userId: socket.id});
+          socketRef.child(userId).set(socket.id);
         } else {
           console.log('update previous socket id')
           socketRef.child(userId).set(socket.id)
@@ -77,11 +86,7 @@ io.on('connection', (socket) => {
       })
     })
 
-
-
-
-
-    //Sending new message
+    //Sending new message **2020.11.10** function confirmed
     socket.on('new-message', messageInfo => {
       console.log('new message detected')
       const date = new Date()
@@ -95,6 +100,8 @@ io.on('connection', (socket) => {
         'time': time,
         'isRead': false
       }
+      
+      checkPartnerSocketId(messageFormat.reciever)
 
       //check reciver exists in sender's chat log
       const myMessageLogRef = database.ref(`/Logs/${messageInfo.sender}/Receiver`)
@@ -108,16 +115,25 @@ io.on('connection', (socket) => {
         const newKey = myMessageLogRef.child(`${messageFormat.reciever}/messages`).push()
         newKey.set(messageFormat).then(function() {
           console.log('message log recordes successfully')
-          const receiverSocketRef = database.ref('socketId').child(messageFormat.reciever)
-          receiverSocketRef.once('value')
-          .then(function(snapshot){
-            //only works if receiver is online
-            console.log(`sending message to ${snapshot.val()}`)
-            socket.to(snapshot.val()).emit('incoming-message')
-          })
-          .catch(function(error){
+
+          //Inform sender that message has been updated
+          io.to(messageFormat.sender).emit('new-message-fin')
+          
+
+
+          // const receiverSocketRef = database.ref('socketId').child(messageFormat.reciever)
+          // receiverSocketRef.once('value')
+          // .then(function(snapshot){
+          //   //only works if receiver is online
+          //   console.log(`sending message to ${snapshot.val()}`)
+          //   socket.to(snapshot.val()).emit('incoming-message')
+          // })
+          // .catch(function(error){
+          // console.log(error)
+          // })
+        })
+        .catch(function(error){
           console.log(error)
-          })
         })
       })
       //Update receiver's message 
@@ -140,8 +156,8 @@ io.on('connection', (socket) => {
             return unread + 1;
           })
         }
+        io.to(messageFormat.reciever).emit('new-message-fin')
       })
-      socket.emit('new-message-fin')
     })
     
     //ChatLog fetcher
@@ -151,19 +167,15 @@ io.on('connection', (socket) => {
       const chatlogRef = database.ref(`/Logs/${sender}/Receiver/${receiver}`)
       chatlogRef.child('messages').once('value').then(function(snapshot) {
         console.log(snapshot.val());
-        socket.emit('fetch-chatlog-callback', snapshot.val())
+        io.to(sender).emit('fetch-chatlog-callback', snapshot.val())
       })
     })
-
-
-
 
     //initialize new chat
     //info contains my id and recipient's user id
     socket.on('start-chat', (info) => {
       const roomForMe = 'chat' + info.info.owner + info.info.recipient;
       const roomForOther = 'chat' + info.info.recipient + info.info.owner;
-      console.log(info)
     //   console.log(info)
     //   if (info != undefined){
     //     socketOwner = info.owner;
@@ -190,3 +202,10 @@ io.on('connection', (socket) => {
 
     })
 })
+
+const checkPartnerSocketId = function(partnerId) {
+  const socketRef = database.ref('/socketId').child(partnerId)
+  socketRef.once('value').then(function(snapshot){
+    console.log('partner socket id ' + snapshot.val())
+  })
+}

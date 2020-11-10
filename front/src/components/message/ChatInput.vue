@@ -5,12 +5,12 @@
       <i class="fas fa-plus"></i>
     </div>
     <div class="chat-input-message" @click="exitEmoticon">
-      <input class="content" type="text" v-model="chat_text" @keypress.enter="test">
+      <input class="content" type="text" v-model="chat_text" @keypress.enter="sendBtn">
     </div>
     <div class="chat-input-emoticon" @click="emoticonBtn">
       <i class="far fa-grin"></i>
     </div>
-    <div class="chat-input-send" @click="sendBtn" @enter="sendBtn">
+    <div class="chat-input-send" @click="sendBtn">
       <i class="fas fa-paper-plane"></i>
     </div>
   </div>
@@ -26,7 +26,7 @@ export default {
     return {
       chat_text: "",
       myId: 'Kim',
-      myPartner: 'park'
+      myPartner: this.partner
     }
   },
   components: {
