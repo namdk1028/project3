@@ -3,6 +3,7 @@
     <div v-if="user === 'user'" class='chat-bubble-partner'>
       <div class='chat-bubble-left chat-bubble--left'>
         남동규 하이
+        {{ chatlog.text }}
       </div>
     </div>
 
@@ -17,6 +18,7 @@
     <div v-else class='chat-bubble-user'>
       <div class='chat-bubble-right chat-bubble--right'>
         하이 김나연
+        {{ chatlog.text }}
       </div>
     </div>
   </div>
@@ -25,7 +27,8 @@
 <script>
 export default {
   props: {
-    user: String
+    user: String,
+    chatlog: Object,
   },
 }
 </script>
