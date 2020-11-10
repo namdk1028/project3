@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Height",
     data() {
@@ -27,7 +29,16 @@ export default {
             sliderBottom: 140,
         }
     },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        })
+    },
     methods: {
+        ...mapMutations({
+            setMaxHeight: "control/setMaxHeight",
+            setMinHeight: "control/setMinHeight",
+        }),
         moveRight() {
             this.sliderTop = Math.max(parseInt(this.sliderTop), parseInt(this.sliderBottom))
 
@@ -40,6 +51,9 @@ export default {
             range.style.right = newVal + "%"
             right.style.right = newVal + "%"
             bubble.style.right = newVal + "%"
+            
+            // this.$emit("setMaxHeight", this.sliderTop)
+            this.setMaxHeight(this.sliderTop);
 
         },
         moveLeft() {
@@ -54,10 +68,21 @@ export default {
             range.style.left = newVal + "%"
             left.style.left = newVal + "%"
             bubble.style.left = newVal + "%"
-            // bubble.style.left = `calc(${ newVal }% + (${ 5 - newVal * 0.2}px))`;
+
+            // this.$emit("setMinHeight", this.sliderBottom)
+            this.setMinHeight(this.sliderBottom);
+
+
+
 
         },
     },
+    mounted() {
+        this.sliderTop = this.controlInfo.max_height;
+        this.sliderBottom = this.controlInfo.min_height;
+        this.moveRight();
+        this.moveLeft();
+    }
 }
 </script>
 

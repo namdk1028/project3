@@ -2,7 +2,7 @@
   <div id="login">
     <v-form class="login-form" v-model="valid">
       <v-container>
-        <v-row >
+        <v-row>
           <h2 class="login-text">계정에<br />로그인하세요.</h2>
         </v-row>
         <v-row>
@@ -48,4 +48,4 @@ export default {
   },
 };
 </script>
-<style scoped src="../../assets/static/login.scss" lang="scss">
+<style scoped src="../../assets/scss/login.scss" lang="scss">
