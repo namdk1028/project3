@@ -30,41 +30,6 @@ let rooms = []
 io.on('connection', (socket) => {
     console.log(`new socket detected, socket id: ${socket.id}`)
     //Emit initial event to retrieve userid
-    var username = ''
-    //Enter user to his own room name
-    
-
-    //On retrieval of initial event, 
-    //if user's socket id exists, renew. 
-    //Else set user's socket id
-    var userLogRef = database.ref('users'); 
-    socket.on('reply-init', function(userId) {
-        console.log('received initialization reply')
-        username = userId;
-        var socketIdRef = database.ref('socketId')
-        const chatLogRef = database.ref('/Logs')
-        chatLogRef.once('value')
-        .then(function(snapshot){
-          console.log(snapshot.hasChild(userId))
-        })
-        socketIdRef.child(username).set(socket.id);
-        socketIdRef.once('value')
-        .then(function(snapshot) {
-            snapshot.val();
-        })
-    })
-
-    socket.on('partner-info-request', partnerId => {
-      console.log('partner info request recieved')
-      var socketIdRef = database.ref('socketId').child(partnerId);
-      var partnerSocketId = '';
-      socketIdRef.once('value')
-      .then(function(snapshot) {
-        console.log(snapshot.val())
-        socket.emit('partner-info-reply', partnerSocketId)
-      })
-      console.log(partnerSocketId)
-    })
     
     //Socket Id Update **2020.11.10** function confirmed
     socket.on('socket-init', userId => {
@@ -115,22 +80,8 @@ io.on('connection', (socket) => {
         const newKey = myMessageLogRef.child(`${messageFormat.reciever}/messages`).push()
         newKey.set(messageFormat).then(function() {
           console.log('message log recordes successfully')
-
           //Inform sender that message has been updated
           io.to(messageFormat.sender).emit('new-message-fin')
-          
-
-
-          // const receiverSocketRef = database.ref('socketId').child(messageFormat.reciever)
-          // receiverSocketRef.once('value')
-          // .then(function(snapshot){
-          //   //only works if receiver is online
-          //   console.log(`sending message to ${snapshot.val()}`)
-          //   socket.to(snapshot.val()).emit('incoming-message')
-          // })
-          // .catch(function(error){
-          // console.log(error)
-          // })
         })
         .catch(function(error){
           console.log(error)
@@ -169,37 +120,6 @@ io.on('connection', (socket) => {
         console.log(snapshot.val());
         io.to(sender).emit('fetch-chatlog-callback', snapshot.val())
       })
-    })
-
-    //initialize new chat
-    //info contains my id and recipient's user id
-    socket.on('start-chat', (info) => {
-      const roomForMe = 'chat' + info.info.owner + info.info.recipient;
-      const roomForOther = 'chat' + info.info.recipient + info.info.owner;
-    //   console.log(info)
-    //   if (info != undefined){
-    //     socketOwner = info.owner;
-    //     recipient = info.recipient;
-    //   }
-      if (!rooms.includes(roomForMe)){
-          rooms.push(roomForMe)
-      }
-      
-      if (!rooms.includes(roomForOther)) {
-          rooms.push(roomForOther)
-          socket.to(roomForOther).emit('new-chat-room', {'sender': info.info.owner})
-        
-      }
-      var socketIdRef = database.ref('socketId')
-      socketIdRef.once('value')
-      .then(function(snapshot) {
-        const recipientSocketId = snapshot.child(info.info.recipient).val()
-        const mySocketId = snapshot.child(info.info.owner).val();  
-        console.log(recipientSocketId, mySocketId, info.message);
-        socket.to(recipientSocketId).emit('update', info.message)
-      })
-      console.log(info.msg)
-
     })
 })
 
