@@ -29,6 +29,7 @@ const routes = [
     path: "/chat/:partner",
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
+    props: true
   },
   {
     path: '/profile',

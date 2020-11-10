@@ -10,7 +10,7 @@
     <div class="chat-input-emoticon" @click="emoticonBtn">
       <i class="far fa-grin"></i>
     </div>
-    <div class="chat-input-send" @click="sendBtn">
+    <div class="chat-input-send" @click="sendBtn" @enter="sendBtn">
       <i class="fas fa-paper-plane"></i>
     </div>
   </div>
@@ -19,9 +19,14 @@
 <script>
 import Emoticon from "../message/Emoticon"
 export default {
+  props: {
+    partner: String
+  },
   data() {
     return {
-      chat_text: ""
+      chat_text: "",
+      myId: 'Kim',
+      myPartner: 'park'
     }
   },
   components: {
@@ -37,15 +42,27 @@ export default {
     },
     sendBtn() {
       this.exitEmoticon()
+      const messageInfo = {
+        'sender': this.myId,
+        'reciever': this.myPartner,
+        'text': this.chat_text
+      }
+      this.$socket.emit('new-message', messageInfo)
+      this.$socket.on('new-message-fin', () => {
+        this.emitUpdate()
+      })
       this.test()
+    },
+    emitUpdate() {
+      this.$emit('update')
     },
     addEmoticon() {
     },
     test() {
       console.log(this.chat_text)
       this.chat_text = ''
-    }
-  }
+    },
+  },
 }
 </script>
 

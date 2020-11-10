@@ -18,17 +18,25 @@
         </div>
       </div>
       <div id="app_chat_list" class='chat-content'>
-        <ChatBubble :user=user />
+        <!-- <ChatBubble :user=user />
         <ChatBubble :user=emoticon />
         <ChatBubble :user="!user" />
         <ChatBubble :user=user />
         <ChatBubble :user="user" />
         <ChatBubble :user=emoticon />
         <ChatBubble :user="!user" />
-        <ChatBubble :user=user />
+        <ChatBubble :user=user /> -->
+        <ChatBubble 
+        v-for="log in chatlog" 
+        v-bind:key="log.id" 
+        v-bind:user="user" 
+        v-bind:chatlog="log"/>
       </div>
       <div class="chat-input">
-        <ChatInput />
+        <ChatInput 
+        v-bind:partner="$route.params.partner"
+        v-on:update="updateChatLog"
+        />
       </div>
     </div>
   </div>
@@ -43,8 +51,9 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "user",
-      emoticon: 'emoticon'
+      user: "Kim",
+      emoticon: 'emoticon',
+      chatlog: '',
     }
   },
   components: {
@@ -53,6 +62,19 @@ export default {
     Title,
   },
   methods: {
+    getChat: function(chatlog){
+      console.log('chatlog function activated')
+      console.log(chatlog)
+      this.chatlog = chatlog;
+    },
+    updateChatLog: function(){
+      console.log('updating the chat')
+      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': 'park'});
+      this.$socket.on('fetch-chatlog-callback', chatlog => {
+        this.getChat(chatlog);
+      })
+    }
+    
   },
   mounted : function() {
       // app_chat_list 의 변화가 발생할때마다 수행되는 영역
@@ -60,6 +82,18 @@ export default {
       var objDiv = document.getElementById("app_chat_list");
           // 채팅창 스크롤 바닥 유지
           objDiv.scrollTop = objDiv.scrollHeight;
+  },
+  created: function() {
+    const chatInfo = {
+        'sender': 'Kim',
+        'receiver': 'park'
+      };
+      this.$socket.emit('fetch-chatlog', chatInfo);
+      this.$socket.on('fetch-chatlog-callback', chatlog => {
+        this.getChat(chatlog);
+      })
+    //Testing purpose event handler
+    this.$socket.emit('socket-init', 'Kim')
   }
 }
 </script>
