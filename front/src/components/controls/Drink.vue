@@ -2,9 +2,10 @@
 <div>
     <select class="select" v-model="selected">
         <option selected>상관 없음</option>
-        <option>안함</option>
+        <option>안마심</option>
         <option>가끔</option>
         <option>자주</option>
+        <option>매일</option>
     </select>
 </div>
 </template>

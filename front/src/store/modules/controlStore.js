@@ -5,15 +5,15 @@ export default {
     namespaced: true,
     state: {
         controlInfo: {
-            region: "모든 지역",
+            area: "모든 지역",
             max_age: 50,
             min_age: 20,
             max_height: 200,
             min_height: 140,
             body: ["마른"],
             education: [],
-            job: "",
-            religion: "",
+            job: [],
+            religion: [],
             drink: "상관 없음",
             smoke: "상관 없음",
         },
@@ -25,7 +25,7 @@ export default {
     },
     mutations: {
         setRegion(state, region) {
-            state.controlInfo.region = region;
+            state.controlInfo.area = region;
         },
         setMaxAge(state, max_age) {
             state.controlInfo.max_age = max_age;
