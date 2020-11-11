@@ -31,6 +31,11 @@ const routes = [
     component: () => import("../views/ChatRoom.vue"),
     props: true
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: () => import("../views/Profile.vue"),
+  },
   //user
   {
     path: '/user/login',

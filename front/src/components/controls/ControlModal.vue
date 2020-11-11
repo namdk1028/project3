@@ -28,7 +28,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
-            <button class="btn-detail" v-if="showDetails" @click="closeDetails">닫기</button>
+            <button class="btn-detail" v-if="showDetails" @click="closeDetails">접기</button>
         </div>
       </div>
   </div>

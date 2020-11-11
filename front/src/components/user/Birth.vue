@@ -47,7 +47,7 @@ export default {
   name: "Birth",
   data() {
     return {
-      dialog_birth: false,
+      dialog_birth: true,
       date: null,
       menu: false,
     };
@@ -62,7 +62,7 @@ export default {
       this.$refs.menu.save(date);
     },
     emitBirth() {
-      this.dialog_birth = true;
+      // this.dialog_birth = true;
       this.$emit("getBirth", this.date);
       this.$emit("closeBirth", this.dialog_birth);
     },
