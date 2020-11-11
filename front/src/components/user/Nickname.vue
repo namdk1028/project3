@@ -1,10 +1,10 @@
 <template>
   <v-card>
     <v-card-title class="headline"> 당신의 닉네임은? </v-card-title>
-    <v-card-actions>
+    <v-card-actions class="d-block">
       <div>
-        <v-row class="mx-0">
-          <v-col>
+        <v-row>
+          <v-col class="py-0 mx-auto col-10">
             <v-text-field
               v-model="nickname"
               filled
@@ -31,13 +31,13 @@ export default {
   name: "Nickname",
   data() {
     return {
-      dialog_nickname: false,
+      dialog_nickname: true,
       nickname: "",
     };
   },
   methods: {
     emitNickname() {
-      this.dialog_nickname = true;
+      // this.dialog_nickname = true;
       this.$emit("getNickname", this.nickname);
       this.$emit("closeNickname", this.dialog_nickname);
     },
@@ -45,4 +45,4 @@ export default {
 };
 </script>
 
-<style scoped src="../../assets/scss/userinfo.scss" lang="scss">
+<style scoped src="@/assets/scss/userinfo.scss" lang="scss">
