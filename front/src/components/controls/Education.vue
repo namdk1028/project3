@@ -51,7 +51,6 @@ export default {
                 event.target.style.color = "white"
             }
             this.setEducation(this.selected)
-            console.log(this.controlInfo)
         }
     },
     mounted() {
