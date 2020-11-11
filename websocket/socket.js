@@ -9,6 +9,16 @@ const io = require('socket.io')(server)
 server.listen(3000);
 app.set('view engine', 'ejs');
 
+app.all("/*", function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
+app.get('/', function(req, res) {
+  res.json({message: "welcome to websocket for ssafy 507"})
+})
+
 //firebase settings
 const firebase = require('firebase');
 const firebaseConfig = {
