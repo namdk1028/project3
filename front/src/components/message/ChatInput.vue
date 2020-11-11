@@ -1,16 +1,17 @@
 <template>
   <div class='chat-input'>
     <Emoticon @addEmoticon="addEmoticon" />
-    <div class='chat-input-other' @click="exitEmoticon">
+    <File @addFile="addFile" />
+    <div class='chat-input-other' @click="fileBtn">
       <i class="fas fa-plus"></i>
     </div>
-    <div class="chat-input-message" @click="exitEmoticon">
-      <input class="content" type="text" v-model="chat_text" @keypress.enter="test">
+    <div class="chat-input-message" @click="exit">
+      <input class="content" type="text" v-model="chat_text" @keypress.enter="sendBtn">
     </div>
     <div class="chat-input-emoticon" @click="emoticonBtn">
       <i class="far fa-grin"></i>
     </div>
-    <div class="chat-input-send" @click="sendBtn" @enter="sendBtn">
+    <div class="chat-input-send" @click="sendBtn">
       <i class="fas fa-paper-plane"></i>
     </div>
   </div>
@@ -18,6 +19,7 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
+import File from "../message/File"
 export default {
   props: {
     partner: String
@@ -26,19 +28,33 @@ export default {
     return {
       chat_text: "",
       myId: 'Kim',
-      myPartner: 'park'
+      myPartner: this.partner
     }
   },
   components: {
-    Emoticon
+    Emoticon,
+    File,
   },
   methods: {
     emoticonBtn() {
       var emoticon = document.querySelector(".emoticon")
       emoticon.classList.remove("hide")
+      this.exitFile()
+    },
+    fileBtn() {
+      var file = document.querySelector(".file")
+      file.classList.remove("hide")
+      this.exitEmoticon()
     },
     exitEmoticon() {
       document.querySelector('.emoticon').classList.add('hide')
+    },
+    exitFile() {
+      document.querySelector('.file').classList.add('hide')
+    },
+    exit() {
+      this.exitEmoticon()
+      this.exitFile()
     },
     sendBtn() {
       this.exitEmoticon()

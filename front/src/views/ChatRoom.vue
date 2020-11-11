@@ -34,7 +34,7 @@
       </div>
       <div class="chat-input">
         <ChatInput 
-        v-bind:partner="$route.params.partner"
+        v-bind:partner="partner"
         v-on:update="updateChatLog"
         />
       </div>
@@ -48,12 +48,17 @@ import ChatInput from "../components/message/ChatInput"
 import Title from "../components/common/Title"
 
 export default {
+  props: {
+    partner: String,
+  },
   data() {
     return {
       title:"Message",
       user: "Kim",
+      myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
+      unreadCount: 0,
     }
   },
   components: {
@@ -67,9 +72,15 @@ export default {
       console.log(chatlog)
       this.chatlog = chatlog;
     },
+    getUnreadCount: function(count){
+      console.log('unread count function activated')
+      console.log('unread count: ' + count)
+      this.unreadCount = count;
+    },
+
     updateChatLog: function(){
       console.log('updating the chat')
-      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': 'park'});
+      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         this.getChat(chatlog);
       })
@@ -84,16 +95,28 @@ export default {
           objDiv.scrollTop = objDiv.scrollHeight;
   },
   created: function() {
-    const chatInfo = {
-        'sender': 'Kim',
-        'receiver': 'park'
-      };
+      const chatInfo = {
+          'sender': this.user,
+          'receiver': this.myPartner
+        };
+
+      //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         this.getChat(chatlog);
       })
-    //Testing purpose event handler
-    this.$socket.emit('socket-init', 'Kim')
+
+      //Emit event to receive unread message count <= use it when user is not in chat room to alert unread message
+      this.$socket.emit('fetch-unread-count', chatInfo);
+      this.$socket.on('fetch-unread-count-callback', count => {
+        this.getUnreadCount(count);
+      })
+
+      //Emit event to erase unread message
+      this.$socket.emit('read-message', chatInfo);
+        
+      //Testing purpose event handler
+      this.$socket.emit('socket-init', 'Kim')
   }
 }
 </script>
