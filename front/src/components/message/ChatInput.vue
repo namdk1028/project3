@@ -5,7 +5,7 @@
     <div class='chat-input-other' @click="fileBtn">
       <i class="fas fa-plus"></i>
     </div>
-    <div class="chat-input-message" @click="exitEmoticon">
+    <div class="chat-input-message" @click="exit">
       <input class="content" type="text" v-model="chat_text" @keypress.enter="sendBtn">
     </div>
     <div class="chat-input-emoticon" @click="emoticonBtn">
