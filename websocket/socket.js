@@ -2,23 +2,23 @@
 const { EFAULT } = require('constants');
 const express = require('express');
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server)
+const cors = require('cors')
 
-//listening on port 3000
-server.listen(3000);
 app.set('view engine', 'ejs');
+app.use(cors());
 
-app.all("/*", function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  next();
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: 'http://k3a507.p.ssafy.io',
+    methods: ['GET', 'POST']
+  }
 });
+server.listen(3000);
 
 app.get('/', function(req, res) {
   res.json({message: "welcome to websocket for ssafy 507"})
 })
-
 //firebase settings
 const firebase = require('firebase');
 const firebaseConfig = {
