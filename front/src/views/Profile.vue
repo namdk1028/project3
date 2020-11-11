@@ -1,4 +1,5 @@
 <template>
+  <div class="profile-background"> 
   <div class="container-profile">
     <div class="profile-header">
       <div class="header-background">
@@ -19,6 +20,7 @@
       <NotificationBox v-if="showNotifications" />
       <UserInfo v-if="showUserInfo" />
     </div>
+  </div>
   </div>
 </template>
 

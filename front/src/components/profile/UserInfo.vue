@@ -5,7 +5,7 @@
         <v-btn
           width="300px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(252, 249, 249)"
           dark
           @click.stop="dialog_gender = true"
         >
@@ -23,7 +23,7 @@
           style="margin: 0 auto"
           width="300px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(250, 249, 249)"
           dark
           @click.stop="dialog_birth = true"
         >
@@ -40,7 +40,7 @@
         <v-btn
           width="300px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(250, 249, 249)"
           dark
           @click.stop="dialog_nickname = true"
         >
@@ -57,7 +57,7 @@
         <v-btn
           width="300px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(250, 249, 249)"
           dark
           @click.stop="dialog_area = true"
         >
@@ -74,7 +74,7 @@
         <v-btn
           width="300px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(250, 249, 249)"
           dark
           @click.stop="dialog_hobby = true"
         >
@@ -96,7 +96,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_height = true"
           >
@@ -113,7 +113,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_blood = true"
           >
@@ -132,7 +132,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_religion = true"
           >
@@ -152,7 +152,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_drink = true"
           >
@@ -171,7 +171,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_smoke = true"
           >
@@ -188,7 +188,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_education = true"
           >
@@ -210,7 +210,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_body = true"
           >
@@ -227,7 +227,7 @@
           <v-btn
             width="140px"
             rounded
-            color="deep-orange lighten-5"
+            color="rgb(250, 249, 249)"
             dark
             @click.stop="dialog_job = true"
           >
@@ -246,7 +246,7 @@
           width="300px"
           height="55px"
           rounded
-          color="deep-orange lighten-5"
+          color="rgb(250, 249, 249)"
           dark
           @click.stop="dialog_intro = true"
         >
