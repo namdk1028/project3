@@ -25,7 +25,7 @@
 <script>
 // import LoginInfo from '../components/profile/LoginInfo.vue'
 import NotificationBox from "@/components/profile/NotificationBox.vue"
-import UserInfo from '../views/user/UserInfo.vue'
+import UserInfo from "@/components/profile/UserInfo.vue"
 
 export default {
   components: {
