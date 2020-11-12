@@ -3,11 +3,11 @@
     <Title :title="title" />
     <div class="message-body">
       <MessageEach 
-      v-for="room in rooms"
+      v-for="(room, idx) in rooms"
       v-bind:room="room" 
-      v-bind:key="room.id" 
-      v-bind:partner="room.partner"
-      v-bind:recentText="room.message" />
+      v-bind:key="idx"
+      :number="idx"
+      />
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     return {
       title: 'Message',
       rooms: [],
-      user: 'Kim'
+      user: 'Kim',
     }
   },
   components: {
@@ -33,8 +33,7 @@ export default {
   mounted() {
     this.$socket.emit('fetch-chatroom', this.user)
     this.$socket.on('fetch-chatroom-callback', rooms => {
-      this.rooms = rooms;
-      console.log(this.rooms)
+      this.rooms = Object.values(rooms);
     })
   }
 
