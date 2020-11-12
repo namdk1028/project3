@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!activeVideoCall">
     <Title :title="title" />
     <div class='chat'>
       <div class='chat-header'>
@@ -14,7 +14,7 @@
           {{ $route.params.partner }}
         </div>
         <div class='chat-feature'>
-          <i class="fas fa-video"></i>
+          <i class="fas fa-video" @click="activateVideoCall"></i>
         </div>
       </div>
       <div id="app_chat_list" class='chat-content'>
@@ -40,11 +40,15 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <VideoChat v-bind:caller="user" v-bind:callee="myPartner" v-on:endcall="activeVideoCall=false"/>
+  </div>
 </template>
 
 <script>
 import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
+import VideoChat from "../components/message/VideoChat"
 import Title from "../components/common/Title"
 
 export default {
@@ -59,12 +63,15 @@ export default {
       emoticon: 'emoticon',
       chatlog: '',
       unreadCount: 0,
+      activeVideoCall: false,
+      receiveVideoCall: false,
     }
   },
   components: {
     ChatBubble,
     ChatInput,
     Title,
+    VideoChat,
   },
   methods: {
     getChat: function(chatlog){
@@ -84,10 +91,13 @@ export default {
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         this.getChat(chatlog);
       })
+    },
+    activateVideoCall: function(){
+      this.activeVideoCall = true;
     }
     
   },
-  mounted : function() {
+  updated : function() {
       // app_chat_list 의 변화가 발생할때마다 수행되는 영역
 
       var objDiv = document.getElementById("app_chat_list");

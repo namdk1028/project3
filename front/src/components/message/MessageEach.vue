@@ -1,44 +1,81 @@
 <template>
-  <div class='message-each' @click="$router.push('/chat/'+partner)">
-    <div class='message-profile-img'>
-      <v-avatar style='background-color: white;' class='mx-auto' size='50'>
-        <v-img
-            src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
-      </v-avatar>
-    </div>
-    <div class='message-content'>
-      <div class='message-content-username'>
-        {{ partner }}
+  <v-layout class='message'
+    v-touch="{
+      left: () => swipe('Left'),
+      right: () => swipe('Right'),
+    }"
+  >
+    <div class='message-each' @click="$router.push('/chat/'+partner)">
+      <div class='message-profile-img'>
+        <v-avatar style='background-color: white;' class='mx-auto' size='50'>
+          <v-img
+              src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
+        </v-avatar>
       </div>
       <div class='message-content-body'>
-        안녕 나는 김나연이야 서울 싸피에서 자율 프로젝트를 하고있지 우후훗
+        {{ recentText }}
       </div>
     </div>
     <div class="message-new">
       <div class="message-new-time">
-        2020-11-03
+        {{ recentDate }}
       </div>
-      <div class="message-new-number">
+      <div v-if="unread > 0" class="message-new-number">
         <v-avatar color="#fca69d" size="20">
-          1
+          {{ unread }}
         </v-avatar>
       </div>
     </div>
-  </div>
+    <div class='message-delete hide'>
+      <h4 class='text' @click='deleteMessage'>삭제</h4>
+    </div>
+  </v-layout>
 </template>
 
 <script>
 export default {
+  props:{
+    room: Object
+  },
   data() {
     return {
       partner: "kimnayu",
+      recentText: '',
+      recentDate: '',
+      unread: 0
     }
   },
+  methods : {
+    deleteMessage() {
+      console.log("check")
+    },
+    swipe(direction) {
+      const message = document.querySelectorAll('.message-delete')[this.number-1]
+      if (direction == "Left") {
+        message.classList.remove('hide')
+      }
+      else {
+        message.classList.add('hide')
+      }
+  },
+  mounted: function(){
+    const recentMsg = this.room.messages
+    this.unread = this.room.unread
+    console.log(Object.values(recentMsg)[0])
+    this.partner = Object.values(recentMsg)[0].reciever
+    this.recentText = Object.values(recentMsg)[0].text
+    this.recentDate = Object.values(recentMsg)[0].date
 
+  }
+
+}
 }
 </script>
 
 <style>
+.message {
+  display: flex;
+}
 .message-each {
   height: 12vh;
   display: flex;
@@ -84,5 +121,19 @@ export default {
   justify-content: flex-end;
   font-size: 0.5rem;
   color: white;
+}
+.message-delete {
+  width: 20%;
+  background-color: rgb(241, 195, 195);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px 0 0 10px;
+}
+.message-delete .text {
+  color: white;
+}
+.hide {
+  display: none;
 }
 </style>

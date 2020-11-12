@@ -4,6 +4,7 @@
       <v-file-input
           prepend-icon="mdi-camera"
           v-model='imgData'
+          hide-input="True"
           @change='onChangeImages'
           ></v-file-input>
     </div>
@@ -45,6 +46,8 @@
       var inputY = input.getBoundingClientRect().top
       var file = document.querySelector('.file')
       file.style.top = `${inputY-130}px`
+      
+      // document.querySelector(".v-input__control").classList.add('hide')
     }
   }
 </script>
@@ -65,11 +68,17 @@
   width: 45%;
   height: 95%;
   background-color: white;
+  display: flex;
+  justify-content: center;
 }
 .file-exit {
   display: flex;
 }
 .hide {
   display: none;
+}
+v-file-input {
+  display: flex;
+  justify-content: center;
 }
 </style>
