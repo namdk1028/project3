@@ -42,7 +42,8 @@
         document.querySelector('.emoticon').classList.add('hide')
       },
       addEmoticon(emoticon) {
-        this.$emit('addEmoticon', emoticon)
+        this.$emit('addEmoticon', "!emoticon " + emoticon)
+        this.exitEmoticon()
       }
     },
     mounted() {

@@ -2,20 +2,23 @@
   <div>
     <div v-if="chatlog.sender === 'Kim'" class='chat-bubble-partner'>
       <div class='chat-bubble-left chat-bubble--left'>
-        {{ chatlog.text }}
+        <div v-if="checkEmoticon()">
+          <i :class="chatlog.text" style="font-size: 40px;"></i>
+        </div>
+        <div v-else>
+          {{ chatlog.text }}
+        </div>
       </div>
     </div>
 
-    <!-- 날릴 부분 -->
-    <!-- <div v-if="user === 'emoticon'" class='chat-bubble-partner'>
-      <div class='chat-bubble-left chat-bubble--left'>
-        <i class="far fa-laugh-beam" style="font-size: 40px;"></i>
-      </div>
-    </div> -->
-    <!--  -->
     <div v-else class='chat-bubble-user'>
       <div class='chat-bubble-right chat-bubble--right'>
-        {{ chatlog.text }}
+        <div v-if="checkEmoticon()">
+          <i :class="chatlog.text" style="font-size: 40px;"></i>
+        </div>
+        <div v-else>
+          {{ chatlog.text }}
+        </div>
       </div>
     </div>
   </div>
@@ -26,6 +29,17 @@ export default {
   props: {
     user: String,
     chatlog: Object,
+  },
+  methods : {
+    checkEmoticon() {
+      console.log(this.chatlog.text.slice(0,9))
+      if (this.chatlog.text.slice(0,9) === "!emoticon") {
+        return true
+      }
+      else {
+        return false
+      }
+    }
   },
 }
 </script>

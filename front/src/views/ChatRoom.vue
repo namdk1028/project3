@@ -87,7 +87,7 @@ export default {
     }
     
   },
-  mounted : function() {
+  updated : function() {
       // app_chat_list 의 변화가 발생할때마다 수행되는 영역
 
       var objDiv = document.getElementById("app_chat_list");

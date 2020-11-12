@@ -58,26 +58,36 @@ export default {
     },
     sendBtn() {
       this.exitEmoticon()
+      if (this.chat_text) {
+        const messageInfo = {
+          'sender': this.myId,
+          'reciever': this.myPartner,
+          'text': this.chat_text
+        }
+        this.$socket.emit('new-message', messageInfo)
+        this.$socket.on('new-message-fin', () => {
+          this.emitUpdate()
+        })
+        this.textReset()
+      }
+    },
+    emitUpdate() {
+      this.$emit('update')
+    },
+    addEmoticon(emoticon) {
       const messageInfo = {
         'sender': this.myId,
         'reciever': this.myPartner,
-        'text': this.chat_text
+        'text': emoticon
       }
       this.$socket.emit('new-message', messageInfo)
       this.$socket.on('new-message-fin', () => {
         this.emitUpdate()
       })
-      this.test()
     },
-    emitUpdate() {
-      this.$emit('update')
-    },
-    addEmoticon() {
-    },
-    test() {
-      console.log(this.chat_text)
+    textReset() {
       this.chat_text = ''
-    },
+    }
   },
 }
 </script>
