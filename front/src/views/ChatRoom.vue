@@ -158,6 +158,7 @@ export default {
       })
 
       this.$socket.on('new-message-fin', function(){
+        console.log('updating chat log');
         this.updateChatLog;
       })
 
