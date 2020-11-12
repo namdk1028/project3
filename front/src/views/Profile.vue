@@ -12,7 +12,10 @@
       <div class="header-contents">
         <div class="profile-img">
           <img src="https://lh3.googleusercontent.com/proxy/VP_-0YKTJ5tMzBv3ZyLJ10TKlSA6nXN0FqW8SW-yWT8RC2lJemZC0c_m4dAn7cEjkJcUfC9qw8oLZ-oI-EytNA6yITpHKHNb16W2c9TbI5Bt7otha74Qo-kDxNfrxNQj1pPtgtqxTwGnKL641yYJVXmVj52qEJsVCPqi08XYPoUxQV8QA6kaAZ--PkmoRV4mvnF_7Ktj48cxg2BsVC7IFTgHMZfhqHKZIAyPvLga_0NVZn604FMWO0wyO4pn6rP2_uIQSHRRqze-T7-2NKpcjccvxQdz1T5HXmq2wjXQ8eMzRLLDrFUeazck9JR1G-sYYD1aqQcRBVfNt8e8s2AZ">
-          <button class="btn-img"><i class="fas fa-camera"></i></button>
+          <button class="btn btn-uploadimg" v-if="showUserInfo"><i class="fas fa-camera"></i></button>
+        </div>
+        <div class=" img-similarity">
+          유사도: {{ similarity }}%
         </div>
       </div>
     </div>
@@ -39,6 +42,7 @@ export default {
       title: "Profile",
       showNotifications: true,
       showUserInfo: false,
+      similarity: 78,
     }
   },
   methods: {
