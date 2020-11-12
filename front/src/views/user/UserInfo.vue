@@ -412,6 +412,7 @@ export default {
     emitUserInfo() {
       if (this.isValid) {
         console.log("요청보내기!");
+        alert('사진저장 page로 Go')
       } else {
         alert("모든 항목은 필수입니다.");
       }

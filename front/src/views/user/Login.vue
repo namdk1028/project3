@@ -1,6 +1,10 @@
 <template>
+
   <div id="login">
-    <v-form class="login-form" v-model="valid">
+    <div class="nonlogin-slogan d-none d-sm-flex">
+      <h2 class="text-center">원활한 서비스 이용을 위해<br>화면 너비를 600픽셀 미만으로 설정해주세요 :)<br /></h2>
+    </div>
+    <v-form class="d-flex d-sm-none login-form" v-model="valid">
       <v-container>
         <v-row>
           <div class="login-slogan">
@@ -9,10 +13,12 @@
           </div>
         </v-row>
         <div class="text-center">
-          <v-btn height="38px"
-          width="300px" @click="googleLogin"><img class="login-btn" src="@/assets/images/icon/googlelogin.png"></v-btn>
-          <v-btn height="38px" width="200px" @click="kakaoLogin"><img class="login-btn" src="@/assets/images/icon/kakaologin.png"></v-btn>
-          <v-btn height="38px" width="200px" @click="naverLogin"><img class="login-btn" src="@/assets/images/icon/naverlogin.png"></v-btn>
+          <v-img class="login-btn" @click="googleLogin" src="@/assets/images/icon/googlelogin.png"></v-img>
+          <v-img class="login-btn" @click="kakaoLogin" src="@/assets/images/icon/kakaologin.png"></v-img>
+          <!-- <v-img class="login-btn" @click="naverLogin" src="@/assets/images/icon/naverlogin.png"></v-img> -->
+          <!-- <v-btn @click="googleLogin"><img class="login-btn" src="@/assets/images/icon/googlelogin.png"></v-btn>
+          <v-btn @click="kakaoLogin"><img class="login-btn" src="@/assets/images/icon/kakaologin.png"></v-btn>
+          <v-btn @click="naverLogin"><img class="login-btn" src="@/assets/images/icon/naverlogin.png"></v-btn> -->
         </div>
       </v-container>
     </v-form>
@@ -20,18 +26,25 @@
 </template>
 <script>
 import KEY from "@/api/SecretKey";
+// import USERAPI from "@/api/UserApi";
 import axios from "axios";
+import { mapActions,mapState } from "vuex";
+
 export default {
   name: "Login",
   data() {
     return {};
   },
   methods: {
+    ...mapActions('control',['login']),
+    ...mapState('control',['profile_saved']),
     googleLogin() {
       console.log('000')
       axios.get("http://127.0.0.1:8000/accounts/login/google/").then((res) => {
         console.log(res.data)
-        window.open(res.data.url);
+        // window.open(res.data.url);
+        location.href=res.data.url
+        // this.$router.push(res.data.url)
       });
     },
     naverLogin() {
@@ -40,12 +53,12 @@ export default {
         // console.log(res.data.url)
         // const request_url = "https://nid.naver.com/oauth2.0/authorize?cliend_id=" + KEY.NAVER_CLIENT_ID + "&redirect_uri=http://localhost:8080/user/login&response_type=code"
         // console.log(request_url)
-        window.open(res.data.url);
+        location.href=res.data.url
       });
     },
     kakaoLogin() {
       axios.get("http://127.0.0.1:8000/accounts/login/kakao/").then((res) => {
-        window.open(res.data.url);
+        location.href=res.data.url
       });
     },
   },
@@ -113,9 +126,9 @@ export default {
                 console.log(res);
                 this.$cookie.set("token", res.data.token);
               })
-              .then(() => {
-                window.close();
-              });
+              // .then(() => {
+              //   window.close();
+              // });
           })
           .catch((err) => console.log(err.response));
       } else {
@@ -140,11 +153,22 @@ export default {
                 res.data
               )
               .then((res) => {
-                console.log(res);
-                this.$cookie.set("token", res.data.token);
+                // console.log('hi')
+                // console.log(res)
+                this.login(res)
               })
               .then(() => {
-                window.close();
+                console.log('hihi')
+                if (this.$store.state.profile_saved === 1){
+                  console.log(this.$store.state.userInfo)
+                  if (this.$store.state.image_saved === 1){
+                    this.$router.push({name:'Main'})
+                  }else{
+                    console.log('사진첩저장')
+                  }
+                } else{
+                  this.$router.push({name:'Userinfo'})
+                }
               });
           });
       }
