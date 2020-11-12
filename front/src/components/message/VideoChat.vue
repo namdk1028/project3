@@ -1,7 +1,9 @@
 <template>
     <div>
         <video playsInline muted id="my-video" autoPlay></video>
-        <video v-if="callAccepted=true" playsInline id="partner-video" autoPlay></video>
+        <video v-if="callAccepted=true" playsInline id="partner-video" autoPlay>
+        </video>
+        <p v-if="calling==true">전화를 거는 중</p>
         <button @click='exit'>Exit</button>
         <button v-if="incomingCall == true" @click="acceptCall">Accept Call</button>
     </div>
@@ -13,12 +15,14 @@ const Peer = require('simple-peer');
 
 export default {
     props: {
+        isInitiator: Boolean,
         caller:String,
         callee:String,
     },
     data(){
         return {
             stream: '',
+            calling: false, 
             callAccepted: false,
             incomingCall: false,
             from: '',
@@ -35,12 +39,14 @@ export default {
             }
         },
         callPeer: function(){
+            console.log('Apply for calling')
             const myPeer = new Peer({
                 initiator: true,
                 trickle: false, 
                 stream: this.stream
             });
             myPeer.on('signal', data => {
+                console.log('피어 시그널 시작!')
                 const callInfo = {
                     caller: this.caller,
                     callee: this.callee,
@@ -84,6 +90,9 @@ export default {
 
         exit: function(){
             this.$emit('endcall');
+            this.stream.getTracks().forEach(function(track){
+                track.stop();
+            })
         }
         
     },
@@ -97,6 +106,11 @@ export default {
             this.from = data.from
             this.callerSignal = data.signalData
         })
+
+        if (this.isInitiator) {
+            this.calling = true
+            this.callPeer()
+        }
     }
 }
 </script>

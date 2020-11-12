@@ -40,8 +40,17 @@
       </div>
     </div>
   </div>
+  <div v-else-if="incomingCall==true">
+    <p>화상 전화가 왔습니다!</p>
+    <button @click="acceptCall">수락하기</button>
+    <video playsInline muted id="my-video" autoPlay></video>
+  </div>
   <div v-else>
-    <VideoChat v-bind:caller="user" v-bind:callee="myPartner" v-on:endcall="activeVideoCall=false"/>
+    <VideoChat 
+    v-bind:caller="user" 
+    v-bind:callee="myPartner"
+    v-bind:isInitiator="isInitiator" 
+    v-on:endcall="activeVideoCall=false"/>
   </div>
 </template>
 
@@ -50,6 +59,7 @@ import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
 import VideoChat from "../components/message/VideoChat"
 import Title from "../components/common/Title"
+import Peer from "simple-peer"
 
 export default {
   props: {
@@ -58,13 +68,17 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "Kim",
+      user: "yeonsu",
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
       unreadCount: 0,
       activeVideoCall: false,
       receiveVideoCall: false,
+      isInitiator: true,
+      incomingCall: false,
+      from: false,
+      callerSignal: '',
     }
   },
   components: {
@@ -94,7 +108,26 @@ export default {
     },
     activateVideoCall: function(){
       this.activeVideoCall = true;
-    }
+    },
+    acceptCall: function(){
+            this.callAccepted = true;
+            const peer = new Peer({
+                initiator: false,
+                trickle: false,
+                stream: this.stream,
+            })
+
+            peer.on("signal", data => {
+                this.$socket.emit("acceptCall", {signalData: data, caller: this.from})
+            })
+
+            peer.on('stream', stream => {
+                const partnerVideo = document.querySelector('#partner-video');
+                partnerVideo.srcObject = stream
+            })
+
+            peer.signal(this.callerSignal);
+        },
     
   },
   updated : function() {
@@ -113,7 +146,9 @@ export default {
       //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
       this.$socket.on('fetch-chatlog-callback', chatlog => {
+        console.log('got fetched data')
         this.getChat(chatlog);
+        console.log(chatlog)
       })
 
       //Emit event to receive unread message count <= use it when user is not in chat room to alert unread message
@@ -122,11 +157,22 @@ export default {
         this.getUnreadCount(count);
       })
 
+      this.$socket.on('new-message-fin', function(){
+        console.log('updating chat log');
+        this.updateChatLog;
+      })
+
       //Emit event to erase unread message
       this.$socket.emit('read-message', chatInfo);
         
       //Testing purpose event handler
-      this.$socket.emit('socket-init', 'Kim')
+      this.$socket.emit('socket-init', this.user)
+
+      this.$socket.on('incoming-call', data => {
+            this.incomingCall = true
+            this.from = data.from
+            this.callerSignal = data.signalData
+        })
   }
 }
 </script>

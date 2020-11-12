@@ -6,9 +6,8 @@ import vuetify from './plugins/vuetify';
 import VueCookie from "vue-cookie";
 import axios from "axios";
 import io from 'socket.io-client';
-
-const socket = io('http://k3a507.p.ssafy.io:3000');
-// const socket = io('http://localhost:3000');
+ const socket = io('http://k3a507.p.ssafy.io:3000');
+//const socket = io('http://localhost:3000');
 
 //Initialize socket
 Vue.prototype.$socket = socket;
