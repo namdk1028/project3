@@ -34,13 +34,8 @@
 
 <script>
 export default {
-<<<<<<< HEAD
-  props: {
-    number: Number
-=======
   props:{
     room: Object
->>>>>>> b20536bc1e73aa10c448be0af74994fb38e70130
   },
   data() {
     return {
@@ -50,7 +45,6 @@ export default {
       unread: 0
     }
   },
-<<<<<<< HEAD
   methods : {
     deleteMessage() {
       console.log("check")
@@ -63,10 +57,7 @@ export default {
       else {
         message.classList.add('hide')
       }
-  }
-
-}}
-=======
+  },
   mounted: function(){
     const recentMsg = this.room.messages
     this.unread = this.room.unread
@@ -76,8 +67,9 @@ export default {
     this.recentDate = Object.values(recentMsg)[0].date
 
   }
+
 }
->>>>>>> b20536bc1e73aa10c448be0af74994fb38e70130
+}
 </script>
 
 <style>

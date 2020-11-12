@@ -31,14 +31,11 @@ export default {
   methods: {
   },
   mounted() {
-<<<<<<< HEAD
-=======
-    this.test()
     this.$socket.emit('fetch-chatroom', this.user)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = rooms;
+      console.log(this.rooms)
     })
->>>>>>> b20536bc1e73aa10c448be0af74994fb38e70130
   }
 
 }
