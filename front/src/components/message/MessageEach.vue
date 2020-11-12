@@ -11,16 +11,16 @@
         {{ partner }}
       </div>
       <div class='message-content-body'>
-        안녕 나는 김나연이야 서울 싸피에서 자율 프로젝트를 하고있지 우후훗
+        {{ recentText }}
       </div>
     </div>
     <div class="message-new">
       <div class="message-new-time">
-        2020-11-03
+        {{ recentDate }}
       </div>
-      <div class="message-new-number">
+      <div v-if="unread > 0" class="message-new-number">
         <v-avatar color="#fca69d" size="20">
-          1
+          {{ unread }}
         </v-avatar>
       </div>
     </div>
@@ -29,12 +29,26 @@
 
 <script>
 export default {
+  props:{
+    room: Object
+  },
   data() {
     return {
       partner: "kimnayu",
+      recentText: '',
+      recentDate: '',
+      unread: 0
     }
   },
+  mounted: function(){
+    const recentMsg = this.room.messages
+    this.unread = this.room.unread
+    console.log(Object.values(recentMsg)[0])
+    this.partner = Object.values(recentMsg)[0].reciever
+    this.recentText = Object.values(recentMsg)[0].text
+    this.recentDate = Object.values(recentMsg)[0].date
 
+  }
 }
 </script>
 

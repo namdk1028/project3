@@ -2,16 +2,12 @@
   <div>
     <Title :title="title" />
     <div class="message-body">
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
-      <MessageEach />
+      <MessageEach 
+      v-for="room in rooms"
+      v-bind:room="room" 
+      v-bind:key="room.id" 
+      v-bind:partner="room.partner"
+      v-bind:recentText="room.message" />
     </div>
   </div>
 </template>
@@ -24,6 +20,8 @@ export default {
   data() {
     return {
       title: 'Message',
+      rooms: [],
+      user: 'Kim'
     }
   },
   components: {
@@ -37,6 +35,10 @@ export default {
   },
   mounted() {
     this.test()
+    this.$socket.emit('fetch-chatroom', this.user)
+    this.$socket.on('fetch-chatroom-callback', rooms => {
+      this.rooms = rooms;
+    })
   }
 
 }
