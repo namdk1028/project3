@@ -2,13 +2,26 @@
 const { EFAULT } = require('constants');
 const express = require('express');
 const app = express();
-const server = require('http').Server(app);
-const io = require('socket.io')(server)
+const cors = require('cors');
+const {v4:uuidv4} = require('uuid');
 
-//listening on port 3000
-server.listen(3000);
 app.set('view engine', 'ejs');
+app.use(cors());
 
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+  cors: {
+    // origin: 'http://k3a507.p.ssafy.io',
+    origin: 'http://localhost:8080',
+    methods: ['GET', 'POST']
+  }
+});
+
+server.listen(3000);
+
+app.get('/', function(req, res) {
+  res.json({message: "welcome to websocket for ssafy 507"})
+})
 //firebase settings
 const firebase = require('firebase');
 const firebaseConfig = {
@@ -24,7 +37,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-let rooms = []
+let rooms = [];
+let videoRooms = {
+  "143ae1b3-4126-4a72-91cb-07df1ef00b2f": []
+};
 
 //on socket connection
 io.on('connection', (socket) => {
@@ -160,6 +176,43 @@ io.on('connection', (socket) => {
         })
       })
     })
+    //채팅방 fetcher
+    socket.on('fetch-chatroom', user => {
+      const chatRoomRef = database.ref(`/Logs/${user}/Receiver`)
+      chatRoomRef.once('value').then(function(snapshot){
+        console.log(snapshot.val())
+        socket.emit('fetch-chatroom-callback', snapshot.val())
+      })
+    })
+
+
+
+    //영상통화 발신시 발동되는 함수
+    socket.on('callUser', data => {
+      const caller = data.caller; const callee = data.callee; const signal = data.signalData;
+      const roomNumberRef = database.ref(`/Logs/${data.caller}/Receiver/${data.callee}/videochatroom`);
+      const roomNumber = isRoomExist(data.caller, data.callee)
+      roomNumberRef.once('value').then(function(snapshot) {
+        const roomNumber = snapshot.val();
+      })
+      socket.to(data.callee).emit('incoming-call', {signalData: signal, from: caller});
+    })
+
+    socket.on('acceptCall', data => {
+      const signal = data.signalData; const to = data.caller;
+      socket.to(data.caller).emit('callAccpeted', signal)
+    })
+
+    // socket.on('check-initiator', userInfo => {
+    //   console.log('User Info')
+    //   console.log(userInfo)
+    //   checkVideoChatOccupancy(userInfo, socket);
+    // })
+
+    // socket.on('calling', data => {
+    //   socket.broadcast.emit('incoming-call', data.data);
+    // })
+
 })
 
 const checkPartnerSocketId = function(partnerId) {
@@ -168,3 +221,41 @@ const checkPartnerSocketId = function(partnerId) {
     console.log('partner socket id ' + snapshot.val())
   })
 }
+
+const isRoomExist = function(caller, callee){
+      const roomNumberRef = database.ref(`/Logs/${caller}/Receiver/${callee}/videochatroom`);
+      roomNumberRef.once('value').then(function(snapshot) {
+          const roomNumber = snapshot.val();
+          if (roomNumber != null) {
+              return roomNumber;
+          } else {
+              const newRoomNumber = uuidv4();
+              roomNumberRef.set(newRoomNumber);
+              const reverseRef = database.ref(`/Logs/${callee}/Receiver/${caller}/videochatroom`);
+              reverseRef.set(newRoomNumber);
+              videoRooms[newRoomNumber] = [];
+              return newRoomNumber;
+          }
+      })
+  };
+
+const setSocketId = function(user){
+  database.ref('/socketId').child(user).set(socket.id)
+}
+
+//   const checkVideoChatOccupancy = function(userInfo, socket){
+//     const roomNumberRef = database.ref(`/Logs/${userInfo.caller}/Receiver/${userInfo.callee}/videochatroom`);
+//     roomNumberRef.once('value').then(function(snapshot) {
+//       console.log(snapshot.val())
+//       const myRoom = videoRooms[snapshot.val()]
+//       console.log(myRoom)
+//       socket.join(myRoom)
+//       if (myRoom.length == 0) {
+//         myRoom.push(userInfo.caller);
+//         socket.emit('check-initiator-fin', true);
+//       } else {
+//         myRoom.push(userInfo.caller);
+//         socket.emit('check-initiator-fin', false)
+//       }
+//     })
+//   }

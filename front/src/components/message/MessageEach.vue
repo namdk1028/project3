@@ -12,23 +12,18 @@
               src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
         </v-avatar>
       </div>
-      <div class='message-content'>
-        <div class='message-content-username'>
-          {{ partner }}
-        </div>
-        <div class='message-content-body'>
-          안녕 나는 김나연이야 서울 싸피에서 자율 프로젝트를 하고있지 우후훗
-        </div>
+      <div class='message-content-body'>
+        {{ recentText }}
       </div>
-      <div class="message-new">
-        <div class="message-new-time">
-          2020-11-03
-        </div>
-        <div class="message-new-number">
-          <v-avatar color="#fca69d" size="20">
-            1
-          </v-avatar>
-        </div>
+    </div>
+    <div class="message-new">
+      <div class="message-new-time">
+        {{ recentDate }}
+      </div>
+      <div v-if="unread > 0" class="message-new-number">
+        <v-avatar color="#fca69d" size="20">
+          {{ unread }}
+        </v-avatar>
       </div>
     </div>
     <div class='message-delete hide'>
@@ -39,14 +34,23 @@
 
 <script>
 export default {
+<<<<<<< HEAD
   props: {
     number: Number
+=======
+  props:{
+    room: Object
+>>>>>>> b20536bc1e73aa10c448be0af74994fb38e70130
   },
   data() {
     return {
       partner: "kimnayu",
+      recentText: '',
+      recentDate: '',
+      unread: 0
     }
   },
+<<<<<<< HEAD
   methods : {
     deleteMessage() {
       console.log("check")
@@ -62,6 +66,18 @@ export default {
   }
 
 }}
+=======
+  mounted: function(){
+    const recentMsg = this.room.messages
+    this.unread = this.room.unread
+    console.log(Object.values(recentMsg)[0])
+    this.partner = Object.values(recentMsg)[0].reciever
+    this.recentText = Object.values(recentMsg)[0].text
+    this.recentDate = Object.values(recentMsg)[0].date
+
+  }
+}
+>>>>>>> b20536bc1e73aa10c448be0af74994fb38e70130
 </script>
 
 <style>
