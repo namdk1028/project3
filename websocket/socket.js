@@ -5,23 +5,23 @@ const app = express();
 const cors = require('cors');
 const {v4:uuidv4} = require('uuid');
 
-app.set('view engine', 'ejs');
-app.use(cors());
+//app.set('view engine', 'ejs');
+//app.use(cors());
 
-const server = require('http').Server(app);
-const io = require('socket.io')(server, {
+//const server = require('http').Server(app);
+const io = require('socket.io')(3030, {
   cors: {
     // origin: 'http://k3a507.p.ssafy.io',
-    origin: 'http://localhost:8080',
+    origin: true,
     methods: ['GET', 'POST']
   }
 });
 
-server.listen(3000);
+//server.listen(3030);
 
-app.get('/', function(req, res) {
-  res.json({message: "welcome to websocket for ssafy 507"})
-})
+//app.get('/', function(req, res) {
+//  res.json({message: "welcome to websocket for ssafy 507"})
+//})
 //firebase settings
 const firebase = require('firebase');
 const firebaseConfig = {
@@ -38,42 +38,16 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
 let rooms = [];
-let videoRooms = {
-  "143ae1b3-4126-4a72-91cb-07df1ef00b2f": []
-};
 
 //on socket connection
 io.on('connection', (socket) => {
+    console.log(rooms)
     console.log(`new socket detected, socket id: ${socket.id}`)
     //Emit initial event to retrieve userid
-    
-    //Socket Id Update **2020.11.10** function confirmed
-    socket.on('socket-init', userId => {
-      console.log('socket initialization')
-      if (rooms.includes(userId)){
-        socket.join(userId)
-      } else {
-        rooms.push(userId)
-        socket.join(userId)
-      }
-      console.log('current room status\n' + `rooms: ${rooms}`)
-      const socketRef = database.ref('/socketId')
-      socketRef.once('value').then(function(snapshot) {
-        console.log('current socket status')
-        console.log(snapshot.val())
-        if (snapshot.hasChild(userId)){
-          console.log('new user socket id')
-          socketRef.child(userId).set(socket.id);
-        } else {
-          console.log('update previous socket id')
-          socketRef.child(userId).set(socket.id)
-        }
-      })
-    })
-
     //Function for new message
     //Sending new message **2020.11.10** function confirmed
     socket.on('new-message', messageInfo => {
+      console.log(rooms)
       const date = new Date()
       const today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
       const time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
@@ -129,18 +103,28 @@ io.on('connection', (socket) => {
           })
         }
         //update message if receiver is on chat
-        io.to(messageFormat.reciever).emit('new-message-fin')
+        const socketIdRef = database.ref(`/socketId/${messageFormat.reciever}`)
+        socketIdRef.once('value').then(function(snapshot) {
+          const socketId = snapshot.val();
+          console.log('상대방 소켓: ' + socketId)
+          io.to(socketId).emit('new-message-fin')
+          socket.to(messageFormat.reciever).emit('new-message-fin')
+        })
       })
     })
     
     //ChatLog fetcher
     socket.on('fetch-chatlog', chatInfo => {
+      console.log(rooms)
       console.log('fetching chat logs....')
       const sender = chatInfo.sender;
       const receiver = chatInfo.receiver;
       const chatlogRef = database.ref(`/Logs/${sender}/Receiver/${receiver}`)
       chatlogRef.child('messages').once('value').then(function(snapshot) {
+        console.log(snapshot.val())
+        console.log(rooms)
         io.to(sender).emit('fetch-chatlog-callback', snapshot.val())
+        socket.emit('fetch-chatlog-callback', snapshot.val())
       })
     })
 
@@ -178,6 +162,7 @@ io.on('connection', (socket) => {
     })
     //채팅방 fetcher
     socket.on('fetch-chatroom', user => {
+      console.log(rooms)
       const chatRoomRef = database.ref(`/Logs/${user}/Receiver`)
       chatRoomRef.once('value').then(function(snapshot){
         console.log(snapshot.val())
@@ -185,22 +170,47 @@ io.on('connection', (socket) => {
       })
     })
 
-
-
     //영상통화 발신시 발동되는 함수
     socket.on('callUser', data => {
+      console.log("got a call request")
       const caller = data.caller; const callee = data.callee; const signal = data.signalData;
-      const roomNumberRef = database.ref(`/Logs/${data.caller}/Receiver/${data.callee}/videochatroom`);
-      const roomNumber = isRoomExist(data.caller, data.callee)
-      roomNumberRef.once('value').then(function(snapshot) {
-        const roomNumber = snapshot.val();
+      const socketIdRef = database.ref('/socketId/' + callee);
+      socketIdRef.once('value').then(function(snapshot){
+        console.log(snapshot.val())
+        console.log(callee)
+      io.to(snapshot.val()).emit('incoming-call', {signalData: signal, from: caller});
+      io.to(snapshot.val()).emit('connection-test')
       })
-      socket.to(data.callee).emit('incoming-call', {signalData: signal, from: caller});
     })
 
     socket.on('acceptCall', data => {
       const signal = data.signalData; const to = data.caller;
       socket.to(data.caller).emit('callAccpeted', signal)
+    })
+
+    socket.on('answerthephone', user=>{
+      socket.to(user).emit('request-answer');
+    })
+
+    socket.on('initialize-socket', userId => {
+      console.log('socket initialization')
+      if (rooms.includes(userId)){
+        socket.join(userId)
+        console.log(`${userId}가 ${userId}에 입장했습니다.`)
+      } else {
+        rooms.push(userId)
+        socket.join(userId)
+        console.log(`${userId}가 ${userId}에 입장했습니다.`)
+      }
+      console.log('current room status\n' + `rooms: ${rooms}`)
+      const socketRef = database.ref('/socketId')
+      socketRef.once('value').then(function(snapshot) {
+        if (snapshot.hasChild(userId)){
+          socketRef.child(userId).set(socket.id);
+        } else {
+          socketRef.child(userId).set(socket.id)
+        }
+      })
     })
 
     // socket.on('check-initiator', userInfo => {
