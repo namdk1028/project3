@@ -69,6 +69,7 @@ export default {
 
         },
         acceptCall: function(){
+            console.log('answering phone call')
             this.callAccepted = true;
             const peer = new Peer({
                 initiator: false,
@@ -108,9 +109,14 @@ export default {
         })
 
         if (this.isInitiator) {
+            console.log(`${this.caller}가 ${this.callee}에게 화상통화 연결을 요청합니다.`)
             this.calling = true
             this.callPeer()
         }
+
+        this.$socket.on('request-answer', ()=>{
+            this.acceptCall
+        })
     }
 }
 </script>

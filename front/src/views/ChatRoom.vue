@@ -40,17 +40,12 @@
       </div>
     </div>
   </div>
-  <div v-else-if="incomingCall==true">
-    <p>화상 전화가 왔습니다!</p>
-    <button @click="acceptCall">수락하기</button>
-    <video playsInline muted id="my-video" autoPlay></video>
-  </div>
   <div v-else>
     <VideoChat 
     v-bind:caller="user" 
     v-bind:callee="myPartner"
     v-bind:isInitiator="isInitiator" 
-    v-on:endcall="activeVideoCall=false"/>
+    v-on:endcall="endCall"/>
   </div>
 </template>
 
@@ -59,7 +54,6 @@ import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
 import VideoChat from "../components/message/VideoChat"
 import Title from "../components/common/Title"
-import Peer from "simple-peer"
 
 export default {
   props: {
@@ -109,26 +103,10 @@ export default {
     activateVideoCall: function(){
       this.activeVideoCall = true;
     },
-    acceptCall: function(){
-            this.callAccepted = true;
-            const peer = new Peer({
-                initiator: false,
-                trickle: false,
-                stream: this.stream,
-            })
-
-            peer.on("signal", data => {
-                this.$socket.emit("acceptCall", {signalData: data, caller: this.from})
-            })
-
-            peer.on('stream', stream => {
-                const partnerVideo = document.querySelector('#partner-video');
-                partnerVideo.srcObject = stream
-            })
-
-            peer.signal(this.callerSignal);
-        },
-    
+    endCall: function(){
+      this.activeVideoCall = false;
+      this.incomingCall = false;
+    }
   },
   updated : function() {
       // app_chat_list 의 변화가 발생할때마다 수행되는 영역
@@ -136,6 +114,13 @@ export default {
       var objDiv = document.getElementById("app_chat_list");
           // 채팅창 스크롤 바닥 유지
           objDiv.scrollTop = objDiv.scrollHeight;
+  },
+  watch: {
+    incomingCall: function(){
+      if (this.incomingCall){
+        this.$socket.emit('answerthephone', this.user)
+      }
+    }
   },
   created: function() {
       const chatInfo = {
