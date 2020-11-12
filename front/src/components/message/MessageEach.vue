@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      partner: "kimnayu",
+      partner: '',
       recentText: '',
       recentDate: '',
       unread: 0
@@ -57,6 +57,7 @@ export default {
       else {
         message.classList.add('hide')
       }
+    }
   },
   mounted: function(){
     const recentMsg = this.room.messages
@@ -65,10 +66,7 @@ export default {
     this.partner = Object.values(recentMsg)[0].reciever
     this.recentText = Object.values(recentMsg)[0].text
     this.recentDate = Object.values(recentMsg)[0].date
-
   }
-
-}
 }
 </script>
 

@@ -27,7 +27,7 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: 'Kim',
+      myId: 'yeonsu',
       myPartner: this.partner
     }
   },

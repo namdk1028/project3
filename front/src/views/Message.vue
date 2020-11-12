@@ -21,7 +21,7 @@ export default {
     return {
       title: 'Message',
       rooms: [],
-      user: 'Kim'
+      user: 'park'
     }
   },
   components: {

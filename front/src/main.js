@@ -8,8 +8,8 @@ import axios from "axios";
 import Vue2TouchEvents from 'vue2-touch-events'
  
 import io from 'socket.io-client';
-const socket = io('http://k3a507.p.ssafy.io:3000');
-// const socket = io('http://localhost:3000');
+// const socket = io('http://k3a507.p.ssafy.io:3000');
+const socket = io('http://localhost:3000');
 
 //Initialize socket
 Vue.prototype.$socket = socket;
