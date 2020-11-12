@@ -10,9 +10,5 @@ export default {
   name: 'Home',
   components: {
   },
-  mounted: function(){
-    const userId = 'yeonsu'
-    this.$socket.emit('socket-init', userId)
-  }
 }
 </script>

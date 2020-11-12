@@ -1,7 +1,7 @@
 <template>
   <div class='chat-input'>
     <Emoticon @addEmoticon="addEmoticon" />
-    <File /> 
+    <File @addFile="addFile" /> 
      <div class='chat-input-other' @click="fileBtn">
       <i class="fas fa-plus"></i>
     </div> 
@@ -65,6 +65,10 @@ export default {
           'text': this.chat_text
         }
         this.$socket.emit('new-message', messageInfo)
+        this.$socket.on('new-message-fin', () => {
+          console.log('new message saved to database')
+          this.$emit('update')
+        })
         this.textReset()
       }
     },

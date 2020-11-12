@@ -1,11 +1,16 @@
 <template>
-    <div>
+    <div v-if="incomingCall == false">
         <video playsInline muted id="my-video" autoPlay></video>
-        <video v-if="callAccepted=true" playsInline id="partner-video" autoPlay>
-        </video>
-        <p v-if="calling==true">전화를 거는 중</p>
+        <video v-if="callAccepted == true" playsInline id="partner-video" autoPlay></video>
+        <p v-if="calling == true">전화를 거는 중</p>
         <button @click='exit'>Exit</button>
-        <button v-if="incomingCall == true" @click="acceptCall">Accept Call</button>
+    </div>
+    <div v-else-if="incomingCall == true">
+        <button v-if="callAccepted == false" @click="acceptCall">Accept Call</button>
+        <!-- <div v-else>
+            <video playsInline muted id="my-video" autoPlay></video>
+            <video v-if="callAccepted == true" playsInline id="partner-video" autoPlay></video>
+        </div> -->
     </div>
 </template>
 
@@ -15,18 +20,18 @@ const Peer = require('simple-peer');
 
 export default {
     props: {
+        incomingCall: String,
         isInitiator: Boolean,
         caller:String,
         callee:String,
+        callerSignal:Object,
     },
     data(){
         return {
             stream: '',
             calling: false, 
             callAccepted: false,
-            incomingCall: false,
             from: '',
-            callerSignal: '',
         }
         
     },
@@ -42,7 +47,21 @@ export default {
             console.log('Apply for calling')
             const myPeer = new Peer({
                 initiator: true,
-                trickle: false, 
+                trickle: false,
+                // config: {
+                //     iceservers: [
+                //         {
+                //             urls: "stun:numb.viagenie.ca",
+                //             username: "yeonsu.kim91@hotmail.com",
+                //             credential: "rladustN12"
+                //         },
+                //         {
+                //             urls: "turn:numb.viagenie.ca",
+                //             username: "yeonsu.kim91@hotmail.com",
+                //             credential: "rladustN12"
+                //         }
+                //     ]
+                // }, 
                 stream: this.stream
             });
             myPeer.on('signal', data => {
@@ -57,12 +76,15 @@ export default {
 
             myPeer.on('stream', stream => {
                 const partnerVideo = document.querySelector('#partner-video');
+                console.log('partner-video-stream')
+                console.log(stream)
                 if (partnerVideo) {
                     partnerVideo.srcObject = stream;
                 }
             })
 
             this.$socket.on('callAccepted', signal => {
+                console.log('전화연결됨')
                 this.callAccepted = true;
                 myPeer.signal(signal);
             })
@@ -78,7 +100,7 @@ export default {
             })
 
             peer.on("signal", data => {
-                this.$socket.emit("acceptCall", {signalData: data, caller: this.from})
+                this.$socket.emit("acceptCall", {signalData: data, caller: this.caller})
             })
 
             peer.on('stream', stream => {
@@ -102,21 +124,11 @@ export default {
             this.setStream(stream);
         })
 
-        this.$socket.on('incoming-call', data => {
-            this.incomingCall = true
-            this.from = data.from
-            this.callerSignal = data.signalData
-        })
-
         if (this.isInitiator) {
             console.log(`${this.caller}가 ${this.callee}에게 화상통화 연결을 요청합니다.`)
             this.calling = true
             this.callPeer()
         }
-
-        this.$socket.on('request-answer', ()=>{
-            this.acceptCall
-        })
     }
 }
 </script>

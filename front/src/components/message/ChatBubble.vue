@@ -32,7 +32,7 @@ export default {
   },
   methods : {
     checkEmoticon() {
-      console.log(this.chatlog.text.slice(0,9))
+      //console.log(this.chatlog.text.slice(0,9))
       if (this.chatlog.text.slice(0,9) === "!emoticon") {
         return true
       }
