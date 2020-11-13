@@ -20,7 +20,7 @@ const Peer = require('simple-peer');
 
 export default {
     props: {
-        incomingCall: String,
+        incomingCall: Boolean,
         isInitiator: Boolean,
         caller:String,
         callee:String,
@@ -48,20 +48,20 @@ export default {
             const myPeer = new Peer({
                 initiator: true,
                 trickle: false,
-                // config: {
-                //     iceservers: [
-                //         {
-                //             urls: "stun:numb.viagenie.ca",
-                //             username: "yeonsu.kim91@hotmail.com",
-                //             credential: "rladustN12"
-                //         },
-                //         {
-                //             urls: "turn:numb.viagenie.ca",
-                //             username: "yeonsu.kim91@hotmail.com",
-                //             credential: "rladustN12"
-                //         }
-                //     ]
-                // }, 
+                config: {
+                    // iceServers: [
+                    // {
+                    //     urls: "stun:numb.viagenie.ca",
+                    //     username: "sultan1640@gmail.com",
+                    //     credential: "98376683"
+                    // },
+                    // {
+                    //     urls: "turn:numb.viagenie.ca",
+                    //     username: "sultan1640@gmail.com",
+                    //     credential: "98376683"
+                    // }
+                    // ]
+                }, 
                 stream: this.stream
             });
             myPeer.on('signal', data => {
@@ -75,6 +75,7 @@ export default {
             })
 
             myPeer.on('stream', stream => {
+                console.log('스트림수신')
                 const partnerVideo = document.querySelector('#partner-video');
                 console.log('partner-video-stream')
                 console.log(stream)
@@ -85,6 +86,9 @@ export default {
 
             this.$socket.on('callAccepted', signal => {
                 console.log('전화연결됨')
+                if (myPeer()) {
+                    console.log(myPeer())
+                }
                 this.callAccepted = true;
                 myPeer.signal(signal);
             })
@@ -93,22 +97,25 @@ export default {
         acceptCall: function(){
             console.log('answering phone call')
             this.callAccepted = true;
-            const peer = new Peer({
+            const myPeer = new Peer({
                 initiator: false,
                 trickle: false,
                 stream: this.stream,
             })
 
-            peer.on("signal", data => {
-                this.$socket.emit("acceptCall", {signalData: data, caller: this.caller})
+            myPeer.on("signal", data => {
+                console.log('accepting call....')
+                this.$socket.emit("acceptCall", {signalData: data, caller: this.caller}, () => {
+                    console.log('acceptCall Event fired!')
+                })
             })
 
-            peer.on('stream', stream => {
+            myPeer.on('stream', stream => {
                 const partnerVideo = document.querySelector('#partner-video');
                 partnerVideo.srcObject = stream
             })
 
-            peer.signal(this.callerSignal);
+            myPeer.signal(this.callerSignal);
         },
 
         exit: function(){

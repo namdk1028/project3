@@ -31,9 +31,11 @@ export default {
   methods: {
   },
   mounted() {
+    this.$socket.emit('initialize-socket')
     this.$socket.emit('fetch-chatroom', this.user)
     this.$socket.on('fetch-chatroom-callback', rooms => {
-      this.rooms = rooms;
+      console.log('방목록 불러오기')
+      this.rooms = rooms.rooms;
       console.log(this.rooms)
     })
   }

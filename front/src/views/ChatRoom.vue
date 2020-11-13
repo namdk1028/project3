@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!activeVideoCall">
+  <div v-if="!activeVideoCall && !incomingCall">
     <Title :title="title" />
     <div class='chat'>
       <div class='chat-header'>
@@ -40,7 +40,7 @@
       </div>
     </div>
   </div>
-  <div v-else-if="receiveVideoCall == true">
+  <div v-else-if="incomingCall == true">
     <VideoChat 
     v-bind:incomingCall="true"
     v-bind:caller="myPartner" 
@@ -129,7 +129,12 @@ export default {
   updated: function() {
     var objDiv = document.getElementById("app_chat_list");
           // 채팅창 스크롤 바닥 유지
-    objDiv.scrollTop = objDiv.scrollHeight;
+    if (objDiv.scrollHeight != null){
+      objDiv.scrollTop = objDiv.scrollHeight;
+      }
+    else if (objDiv.scrollHeight == null ) {
+      console.log('-----SCREEN AT BOTTOM-----')
+    }
   },
   created: function() {
       this.$socket.emit('initialize-socket', this.user)
@@ -158,15 +163,20 @@ export default {
       
       this.$socket.on('new-message-fin', (newMessage) => {
         console.log('새로운메세지')
-        console.log(typeof(this.chatlog))
         const newChatlog = this.chatlog
-        newChatlog.push(newMessage)
-        this.chatlog = newChatlog
+        //새로 대화하는 경우 chatlog
+        if (!newChatlog) {
+          this.chatlog = [newMessage];
+        } else {
+          newChatlog.push(newMessage)
+          this.chatlog = newChatlog
+        }
       })
 
       //Emit event to erase unread message
       this.$socket.emit('read-message', chatInfo);
-        
+      
+      //incoming call
       this.$socket.on('incoming-call', data => {
             this.incomingCall = true
             this.isInitiator = false

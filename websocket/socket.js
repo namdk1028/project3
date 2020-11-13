@@ -82,7 +82,7 @@ io.on('connection', (socket) => {
         }
         let senderMessageFormat = messageFormat
         senderMessageFormat.isRead = true
-        const newKey = myMessageLogRef.child(`${messageFormat.reciever}/messages`).push()
+        const newKey = myMessageLogRef.child(`${messageFormat.receiver}/messages`).push()
         newKey.set(senderMessageFormat)
         //io.to(socketId[messageFormat.sender]).emit('new-message-fin')
       })
@@ -104,8 +104,7 @@ io.on('connection', (socket) => {
             return unread + 1;
           })
         }
-      io.to(socketId[messageFormat.sender]).emit('new-message-fin', messageFormat)
-      io.to(socketId[messageFormat.receiver]).emit('new-message-fin', messageFormat)
+      io.to(socketId[messageFormat.sender]).to(socketId[messageFormat.receiver]).emit('new-message-fin', messageFormat)
 
 
 
@@ -168,14 +167,22 @@ io.on('connection', (socket) => {
         })
       })
     })
-    
+
+    //채팅방 fetcher
+    socket.on('fetch-chatroom', user => {
+      const chatRoomRef = database.ref(`/Logs/${user}/Receiver`)
+      chatRoomRef.once('value').then(function(snapshot){
+        console.log(snapshot.val())
+        io.to(socketId[user]).emit('fetch-chatroom-callback', {rooms: snapshot.val()});
+      })
+    })
 
     //영상통화 발신시 발동되는 함수
     socket.on('callUser', data => {
       console.log("got a call request")
       const caller = data.caller; const callee = data.callee; const signal = data.signalData;
       console.log("calling " + data.callee)
-      io.to(socketId[data.callee]).emit('incoming-call', {signalData: signal, from: caller});
+      io.to(socketId[callee]).emit('incoming-call', {signalData: signal, from: caller});
     })
 
     socket.on('acceptCall', data => {
@@ -193,41 +200,3 @@ const checkPartnerSocketId = function(partnerId) {
     console.log('partner socket id ' + snapshot.val())
   })
 }
-
-const isRoomExist = function(caller, callee){
-      const roomNumberRef = database.ref(`/Logs/${caller}/Receiver/${callee}/videochatroom`);
-      roomNumberRef.once('value').then(function(snapshot) {
-          const roomNumber = snapshot.val();
-          if (roomNumber != null) {
-              return roomNumber;
-          } else {
-              const newRoomNumber = uuidv4();
-              roomNumberRef.set(newRoomNumber);
-              const reverseRef = database.ref(`/Logs/${callee}/Receiver/${caller}/videochatroom`);
-              reverseRef.set(newRoomNumber);
-              videoRooms[newRoomNumber] = [];
-              return newRoomNumber;
-          }
-      })
-  };
-
-const setSocketId = function(user){
-  database.ref('/socketId').child(user).set(socket.id)
-}
-
-//   const checkVideoChatOccupancy = function(userInfo, socket){
-//     const roomNumberRef = database.ref(`/Logs/${userInfo.caller}/Receiver/${userInfo.callee}/videochatroom`);
-//     roomNumberRef.once('value').then(function(snapshot) {
-//       console.log(snapshot.val())
-//       const myRoom = videoRooms[snapshot.val()]
-//       console.log(myRoom)
-//       socket.join(myRoom)
-//       if (myRoom.length == 0) {
-//         myRoom.push(userInfo.caller);
-//         socket.emit('check-initiator-fin', true);
-//       } else {
-//         myRoom.push(userInfo.caller);
-//         socket.emit('check-initiator-fin', false)
-//       }
-//     })
-//   }
