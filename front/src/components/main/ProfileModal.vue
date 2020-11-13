@@ -228,7 +228,7 @@ export default {
   text-align: left;
 } */
 
-.modal-close {
+.swiper-wrapper .modal-close {
   color: gray !important;
   background: white;
   font-size: 2rem;
