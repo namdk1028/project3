@@ -1,19 +1,19 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
 //user
-import Login from '../views/user/Login.vue'
-import Signup from '../views/user/Signup.vue'
-import UserInfo from '../views/user/UserInfo.vue'
+import Login from "../views/user/Login.vue";
+import Signup from "../views/user/Signup.vue";
+import UserInfo from "../views/user/UserInfo.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: "/",
+    name: "Home",
+    component: Home,
   },
   {
     path: "/main",
@@ -34,41 +34,35 @@ const routes = [
     path: "/chat/:partner",
     name: "ChatRoom",
     component: () => import("../views/ChatRoom.vue"),
-    props: true
+    props: true,
   },
   {
-    path: "/chatcopy/:partner",
-    name: "ChatRoomCopy",
-    component: () => import("../views/ChatRoomCopy.vue"),
-    props: true
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
+    path: "/profile",
+    name: "Profile",
     component: () => import("../views/Profile.vue"),
   },
   //user
   {
-    path: '/user/login',
-    name: 'Login',
-    component: Login
+    path: "/user/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/user/signup',
-    name: 'Signup',
-    component: Signup
+    path: "/user/signup",
+    name: "Signup",
+    component: Signup,
   },
   {
-    path: '/user/userinfo',
-    name: 'userinfo',
-    component: UserInfo
+    path: "/user/userinfo",
+    name: "Userinfo",
+    component: UserInfo,
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;

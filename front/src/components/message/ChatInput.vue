@@ -19,7 +19,7 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
-import File from "../message/File"
+// import File from "../message/File"
 export default {
   props: {
     partner: String
@@ -27,13 +27,13 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: 'yeonsu',
+      myId: 'Nam',
       myPartner: this.partner
     }
   },
   components: {
     Emoticon,
-    File,
+    // File,
   },
   methods: {
     emoticonBtn() {
@@ -66,6 +66,7 @@ export default {
         }
         this.$socket.emit('new-message', messageInfo)
         this.textReset()
+        document.querySelector(".content").focus()
       }
     },
     addEmoticon(emoticon) {

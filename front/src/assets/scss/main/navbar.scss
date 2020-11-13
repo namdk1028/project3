@@ -20,4 +20,19 @@
       outline: none;
     }
   }
+  .unread-meesage {
+    position: absolute;
+    display: flex;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    top: 0.8rem;
+    border-radius: 45% 45%;
+    background-color: red;
+    font-size: 0.7rem;
+    color: white;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 1.6rem;
+  }
 }

@@ -3,11 +3,11 @@
     <Title :title="title" />
     <div class="message-body">
       <MessageEach 
-      v-for="room in rooms"
+      v-for="(room, idx) in rooms"
       v-bind:room="room" 
-      v-bind:key="room.id" 
-      v-bind:partner="room.partner"
-      v-bind:recentText="room.message" />
+      v-bind:key="idx"
+      :number="idx"
+      />
     </div>
   </div>
 </template>
@@ -34,9 +34,7 @@ export default {
     this.$socket.emit('initialize-socket')
     this.$socket.emit('fetch-chatroom', this.user)
     this.$socket.on('fetch-chatroom-callback', rooms => {
-      console.log('방목록 불러오기')
-      this.rooms = rooms.rooms;
-      console.log(this.rooms)
+      this.rooms = Object.values(rooms);
     })
   }
 

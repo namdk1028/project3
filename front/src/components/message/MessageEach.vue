@@ -1,10 +1,10 @@
 <template>
   <v-layout class='message'
-    v-touch="{
-      left: () => swipe('Left'),
-      right: () => swipe('Right'),
-    }"
-  >
+      v-touch="{
+        left: () => swipe('Left'),
+        right: () => swipe('Right'),
+      }"
+    >
     <div class='message-each' @click="$router.push('/chat/'+partner)">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
@@ -12,30 +12,37 @@
               src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
         </v-avatar>
       </div>
-      <div class='message-content-body'>
-        {{ recentText }}
+      <div class='message-content'>
+        <div class='message-content-username'>
+          {{ partner }}
+        </div>
+        <div class='message-content-body'>
+          {{ recentText }}
+        </div>
       </div>
-    </div>
-    <div class="message-new">
-      <div class="message-new-time">
-        {{ recentDate }}
-      </div>
-      <div v-if="unread > 0" class="message-new-number">
-        <v-avatar color="#fca69d" size="20">
-          {{ unread }}
-        </v-avatar>
+      <div class="message-new">
+        <div class="message-new-time">
+          {{ recentDate }}
+        </div>
+        <div v-if="unread > 0" class="message-new-number">
+          <v-avatar color="#fca69d" size="20">
+            {{ unread }}
+          </v-avatar>
+        </div>
       </div>
     </div>
     <div class='message-delete hide'>
       <h4 class='text' @click='deleteMessage'>삭제</h4>
     </div>
   </v-layout>
+
 </template>
 
 <script>
 export default {
   props:{
-    room: Object
+    room: Object,
+    number: Number,
   },
   data() {
     return {
@@ -50,7 +57,7 @@ export default {
       console.log("check")
     },
     swipe(direction) {
-      const message = document.querySelectorAll('.message-delete')[this.number-1]
+      const message = document.querySelectorAll('.message-delete')[this.number]
       if (direction == "Left") {
         message.classList.remove('hide')
       }
@@ -60,9 +67,10 @@ export default {
     }
   },
   mounted: function(){
+    console.log(this.number)
     const recentMsg = this.room.messages
     this.unread = this.room.unread
-    console.log(Object.values(recentMsg)[0])
+    // console.log(Object.values(recentMsg)[0])
     this.partner = Object.values(recentMsg)[0].reciever
     this.recentText = Object.values(recentMsg)[0].text
     this.recentDate = Object.values(recentMsg)[0].date
@@ -75,6 +83,7 @@ export default {
   display: flex;
 }
 .message-each {
+  width: 100%;
   height: 12vh;
   display: flex;
   border: white solid 1px;
