@@ -7,40 +7,6 @@
       <div class='profile-modal-body'>
         <div v-if="state == 'up'">
           <i @click="arrowDown" class="fas fa-arrow-down"></i>
-          <!-- <div class="profile-modal-userinfo">
-            <div class='character'>
-              <div class="icon">
-                <i class="far fa-user"></i>
-              </div>
-              <div class="content">
-                천우희
-              </div>
-            </div>
-            <div class='character'>
-              <div class="icon">
-                <i class="fas fa-id-card-alt"></i>
-              </div>
-              <div class="content">
-                Actor
-              </div>
-            </div>
-            <div class='character'>
-              <div class="icon">
-                AGE
-              </div>
-              <div class="content">
-                34
-              </div>
-            </div>
-            <div class='character'>
-              <div class="icon">
-                <i class="fas fa-smoking"></i>
-              </div>
-              <div class="content">
-                No
-              </div>
-            </div>
-          </div> -->
           <div class="profile-modal-userinfo">
             <div style="background-color: rgb(241, 195, 195);">프로필</div>
             <div class="not-about">

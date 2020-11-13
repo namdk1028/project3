@@ -14,6 +14,11 @@
                 <chatSVG v-if="!chatActive" />
                 <chatfilledSVG v-if="chatActive" />
               </button>
+              <div class="unread-meesage" v-if="unreadMessage">
+                <div>{{ unreadMessage }}</div>
+              </div>
+              <div v-else>
+              </div>
           </div>
           <div class="navbar-item">
               <button class="navbar-btn" @click="moveToProfile">
@@ -49,6 +54,16 @@ export default {
         mainActive: true,
         chatActive: false,
         profileActive: false,
+        unreadMessageCount: 4,
+      }
+    },
+    computed: {
+      unreadMessage() {
+        var count = this.unreadMessageCount
+        if (count > 99) {
+          count = "99+"
+        }
+        return count 
       }
     },
     methods: {

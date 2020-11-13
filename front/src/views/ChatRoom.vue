@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "yeonsu",
+      user: "Nam",
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
