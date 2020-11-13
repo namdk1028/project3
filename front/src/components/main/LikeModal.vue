@@ -1,7 +1,7 @@
 <template>
   <div class='like-modal'>
     <div class="like-modal-title">
-      사용 가능 코인 : 8 <i class="fas fa-coins"></i>
+      사용 가능 코인 : {{ coin }} <i class="fas fa-coins"></i>
     </div>
     <div class="like-modal-body">
       <div class='text'><p class='coin'>코인 2개</p>로</div>
@@ -25,10 +25,21 @@ export default {
   props: {
     test: Object
   },
+  data() {
+    return {
+      coin: 10,
+    }
+  },
   methods: {
     okBtn() {
-      
+      if (this.coin > 0) {
+        this.coin = this.coin - 2
+        document.querySelector('.heart-animation').classList.remove('hide')
+        setTimeout(() => {
+          document.querySelector('.heart-animation').classList.add('hide')
+        }, 2000);
       this.exitBtn()
+      }
     },
     exitBtn() {
       this.$emit('closeModal')

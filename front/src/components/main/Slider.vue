@@ -51,6 +51,7 @@
           <div class='swiper-bottom'>
             <h1 class="swiper-bottom-name">{{ user.name }}, {{ user.age }} </h1>
             <p class='swiper-bottom-introduce'>이곳은 자기소개를 작성하는 곳입니다.</p>
+          
           </div>
           </v-img>
       </div>
@@ -78,7 +79,7 @@ SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCover
 export default {
   components: {
     ProfileModal,
-    LikeModal
+    LikeModal,
   },
   data() {
     return {
