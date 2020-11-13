@@ -1,0 +1,57 @@
+.container-profilepic {
+  position: fixed;
+  z-index: 99999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profilepic-background {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.profilepic-modal {
+  position: fixed;
+  width: 90vw;
+  height: 40vh;
+  .modal-header {
+    height: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-bottom: rgb(230, 230, 230) 2px solid;
+    color: gray;
+  }
+  .modal-body {
+    height: 100%;
+    background-color: white;
+    display: flex;
+    .upload-img,
+    .camera-img {
+      width: 50%;
+      height: 100%;
+      background-color: antiquewhite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      label {
+        font-size: 1.8rem;
+      }
+      input {
+        display: none;
+      }
+    }
+  }
+}
+
+.hide {
+  display: none;
+}
