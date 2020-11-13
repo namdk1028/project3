@@ -2,7 +2,10 @@
   <div class="container-notification">
       <div class="notification-header">
         <div class="profile-img">
-          <img src="https://img.insight.co.kr/static/2018/09/22/700/8n6ze13j22kxh0mj9p7f.jpg" @click="moveToProfile">
+          <v-dialog v-model="showProfile">
+            <ProfileModal @closeModal="showProfile=false" :test="user" />
+          </v-dialog>
+          <img :src=user.src @click="showProfile=true; user=user;">
           <div class="notification-icon"><i class="fas fa-heart"></i></div>
         </div>
       </div>
@@ -11,7 +14,7 @@
           나연
         </div> -->
         <div class='notification-content-body'>
-          <span class="notification-username" @click="moveToProfile">{{ user }}</span>님이 호감을 표시하셨습니다.
+          <span class="notification-username" @click="moveToProfile">{{ user.name }}</span>님이 호감을 표시하셨습니다.
         </div>
         <div class="notification-time">
           1시간 전
@@ -21,12 +24,20 @@
 </template>
 
 <script>
+import ProfileModal from "@/components/main/ProfileModal"
+
 export default {
     name: "Notification",
+    components: {
+      ProfileModal,
+    },
     data() {
         return {
-          user: "태민"
+          showProfile: false,
         }
+    },
+    props: {
+      user: Object
     },
     methods: {
       moveToProfile() {
