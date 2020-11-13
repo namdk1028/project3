@@ -39,6 +39,9 @@ export default {
         Authorization: `JWT ${state.authToken}`,
       },
     }),
+    getUserInfo(state) {
+      return state.userInfo;
+    }
   },
   mutations: {
     SET_ACTIVE_USER(state, res) {
@@ -79,7 +82,19 @@ export default {
           .catch(()=>{
             reject()
           })
+        })
+      },
+
+    updateProfile(userData, getters) {
+      axios.put(`${USERAPI.BASE_URL}/profiles/`, userData, getters.config)
+      .then(res => {
+        this.userInfo = userData
+        console.log(res)
       })
+      .catch(err => {
+        console.log(err)
+      })
+  
     }
-  },
-};
+  }
+}

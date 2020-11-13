@@ -12,9 +12,7 @@
             </button>
         </div>
       </div>
-      <div class="control-modal">
-        <ControlModal /> 
-      </div>
+    <ControlModal />
   </div>
 </template>
 

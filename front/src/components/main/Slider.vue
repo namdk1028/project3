@@ -3,15 +3,20 @@
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <v-dialog
-          v-model="dialog"
+          v-model="dialogProfile"
         >
-          <ProfileModal @closeModal="dialog = false" :test="test" />
+          <ProfileModal @closeModal="dialogProfile = false" :test="test" />
+        </v-dialog>
+        <v-dialog
+          v-model="dialogLike"
+          width="70vw"
+        >
+          <LikeModal @closeModal="dialogLike = false" :test="test" />
         </v-dialog>
         <v-img v-for="user in users" :key="user.i"
           class='swiper-slide'
           :src=user.src
           aspect-ratio="1.2"
-          @click="dialog = true; test = user;"
         >
           <div class='swiper-btns'>
             <v-btn
@@ -23,7 +28,8 @@
               @click="$router.push('/chat/test')"
             ><i class="fas fa-comment main-message"></i>
             </v-btn>
-            <div class='swiper-similar'>
+            <div class='swiper-similar'
+          @click="dialogProfile = true; test = user;">
               78%
             </div>
             <v-btn
@@ -45,6 +51,7 @@
           <div class='swiper-bottom'>
             <h1 class="swiper-bottom-name">{{ user.name }}, {{ user.age }} </h1>
             <p class='swiper-bottom-introduce'>이곳은 자기소개를 작성하는 곳입니다.</p>
+          
           </div>
           </v-img>
       </div>
@@ -56,6 +63,7 @@
 
 <script>
 import ProfileModal from "../main/ProfileModal"
+import LikeModal from "../main/LikeModal"
 import Swiper from 'swiper';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCoverflow } from 'swiper';
 // import Swiper styles
@@ -65,17 +73,24 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/components/effect-cube/effect-cube.scss';
+import axios from "axios"
+import UserApi from "@/api/UserApi.js"
+import { mapGetters } from 'vuex';
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCoverflow ]);
 
+const SERVER_URL = UserApi.BASE_URL
+
 export default {
   components: {
-    ProfileModal
+    ProfileModal,
+    LikeModal,
   },
   data() {
     return {
       like: false,
-      dialog: false,
+      dialogProfile: false,
+      dialogLike: false,
       test: {},
       users: [
         {
@@ -106,14 +121,29 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters({
+      config: "user/config"
+    }) 
+  },
   
   methods: {
     likeBtn() {
       this.like = !this.like
+      this.dialogLike = true
       console.log(this.like)
     },
     swiperDetail() {
 
+    },
+    getPartner() {
+      axios.GET(SERVER_URL+'/profiles/partners/', this.config) 
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
     }
   },
   mounted() {
@@ -132,6 +162,8 @@ export default {
         loop: true,
 
       });
+      console.log(SERVER_URL)
+      console.log(this.config)
     },
 }
 </script>

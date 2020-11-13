@@ -259,11 +259,24 @@
           <Intro @closeIntro="closeIntro" @getIntro="getIntro" />
         </v-dialog>
       </v-row>
+      <v-btn
+        width="300px"
+        height="38px"
+        rounded
+        class="info-btn mx-auto my-3"
+        color="rgb(211,211,211)"
+        dark
+        @click="updateProfile(UserData)"
+      >
+        수정하기
+      </v-btn>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 import Gender from "../../components/user/Gender.vue";
 import Birth from "../../components/user/Birth.vue";
 import Nickname from "../../components/user/Nickname.vue";
@@ -300,23 +313,23 @@ export default {
   data() {
     return {
       title: "프로필등록",
-      UserData: {
-        gender: "",
-        birth: "",
-        nickname: "",
-        area: "",
-        hobby1: "",
-        hobby2: "",
-        height: "",
-        blood: "",
-        religion: "",
-        drink: "",
-        smoke: "",
-        education: "",
-        body: "",
-        job: "",
-        intro: "",
-      },
+      // UserData: {
+      //   gender: "",
+      //   birth: "",
+      //   nickname: "",
+      //   area: "",
+      //   hobby1: "",
+      //   hobby2: "",
+      //   height: "",
+      //   blood: "",
+      //   religion: "",
+      //   drink: "",
+      //   smoke: "",
+      //   education: "",
+      //   body: "",
+      //   job: "",
+      //   intro: "",
+      // },
       hobbies: [],
       dialog_gender: false,
       dialog_birth: false,
@@ -335,6 +348,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters({
+      UserData: "user/getUserInfo",
+    }), 
     isValid() {
       return (
         this.UserData.gender &&
@@ -355,6 +371,9 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      updateProfile: "user/updateProfile",
+    }),
     emitUserInfo() {
       if (this.isValid) {
         console.log("요청보내기!");

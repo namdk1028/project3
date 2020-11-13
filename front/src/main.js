@@ -13,8 +13,8 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
  
 import io from 'socket.io-client';
-const socket = io('http://k3a507.p.ssafy.io:3000');
-// const socket = io('http://localhost:3000');
+ const socket = io('http://k3a507.p.ssafy.io:3000');
+//const socket = io('http://localhost:3000');
 
 //Initialize socket
 Vue.prototype.$socket = socket;
