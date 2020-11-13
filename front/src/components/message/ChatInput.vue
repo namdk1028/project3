@@ -1,7 +1,7 @@
 <template>
   <div class='chat-input'>
     <Emoticon @addEmoticon="addEmoticon" />
-    <File @addFile="addFile" />
+    <!-- <File @addFile="addFile" /> -->
     <div class='chat-input-other' @click="fileBtn">
       <i class="fas fa-plus"></i>
     </div>
@@ -19,7 +19,7 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
-import File from "../message/File"
+// import File from "../message/File"
 export default {
   props: {
     partner: String
@@ -27,13 +27,13 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: 'Kim',
+      myId: 'Nam',
       myPartner: this.partner
     }
   },
   components: {
     Emoticon,
-    File,
+    // File,
   },
   methods: {
     emoticonBtn() {
@@ -69,6 +69,7 @@ export default {
           this.emitUpdate()
         })
         this.textReset()
+        document.querySelector(".content").focus()
       }
     },
     emitUpdate() {
