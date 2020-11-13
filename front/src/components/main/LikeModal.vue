@@ -28,6 +28,7 @@ export default {
   methods: {
     okBtn() {
       
+      this.exitBtn()
     },
     exitBtn() {
       this.$emit('closeModal')
