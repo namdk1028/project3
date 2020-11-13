@@ -1,4 +1,5 @@
-// import axios from "axios";
+import axios from "axios";
+import UserApi from "@/api/UserApi.js"
 
 import cookies from "vue-cookies";
 // import router from '@/router';
@@ -37,13 +38,15 @@ export default {
         Authorization: `${state.authToken}`,
       },
     }),
+    getUserInfo(state) {
+      return state.userInfo;
+    }
   },
   mutations: {
     SET_UNACTIVE_USER(state, res) {
       cookies.set("auth-token", res.data.token);
     },
     SET_ACTIVE_USER(state, res) {
-      console.log(res.data)
       cookies.set("auth-token", res.data.token);
       state.userInfo = res.data.profile;
       if (res.data.user.profile_saved === 1){
@@ -74,5 +77,15 @@ export default {
         // router.push({name:"Userinfo"})
       }
     },
+    updateProfile(userData, getters) {
+      axios.put(`${UserApi.BASE_URL}/profiles/`, userData, getters.config)
+      .then(res => {
+        this.userInfo = userData
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    }
   },
 };
