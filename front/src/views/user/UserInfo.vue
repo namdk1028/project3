@@ -304,7 +304,7 @@
         height="38px"
         rounded
         class="info-btn mx-auto my-3"
-        color="#DDDDDD"
+        color="rgb(211,211,211)"
         dark
         @click="emitUserInfo"
       >
