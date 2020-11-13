@@ -304,9 +304,21 @@
         height="38px"
         rounded
         class="info-btn mx-auto my-3"
+        color="#FEFEFE"
+        v-if="isValid"
+        @click="emitUserInfo(UserData)"
+      >
+        다음
+      </v-btn>
+      <v-btn
+        v-else
+        width="300px"
+        height="38px"
+        rounded
+        class="info-btn mx-auto my-3"
         color="#DDDDDD"
         dark
-        @click="emitUserInfo"
+        @click="isNotValid"
       >
         다음
       </v-btn>
@@ -315,7 +327,6 @@
 </template>
 
 <script>
-
 import Title from "../../components/common/Title";
 
 import Gender from "../../components/user/Gender.vue";
@@ -412,16 +423,24 @@ export default {
     },
   },
   methods: {
-    ...mapActions('control',['addUserInfo']),
-    emitUserInfo() {
-      if (this.isValid) {
-        // console.log("요청보내기!");
-        // alert('사진저장 page로 Go')
-        this.addUserInfo()
+    ...mapActions('user',['addUserInfo']),
+    emitUserInfo(UserData){
+      this.addUserInfo(UserData)
+      .then(()=>{
+        // console.log('완료')
+        this.$router.push({name:"Upload"})
         
-      } else {
-        alert("모든 항목은 필수입니다.");
-      }
+      })
+      .catch(()=>{
+        this.$swal('','오류가 발생했습니다.\n다시 시도해주세요. ','warning');
+
+      })
+      // .
+    },
+    isNotValid(){
+      // alert('모든 항목은 필수입니다.')
+      // swal.fire('모든 항목은 필수입니다.')
+      this.$swal('','모든 항목은 필수입니다.','warning');
     },
     getGender(gender) {
       this.UserData.gender = gender;

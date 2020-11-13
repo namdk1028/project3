@@ -6,10 +6,10 @@
         <button class="btn" value="고등학교 졸업" text @click="emitEducation">
           고등학교 졸업
         </button>
-        <button class="btn" value="대학교 졸업" text @click="emitEducation;">
+        <button class="btn" value="대학교 졸업" text @click="emitEducation">
           대학교 졸업
         </button>
-        <button class="btn" value="대학원 이상" text @click="emitEducation;">
+        <button class="btn" value="대학원 이상" text @click="emitEducation">
           대학원 이상
         </button>
       </div>

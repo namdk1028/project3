@@ -4,15 +4,15 @@
     <v-card-actions>
       <div class="submit-btn">
         <button class="btn" value="마른" text @click="emitBody">마른</button>
-        <button class="btn" value="슬림 근육" text @click="emitBody;">
+        <button class="btn" value="슬림 근육" text @click="emitBody">
           슬림 근육
         </button>
         <button class="btn" value="보통" text @click="emitBody">보통</button>
-        <button class="btn" value="근육질" text @click="emitBody;">
+        <button class="btn" value="근육질" text @click="emitBody">
           근육질
         </button>
-        <button class="btn" value="통통" text @click="emitBody;">통통</button>
-        <button class="btn" value="우람" text @click="emitBody;">우람</button>
+        <button class="btn" value="통통" text @click="emitBody">통통</button>
+        <button class="btn" value="우람" text @click="emitBody">우람</button>
       </div>
     </v-card-actions>
   </v-card>

@@ -52,9 +52,33 @@
 export default {
   name:"Loading",
   data() {
-  return {
-    title: "프로필등록",
-  }
+    return {
+      title: "프로필등록",
+    }
+  },
+  methods:{
+    goNext(){
+      setTimeout(() => {
+        if (this.$store.state.profile_saved === true){
+          console.log(this.$store.state.userInfo)
+          if (this.$store.state.image_saved === true){
+            this.$router.push({name:'Main'})
+          }else{
+            // console.log('사진첩저장')
+            this.$router.push({name:'Upload'})
+          }
+        } else{
+          this.$router.push({name:'UserInfo'})
+        }
+        // console.log('2')
+        // this.$router.push({name:"UserInfo"})
+      }, 4000);
+    }
+
+
+  },
+  created(){
+    this.goNext()
   }
   
 

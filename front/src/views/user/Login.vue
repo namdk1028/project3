@@ -26,7 +26,7 @@
 </template>
 <script>
 import KEY from "@/api/SecretKey";
-// import USERAPI from "@/api/UserApi";
+import USERAPI from "@/api/UserApi";
 import axios from "axios";
 import { mapActions,mapState } from "vuex";
 
@@ -39,16 +39,17 @@ export default {
     ...mapActions('user',['login']),
     ...mapState('user',['profile_saved']),
     googleLogin() {
-      console.log('000')
-      axios.get("http://127.0.0.1:8000/accounts/login/google/").then((res) => {
+      // console.log('000')
+      axios.get(USERAPI.BASE_URL + "/accounts/login/google/").then((res) => {
         console.log(res.data)
         // window.open(res.data.url);
         location.href=res.data.url
+        // this.$router.push({name:"Loading"})
         // this.$router.push(res.data.url)
       });
     },
     naverLogin() {
-      axios.get("http://127.0.0.1:8000/accounts/login/naver/").then((res) => {
+      axios.get(USERAPI.BASE_URL + "/accounts/login/naver/").then((res) => {
         // window.open(res.data.url)
         // console.log(res.data.url)
         // const request_url = "https://nid.naver.com/oauth2.0/authorize?cliend_id=" + KEY.NAVER_CLIENT_ID + "&redirect_uri=http://localhost:8080/user/login&response_type=code"
@@ -57,7 +58,7 @@ export default {
       });
     },
     kakaoLogin() {
-      axios.get("http://127.0.0.1:8000/accounts/login/kakao/").then((res) => {
+      axios.get(USERAPI.BASE_URL + "/accounts/login/kakao/").then((res) => {
         location.href=res.data.url
       });
     },
@@ -68,6 +69,8 @@ export default {
     if (this.$route.query.code !== undefined) {
       console.log(this.$route.query.code.length);
       if (this.$route.query.code.length === 18) {
+        // this.$router.push({name:"Loading"})
+
         // console.log('naver')
         // const headers = {
         //     'Content-type': 'application/x-www-form-urlencoded; charset=utf-8',
@@ -91,7 +94,7 @@ export default {
           token: this.$route.hash.split("&")[0].split("=")[1],
         };
         axios
-          .post("http://127.0.0.1:8000/accounts/login/naver/callback/", body)
+          .post(USERAPI.BASE_URL + "/accounts/login/naver/callback/", body)
           .then((res) => {
             console.log(res);
           });
@@ -103,14 +106,14 @@ export default {
         const body = {
           grant_type: "authorization_code",
           client_id: KEY.KAKAO_API_KEY,
-          redirect_uri: "http://localhost:8080/user/login",
+          redirect_uri: USERAPI.FRONT_BASE_URL + "/user/login",
           code: this.$route.query.code,
         };
         const request_url =
           "https://kauth.kakao.com/oauth/token?" +
           "grant_type=authorization_code&client_id=" +
           KEY.KAKAO_API_KEY +
-          "&redirect_uri=http://localhost:8080/user/login&" +
+          "&redirect_uri="+USERAPI.FRONT_BASE_URL+"/user/login&" +
           "code=" +
           this.$route.query.code;
         axios
@@ -119,36 +122,38 @@ export default {
             console.log(res);
             axios
               .post(
-                "http://127.0.0.1:8000/accounts/login/kakao/callback/",
+                USERAPI.BASE_URL + "/accounts/login/kakao/callback/",
                 res.data
               )
               .then((res) => {
                 // console.log('hi')
                 // console.log(res)
                 this.login(res)
+                // this.$router.push({name:"Loading"})
               })
-              .then(() => {
-                console.log('hihi')
-                if (this.$store.state.profile_saved === true){
-                  console.log(this.$store.state.userInfo)
-                  if (this.$store.state.image_saved === true){
-                    this.$router.push({name:'Main'})
-                  }else{
-                    console.log('사진첩저장')
-                  }
-                } else{
-                  this.$router.push({name:'Userinfo'})
-                }
-              });
+              // .then(() => {
+              //   console.log('hihi')
+              //   if (this.$store.state.profile_saved === true){
+              //     console.log(this.$store.state.userInfo)
+              //     if (this.$store.state.image_saved === true){
+              //       this.$router.push({name:'Main'})
+              //     }else{
+              //       console.log('사진첩저장')
+              //     }
+              //   } else{
+              //     this.$router.push({name:'Userinfo'})
+              //   }
+              // });
           })
           .catch((err) => console.log(err.response));
       } else {
         console.log("google");
+
         const body = {
           code: this.$route.query.code,
           client_id: KEY.GOOGLE_CLIENT_ID,
           client_secret: KEY.GOOGLE_SECRET_KEY,
-          redirect_uri: "http://localhost:8080/user/login",
+          redirect_uri: USERAPI.FRONT_BASE_URL + "/user/login",
           grant_type: "authorization_code",
         };
         const headers = {
@@ -160,27 +165,29 @@ export default {
             console.log(res);
             axios
               .post(
-                "http://127.0.0.1:8000/accounts/login/google/callback/",
+                USERAPI.BASE_URL + "/accounts/login/google/callback/",
                 res.data
               )
               .then((res) => {
                 // console.log('hi')
                 // console.log(res)
                 this.login(res)
+                // this.$router.push({name:"Loading"})
+
               })
-              .then(() => {
-                console.log('hihi')
-                if (this.$store.state.profile_saved === 1){
-                  console.log(this.$store.state.userInfo)
-                  if (this.$store.state.image_saved === 1){
-                    this.$router.push({name:'Main'})
-                  }else{
-                    console.log('사진첩저장')
-                  }
-                } else{
-                  this.$router.push({name:'Userinfo'})
-                }
-              });
+              // .then(() => {
+              //   console.log('hihi')
+              //   if (this.$store.state.profile_saved === true){
+              //     console.log(this.$store.state.userInfo)
+              //     if (this.$store.state.image_saved === true){
+              //       this.$router.push({name:'Main'})
+              //     }else{
+              //       console.log('사진첩저장')
+              //     }
+              //   } else{
+              //     this.$router.push({name:'Userinfo'})
+              //   }
+              // });
           });
       }
     } else if (this.$route.hash.length > 0) {
@@ -189,7 +196,7 @@ export default {
         token: this.$route.hash.split("&")[0].split("=")[1],
       };
       axios
-        .post("http://127.0.0.1:8000/accounts/login/naver/callback/", body)
+        .post(USERAPI.BASE_URL + "/accounts/login/naver/callback/", body)
         .then((res) => {
           console.log(res);
           this.$cookie.set("token", res.data.token);

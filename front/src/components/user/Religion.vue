@@ -6,16 +6,16 @@
         <button class="btn" value="무교" text @click="emitReligion">
           무교
         </button>
-        <button class="btn" value="기독교" text @click="emitReligion;">
+        <button class="btn" value="기독교" text @click="emitReligion">
           기독교
         </button>
         <button class="btn" value="불교" text @click="emitReligion">
           불교
         </button>
-        <button class="btn" value="천주교" text @click="emitReligion;">
+        <button class="btn" value="천주교" text @click="emitReligion">
           천주교
         </button>
-        <button class="btn" value="기타" text @click="emitReligion;">
+        <button class="btn" value="기타" text @click="emitReligion">
           기타
         </button>
       </div>
