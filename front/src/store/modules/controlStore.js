@@ -1,7 +1,9 @@
-// import axios from "axios";
+import axios from "axios";
 
+import USERAPI from "@/api/UserApi"
 import cookies from "vue-cookies";
 // import router from '@/router';
+
 
 
 export default {
@@ -22,7 +24,7 @@ export default {
     },
     profile_saved:false,
     image_saved:false,
-    authToken: cookies.get("auth-token"),
+    authToken: null,
     userInfo: Object,
     // userInfo: {
     //   gender: "",
@@ -58,9 +60,12 @@ export default {
   mutations: {
     SET_UNACTIVE_USER(state, res) {
       cookies.set("auth-token", res.data.token);
+      state.authToken = res.data.token
     },
     SET_ACTIVE_USER(state, res) {
       console.log(res.data)
+      state.authToken = res.data.token
+
       cookies.set("auth-token", res.data.token);
       state.userInfo = res.data.profile;
       if (res.data.user.profile_saved === 1){
@@ -124,6 +129,15 @@ export default {
         // router.push({name:"Userinfo"})
       }
     },
-    updateControls() {},
+    updateControls() {
+
+    },
+    addUserInfo({getters,UserData}){
+      axios.post(USERAPI.BASE_URL + '/profiles/', UserData, getters.config)
+      .then((res)=>{
+        console.log('정보저장')
+        console.log(res)
+      })
+    }
   },
 };

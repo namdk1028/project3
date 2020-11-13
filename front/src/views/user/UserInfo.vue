@@ -315,6 +315,7 @@
 </template>
 
 <script>
+
 import Title from "../../components/common/Title";
 
 import Gender from "../../components/user/Gender.vue";
@@ -331,6 +332,8 @@ import Education from "../../components/user/Education.vue";
 import Body from "../../components/user/Body.vue";
 import Job from "../../components/user/Job.vue";
 import Intro from "../../components/user/Intro.vue";
+
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -409,10 +412,13 @@ export default {
     },
   },
   methods: {
+    ...mapActions('control',['addUserInfo']),
     emitUserInfo() {
       if (this.isValid) {
-        console.log("요청보내기!");
-        alert('사진저장 page로 Go')
+        // console.log("요청보내기!");
+        // alert('사진저장 page로 Go')
+        this.addUserInfo()
+        
       } else {
         alert("모든 항목은 필수입니다.");
       }

@@ -123,12 +123,23 @@ export default {
                 res.data
               )
               .then((res) => {
-                console.log(res);
-                this.$cookie.set("token", res.data.token);
+                // console.log('hi')
+                // console.log(res)
+                this.login(res)
               })
-              // .then(() => {
-              //   window.close();
-              // });
+              .then(() => {
+                console.log('hihi')
+                if (this.$store.state.profile_saved === true){
+                  console.log(this.$store.state.userInfo)
+                  if (this.$store.state.image_saved === true){
+                    this.$router.push({name:'Main'})
+                  }else{
+                    console.log('사진첩저장')
+                  }
+                } else{
+                  this.$router.push({name:'Userinfo'})
+                }
+              });
           })
           .catch((err) => console.log(err.response));
       } else {
