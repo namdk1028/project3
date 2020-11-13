@@ -36,8 +36,8 @@ export default {
     return {};
   },
   methods: {
-    ...mapActions('control',['login']),
-    ...mapState('control',['profile_saved']),
+    ...mapActions('user',['login']),
+    ...mapState('user',['profile_saved']),
     googleLogin() {
       console.log('000')
       axios.get("http://127.0.0.1:8000/accounts/login/google/").then((res) => {
