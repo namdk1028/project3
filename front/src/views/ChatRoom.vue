@@ -201,6 +201,7 @@ export default {
     cursor: pointer;
   }
 .chat-content {
+  /* background-color: rgb(240, 240, 240); */
   height: 80%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

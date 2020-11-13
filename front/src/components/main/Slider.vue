@@ -73,8 +73,13 @@ import 'swiper/components/navigation/navigation.scss';
 import 'swiper/components/pagination/pagination.scss';
 import 'swiper/components/scrollbar/scrollbar.scss';
 import 'swiper/components/effect-cube/effect-cube.scss';
+import axios from "axios"
+import UserApi from "@/api/UserApi.js"
+import { mapGetters } from 'vuex';
 
 SwiperCore.use([Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCoverflow ]);
+
+const SERVER_URL = UserApi.BASE_URL
 
 export default {
   components: {
@@ -116,6 +121,11 @@ export default {
       ]
     }
   },
+  computed: {
+    ...mapGetters({
+      config: "user/config"
+    }) 
+  },
   
   methods: {
     likeBtn() {
@@ -125,6 +135,15 @@ export default {
     },
     swiperDetail() {
 
+    },
+    getPartner() {
+      axios.GET(SERVER_URL+'/profiles/partners/', this.config) 
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err.response)
+      })
     }
   },
   mounted() {
@@ -143,6 +162,8 @@ export default {
         loop: true,
 
       });
+      console.log(SERVER_URL)
+      console.log(this.config)
     },
 }
 </script>

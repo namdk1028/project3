@@ -3,7 +3,7 @@
     <Emoticon @addEmoticon="addEmoticon" />
     <!-- <File @addFile="addFile" /> -->
     <div class='chat-input-other' @click="fileBtn">
-      <i class="fas fa-plus"></i>
+      <!-- <i class="fas fa-plus"></i> -->
     </div>
     <div class="chat-input-message" @click="exit">
       <input class="content" type="text" v-model="chat_text" @keypress.enter="sendBtn">
@@ -34,6 +34,9 @@ export default {
   components: {
     Emoticon,
     // File,
+  },
+  mounted() {
+    document.querySelector(".content").focus()
   },
   methods: {
     emoticonBtn() {
@@ -99,15 +102,18 @@ export default {
   align-items: center;
 }
 .chat-input-other {
-  width: 15%;
+  width: 5%;
   font-size: 1.2rem;
   color: #fca69d;
   cursor: pointer;
 }
 .chat-input-message {
   width: 60%;
+  margin-left: 5%;
+  margin-right: 5%;
   text-align: left;
-  font-size: 0.8rem;
+  font-size: 0.8rem;  
+  border-bottom: rgb(230, 230, 230) 2px solid;
 }
 .chat-input-message .content {
   width: 100%;
