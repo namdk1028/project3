@@ -1,10 +1,10 @@
 <template>
   <div class='chat-input'>
     <Emoticon @addEmoticon="addEmoticon" />
-    <!-- <File @addFile="addFile" /> -->
-    <div class='chat-input-other' @click="fileBtn">
-      <!-- <i class="fas fa-plus"></i> -->
-    </div>
+    <File @addFile="addFile" /> 
+     <div class='chat-input-other' @click="fileBtn">
+      <i class="fas fa-plus"></i>
+    </div> 
     <div class="chat-input-message" @click="exit">
       <input class="content" type="text" v-model="chat_text" @keypress.enter="sendBtn">
     </div>
@@ -19,7 +19,7 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
-// import File from "../message/File"
+import File from "../message/File"
 export default {
   props: {
     partner: String
@@ -27,16 +27,13 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: 'Nam',
+      myId: 'yeonsu',
       myPartner: this.partner
     }
   },
   components: {
     Emoticon,
-    // File,
-  },
-  mounted() {
-    document.querySelector(".content").focus()
+    File,
   },
   methods: {
     emoticonBtn() {
@@ -68,8 +65,11 @@ export default {
           'text': this.chat_text
         }
         this.$socket.emit('new-message', messageInfo)
+        this.$socket.on('new-message-fin', () => {
+          console.log('new message saved to database')
+          this.$emit('update')
+        })
         this.textReset()
-        document.querySelector(".content").focus()
       }
     },
     addEmoticon(emoticon) {
@@ -96,18 +96,15 @@ export default {
   align-items: center;
 }
 .chat-input-other {
-  width: 5%;
+  width: 15%;
   font-size: 1.2rem;
   color: #fca69d;
   cursor: pointer;
 }
 .chat-input-message {
   width: 60%;
-  margin-left: 5%;
-  margin-right: 5%;
   text-align: left;
-  font-size: 0.8rem;  
-  border-bottom: rgb(230, 230, 230) 2px solid;
+  font-size: 0.8rem;
 }
 .chat-input-message .content {
   width: 100%;

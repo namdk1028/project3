@@ -56,7 +56,7 @@ export default {
         chatActive: false,
         profileActive: false,
         unreadMessageCount: 4,
-        unreadSignal: true,
+        unreadSignal: false,
       }
     },
     computed: {
@@ -87,8 +87,16 @@ export default {
         this.chatActive = false;
         this.profileActive = true;
         this.unreadSignal = false;
+        //
       },
     },
+    mounted: function() {
+      this.$socket.on('incoming-like-alarm', () => {
+        console.log('incoming-like-alarm')
+        console.log(this)
+        this.unreadSignal = true;
+      })
+    }
 }
 </script>
 
