@@ -11,10 +11,17 @@
             <div style="background-color: rgb(241, 195, 195);">프로필</div>
             <div class="not-about">
               <v-card class='base'>
-                <i class="far fa-user icon"></i>
                 <div>
-                  <div class="each name">
-                    {{ userData.nickname }} {{ userData.age }}
+                  <div class="each titlea">
+                    <h2 class="name">
+                      {{ userData.nickname }}
+                    </h2>
+                    <div class="age">
+                      {{ userData.age }}
+                    </div>
+                    <!-- <div class='blood'>
+                      {{ userData.blood }}
+                    </div> -->
                   </div>
                   <div class='each height'>
                     <div class='category'>
@@ -22,6 +29,22 @@
                     </div>
                     <div class='content'>
                       {{ userData.height }}
+                    </div>
+                  </div>
+                  <div class='each job'>
+                    <div class='category'>
+                      직업
+                    </div>
+                    <div class='content'>
+                      {{ userData.job }}
+                    </div>
+                  </div>
+                  <div class='each body'>
+                    <div class='category'>
+                      체형
+                    </div>
+                    <div class='content'>
+                      {{ userData.body }}
                     </div>
                   </div>
                   <div class='each religion'>
@@ -44,25 +67,35 @@
               </v-card>
               <div class='specific'>
                 <v-card class='hobby'>
-                  취미
+                  <div class="titlea category">
+                    취미
+                  </div>
+                  <div class="content">
                   {{ userData.hobby1 }}
-                  {{ userData.hobby2 }}
+
+                  </div>
+                  <div class="content">
+                    {{ userData.hobby2 }}
+
+                  </div>
                 </v-card>
                 <v-card class='smoke'>
                   <i class="fas fa-smoking icon category"></i>
-                  <div class="">
-                    {{ userData.smoke }}
+                  <div class="content">
+                      {{ userData.smoke }}
                   </div>
                 </v-card>
                 <v-card class='drink'>
                   <i class="fas fa-beer icon category"></i>
+                  <div class="content">
                    {{ userData.drink }}
+                  </div>
                 </v-card>
               </div>
             </div>
             <div style="background-color: rgb(241, 195, 195); margin-top: 10px;">자기소개</div>
             <v-card class='about'>
-              <div>
+              <div class='intro'>
                 {{ userData.intro }}
               </div>
             </v-card>
@@ -154,12 +187,37 @@ export default {
   width: 60%;
 }
 .profile-modal-userinfo .each {
-  padding: 5px 0;
+  padding: 3px 0;
 }
-.profile-modal-userinfo .name {
-  font-size: 1.3rem;
+.profile-modal-userinfo .titlea {
+  display: flex;
+  justify-content: center;
+}
+.profile-modal-userinfo .titlea .name {
+  font-size: 1.4rem !important;
+}
+.profile-modal-userinfo .titlea .age {
+  padding-left: 10px;
+  font-size: 1rem;
+  color: gray;
+  display: flex;
+  align-items: flex-end;
+}
+.profile-modal-userinfo .titlea .blood {
+  position: absolute;
+  right: 0;
+  padding-right: 10px;
+  font-size: 1rem;
 }
 .profile-modal-userinfo .height {
+  display: flex;
+  align-items: center;
+}
+.profile-modal-userinfo .job {
+  display: flex;
+  align-items: center;
+}
+.profile-modal-userinfo .body {
   display: flex;
   align-items: center;
 }
@@ -178,9 +236,22 @@ export default {
 .profile-modal-userinfo .specific {
   width: 40%;
 }
+.profile-modal-userinfo .specific content {
+  font-size: 1rem;
+}
 .profile-modal-userinfo .hobby {
   margin: 3px;
   height: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-modal-userinfo .hobby .titlea {
+  font-size: 1.2rem;
+  color: black;
+  margin-bottom: 4px;
+
 }
 .profile-modal-userinfo .smoke {
   margin: 3px;
@@ -205,6 +276,9 @@ export default {
 .profile-modal-userinfo .about {
   margin: 3px;
   height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profile-modal-userinfo .icon {
   font-size: 1.3rem;

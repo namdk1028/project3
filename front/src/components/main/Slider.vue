@@ -30,7 +30,7 @@
               fab
               dark
               small
-              color="green"
+              color="#B2DFDB"
               @click="dialogProfile = true; userData = user;"
             ><i class="fas fa-user main-message"></i>
             </v-btn>
@@ -42,10 +42,10 @@
               fab
               dark
               small
-              color="pink"
+              color="#EF5350"
               @click="likeBtn(user)"
             >
-              <v-icon v-if="likeCheck(user.id)" color="yellow">
+              <v-icon v-if="likeCheck(user.id)" color="lime lighten-3">
                 mdi-heart
               </v-icon>
               <v-icon v-else>
@@ -213,7 +213,6 @@ export default {
   methods: {
     like(id) {
       this.likes.push(id)
-      console.log(this.likes)
     },
     likeCheck (id) {
       for (var i = 0; i < this.likes.length; i++) {
@@ -261,6 +260,7 @@ export default {
         loop: true,
 
       });
+      console.log(this.users)
     },
 }
 </script>

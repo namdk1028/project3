@@ -33,6 +33,7 @@
 
 <script>
 // import axios from "axios"
+// import USERAPI from "@/api/UserApi";
 
 export default {
   props: {
@@ -50,7 +51,7 @@ export default {
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
         this.$emit("like", this.userData.id)
-        // axios.post()
+        // axios.post(USERAPI.BASE_URL + "/accounts/")
         setTimeout(() => {
           document.querySelector('.heart-animation').classList.add('hide')
         }, 2000);
