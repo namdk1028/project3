@@ -137,7 +137,7 @@ export default {
 
     },
     getPartner() {
-      axios.GET(SERVER_URL+'/profiles/partners/', this.config) 
+      axios.get(SERVER_URL+'/profiles/partners/', this.config) 
       .then((res) => {
         console.log(res)
       })
@@ -160,10 +160,8 @@ export default {
           slideShadows: true,
         },
         loop: true,
-
       });
-      console.log(SERVER_URL)
-      console.log(this.config)
+      this.getPartner()
     },
 }
 </script>
