@@ -2,14 +2,14 @@
   <div class="container-notification">
       <div class="notification-header">
         <div class="profile-img">
-          <img :src="user.src" @click="moveToProfile">
+          <!-- <img :src="user.src" @click="moveToProfile"> -->
           <div class="notification-icon"><i class="fas fa-heart"></i></div>
         </div>
       </div>
       <div class="notification-content">
         <div class='notification-content-body'>
           <!-- <span class="notification-username" @click="moveToProfile">{{ user.name }}</span>님이 호감을 표시하셨습니다. -->
-          <span class="notification-username" @click="moveToProfile">{{ msg.by }}</span>님이 호감을 표시하셨습니다.
+          <span class="notification-username" @click="moveToProfile">{{ msg.senderNickName }}</span>님이 호감을 표시하셨습니다.
           <div @click="$router.push(`/chat/${msg.senderNickname}`)">대화하기</div>
         </div>
         <div class="notification-time">
@@ -30,13 +30,13 @@ export default {
         }
     },
     props: {
-      user: Object,
+      // user: Object,
       msg: Object
     },
     methods: {
-      moveToProfile() {
-        this.$emit("clickProfile", this.user);
-      },
+      // moveToProfile() {
+      //   this.$emit("clickProfile", this.user);
+      // },
     }
 }
 </script>
