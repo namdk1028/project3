@@ -3,7 +3,7 @@
   height: 36px;
   size: 5;
   // overflow-y: scroll;
-  padding: 0 50px; /* 여백으로 높이 설정 */
+  padding-left: 50px; /* 여백으로 높이 설정 */
   font-family: inherit; /* 폰트 상속 */
   font-size: 0.9rem;
   color: rgb(0, 0, 0, 0.7);
@@ -16,4 +16,11 @@
   -moz-appearance: none;
   appearance: none;
   outline: none;
+}
+
+.smoke,
+.drink {
+  .select {
+    // padding: ;
+  }
 }

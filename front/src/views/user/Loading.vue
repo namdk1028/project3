@@ -67,9 +67,10 @@ export default {
             // console.log('사진첩저장')
             this.$router.push({name:'Upload'})
           }
-        }else{
-          this.$router.push({name:'UserInfo'})
         }
+        // else{
+          // this.$router.push({name:'UserInfo'})
+        // }
         // console.log('2')
         // this.$router.push({name:"UserInfo"})
       }, 4000);

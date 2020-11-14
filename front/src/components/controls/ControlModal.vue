@@ -3,8 +3,8 @@
       <div class="background-controls" @click="closeControls"></div>
       <div class="modal-controls">
         <div class="modal-header">
-            <button class="btn-close" @click="closeControls">✖</button>
-            <p class="header-title">나의 이상형 찾기</p>
+            <!-- <button class="btn-close" @click="closeControls">✖</button> -->
+            <h2 class="header-title">나의 이상형 찾기</h2>
             <button class="btn-confirm" @click="confirmChanges">✔</button>
         </div>
         <div class="modal-body">

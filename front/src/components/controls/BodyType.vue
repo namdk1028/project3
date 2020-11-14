@@ -48,9 +48,9 @@ export default {
               var index = this.selected.indexOf(event.target.value)
               this.selected.splice(index, 1)
               event.target.style.background = "white"
-              event.target.style.borderTop = "1px solid rgb(211, 211, 211)"
-              event.target.style.borderBottom = "1px solid rgb(211, 211, 211)"
-              event.target.style.borderRight = "1px solid rgb(211, 211, 211)"
+              // event.target.style.borderTop = "1px solid rgb(211, 211, 211)"
+              // event.target.style.borderBottom = "1px solid rgb(211, 211, 211)"
+              // event.target.style.borderRight = "1px solid rgb(211, 211, 211)"
               event.target.style.color = "#2c3e50"
 
 
@@ -58,9 +58,9 @@ export default {
           else {
               this.selected.push(event.target.value)
               event.target.style.background = "rgb(252, 166, 157)"
-              event.target.style.borderTop = "1px solid rgb(252, 166, 157)"
-              event.target.style.borderBottom = "1px solid rgb(252, 166, 157)"
-              event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
+              // event.target.style.borderTop = "1px solid rgb(252, 166, 157)"
+              // event.target.style.borderBottom = "1px solid rgb(252, 166, 157)"
+              // event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
               event.target.style.color = "white"
           }
           this.setBody(this.selected);
