@@ -6,24 +6,24 @@ const cors = require('cors');
 const {v4:uuidv4} = require('uuid');
 
 app.set('view engine', 'ejs');
-app.use(cors());
 
 const server = require('http').Server(app);
 const io = require('socket.io')(server, {
   cors: {
     // origin: 'http://k3a507.p.ssafy.io',
-    origin: 'http://localhost:8080',
+    origin: true,
     methods: ['GET', 'POST']
   }
 });
 
-server.listen(3000);
+server.listen(8000);
 
 app.get('/', function(req, res) {
-  res.json({message: "welcome to websocket for ssafy 507"})
+ res.json({message: "welcome to websocket for ssafy 507"})
 })
 //firebase settings
 const firebase = require('firebase');
+const { triggerAsyncId } = require('async_hooks');
 const firebaseConfig = {
     apiKey: "AIzaSyD9WPO1cEjEfezvW2pkT40ePYLfCk_PDVU",
     authDomain: "chatlogs-84503.firebaseapp.com",
@@ -37,57 +37,39 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 
-let rooms = [];
-let videoRooms = {
-  "143ae1b3-4126-4a72-91cb-07df1ef00b2f": []
-};
-
+let socketId = {}
 //on socket connection
 io.on('connection', (socket) => {
     console.log(`new socket detected, socket id: ${socket.id}`)
-    //Emit initial event to retrieve userid
-    
-    //Socket Id Update **2020.11.10** function confirmed
-    socket.on('socket-init', userId => {
-      console.log('socket initialization')
-      if (rooms.includes(userId)){
-        socket.join(userId)
-      } else {
-        rooms.push(userId)
-        socket.join(userId)
-      }
-      console.log('current room status\n' + `rooms: ${rooms}`)
-      const socketRef = database.ref('/socketId')
-      socketRef.once('value').then(function(snapshot) {
-        console.log('current socket status')
-        console.log(snapshot.val())
-        if (snapshot.hasChild(userId)){
-          console.log('new user socket id')
-          socketRef.child(userId).set(socket.id);
-        } else {
-          console.log('update previous socket id')
-          socketRef.child(userId).set(socket.id)
-        }
-      })
+
+    socket.on('disconnect', ()=>{
+      console.log(`${socket.id} disconnected`)
     })
 
+    socket.on('initialize-socket', userId => {
+      console.log('socket initialization')
+      socketId[userId] = socket.id
+    })
+    //Emit initial event to retrieve userid
     //Function for new message
     //Sending new message **2020.11.10** function confirmed
     socket.on('new-message', messageInfo => {
+      //preflight
+      io.to(socketId[messageInfo.reciever]).emit('new-message-pre-flight-receiving side')
+      io.to(socketId[messageInfo.sender]).emit('new-message-pre-flight-sender')
+
       const date = new Date()
       const today = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()
       const time = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds()
       const messageFormat = {
         'text': messageInfo.text,
         'sender': messageInfo.sender,
-        'reciever': messageInfo.reciever,
+        'receiver': messageInfo.reciever,
         'date': today,
         'time': time,
         'isRead': false
       }
       console.log('The following new message detected')
-      console.log(messageFormat)
-      checkPartnerSocketId(messageFormat.reciever)
 
       //check receiver exists in sender's chat log
       const myMessageLogRef = database.ref(`/Logs/${messageInfo.sender}/Receiver`)
@@ -95,41 +77,48 @@ io.on('connection', (socket) => {
       .then(function(snapshot) {
         //if exists add new message
         //and alert reciever
-        if (!snapshot.hasChild(messageFormat.reciever)) {
-          myMessageLogRef.child(messageFormat.reciever).set('messages')
+        if (!snapshot.hasChild(messageFormat.receiver)) {
+          myMessageLogRef.child(messageFormat.receiver).set('messages')
         }
         let senderMessageFormat = messageFormat
         senderMessageFormat.isRead = true
-        const newKey = myMessageLogRef.child(`${messageFormat.reciever}/messages`).push()
-        newKey.set(senderMessageFormat).then(function() {
-          console.log('message log recorded successfully')
-          //Inform sender that message has been updated
-          io.to(messageFormat.sender).emit('new-message-fin')
-        })
-        .catch(function(error){
-          console.log(error)
-        })
+        const newKey = myMessageLogRef.child(`${messageFormat.receiver}/messages`).push()
+        newKey.set(senderMessageFormat)
+        //io.to(socketId[messageFormat.sender]).emit('new-message-fin')
       })
       //Update receiver's message 
       const receiverMessageLogRef = database.ref('/Logs')
       receiverMessageLogRef.once('value')
       .then(function(snapshot){
-        if (!snapshot.hasChild(messageFormat.reciever)) {
-          receiverMessageLogRef.child(`${messageFormat.reciever}/Receiver/${messageFormat.sender}/messages`)
+        if (!snapshot.hasChild(messageFormat.receiver)) {
+          receiverMessageLogRef.child(`${messageFormat.receiver}/Receiver/${messageFormat.sender}/messages`)
           .push().set(messageFormat)
-          receiverMessageLogRef.child(`${messageFormat.reciever}/Receiver/${messageFormat.sender}/unread`)
+          receiverMessageLogRef.child(`${messageFormat.receiver}/Receiver/${messageFormat.sender}/unread`)
           .set(1)
         } else {
-          const receiverKey = database.ref(`Logs/${messageFormat.reciever}/Receiver/${messageFormat.sender}/messages`).push()
+          const receiverKey = database.ref(`Logs/${messageFormat.receiver}/Receiver/${messageFormat.sender}/messages`).push()
           receiverKey.set(messageFormat)
           //update unread message count
-          const unReadCountRef = database.ref(`Logs/${messageFormat.reciever}/Receiver/${messageFormat.sender}/unread`)
+          const unReadCountRef = database.ref(`Logs/${messageFormat.receiver}/Receiver/${messageFormat.sender}/unread`)
           unReadCountRef.transaction(function(unread) {
             return unread + 1;
           })
         }
-        //update message if receiver is on chat
-        io.to(messageFormat.reciever).emit('new-message-fin')
+      io.to(socketId[messageFormat.sender]).to(socketId[messageFormat.receiver]).emit('new-message-fin', messageFormat)
+
+
+
+        // console.log(io.sockets)
+        // console.log('상대방 소켓: ' + socketId[messageFormat.receiver])
+        // io.to(socketId[messageFormat.reciever]).emit('new-message-fin')
+        // //update message if receiver is on chat
+        // const socketIdRef = database.ref(`/socketId/${messageFormat.receiver}`)
+        // socketIdRef.once('value').then(function(snapshot) {
+        //   const socketId = snapshot.val();
+        //   //io.in(socketId).emit('new-message-fin')
+        //   io.to(socketId[messageFormat.receiver]).emit('new-message-fin')
+        //   //socket.to(messageFormat.reciever).emit('new-message-fin')
+        // })
       })
     })
     
@@ -140,7 +129,8 @@ io.on('connection', (socket) => {
       const receiver = chatInfo.receiver;
       const chatlogRef = database.ref(`/Logs/${sender}/Receiver/${receiver}`)
       chatlogRef.child('messages').once('value').then(function(snapshot) {
-        io.to(sender).emit('fetch-chatlog-callback', snapshot.val())
+        io.to(socketId[sender]).emit('fetch-chatlog-callback', snapshot.toJSON())
+        socket.emit('fetch-chatlog-callback', snapshot.val())
       })
     })
 
@@ -165,6 +155,7 @@ io.on('connection', (socket) => {
       unreadRef.transaction(function(unread){
         return unread*0;
       })
+
       //Mark all messages to read.
       const messageRef = database.ref(`/Logs/${sender}/Receiver/${receiver}/messages`)
       messageRef.once('value').then(function(snapshot){
@@ -176,43 +167,53 @@ io.on('connection', (socket) => {
         })
       })
     })
+
     //채팅방 fetcher
     socket.on('fetch-chatroom', user => {
       const chatRoomRef = database.ref(`/Logs/${user}/Receiver`)
       chatRoomRef.once('value').then(function(snapshot){
         console.log(snapshot.val())
-        socket.emit('fetch-chatroom-callback', snapshot.val())
+        io.to(socketId[user]).emit('fetch-chatroom-callback', {rooms: snapshot.val()});
       })
     })
 
-
-
     //영상통화 발신시 발동되는 함수
     socket.on('callUser', data => {
+      console.log("got a call request")
       const caller = data.caller; const callee = data.callee; const signal = data.signalData;
-      const roomNumberRef = database.ref(`/Logs/${data.caller}/Receiver/${data.callee}/videochatroom`);
-      const roomNumber = isRoomExist(data.caller, data.callee)
-      roomNumberRef.once('value').then(function(snapshot) {
-        const roomNumber = snapshot.val();
-      })
-      socket.to(data.callee).emit('incoming-call', {signalData: signal, from: caller});
+      console.log("calling " + data.callee)
+      io.to(socketId[callee]).emit('incoming-call', {signalData: signal, from: caller});
     })
 
     socket.on('acceptCall', data => {
       const signal = data.signalData; const to = data.caller;
-      socket.to(data.caller).emit('callAccpeted', signal)
+      console.log(`${to}에게 연결되었다고 알리기`)
+      console.log(io.sockets)
+      console.log(socketId[to])
+      io.to(socketId[to]).emit('callAccepted', signal)
     })
 
-    // socket.on('check-initiator', userInfo => {
-    //   console.log('User Info')
-    //   console.log(userInfo)
-    //   checkVideoChatOccupancy(userInfo, socket);
-    // })
-
-    // socket.on('calling', data => {
-    //   socket.broadcast.emit('incoming-call', data.data);
-    // })
-
+    //좋아요 알림 처리 함수
+    socket.on('likeAlarm', data => {
+      //좋아요 보낸 유저
+      const sender = data.user;
+      //받는사람
+      const receiver = data.receiver;
+      //받는사람한테 보내기
+      //io.to(socketId[receiver]).emit('incomingAlarm', {sender: sender});
+      //TEST용 전소켓 메세지
+      io.sockets.emit('incoming-like-alarm')
+      //DB에 저장
+      const likeRef = database.ref(`/Logs/suzi/`)
+      likeRef.once('value').then(function(snapshot) {
+        if (!snapshot.hasChild('likeLog')){
+        likeRef.set('likeLog')
+        likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        } else {
+          likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        }
+      })
+    })
 })
 
 const checkPartnerSocketId = function(partnerId) {
@@ -221,41 +222,3 @@ const checkPartnerSocketId = function(partnerId) {
     console.log('partner socket id ' + snapshot.val())
   })
 }
-
-const isRoomExist = function(caller, callee){
-      const roomNumberRef = database.ref(`/Logs/${caller}/Receiver/${callee}/videochatroom`);
-      roomNumberRef.once('value').then(function(snapshot) {
-          const roomNumber = snapshot.val();
-          if (roomNumber != null) {
-              return roomNumber;
-          } else {
-              const newRoomNumber = uuidv4();
-              roomNumberRef.set(newRoomNumber);
-              const reverseRef = database.ref(`/Logs/${callee}/Receiver/${caller}/videochatroom`);
-              reverseRef.set(newRoomNumber);
-              videoRooms[newRoomNumber] = [];
-              return newRoomNumber;
-          }
-      })
-  };
-
-const setSocketId = function(user){
-  database.ref('/socketId').child(user).set(socket.id)
-}
-
-//   const checkVideoChatOccupancy = function(userInfo, socket){
-//     const roomNumberRef = database.ref(`/Logs/${userInfo.caller}/Receiver/${userInfo.callee}/videochatroom`);
-//     roomNumberRef.once('value').then(function(snapshot) {
-//       console.log(snapshot.val())
-//       const myRoom = videoRooms[snapshot.val()]
-//       console.log(myRoom)
-//       socket.join(myRoom)
-//       if (myRoom.length == 0) {
-//         myRoom.push(userInfo.caller);
-//         socket.emit('check-initiator-fin', true);
-//       } else {
-//         myRoom.push(userInfo.caller);
-//         socket.emit('check-initiator-fin', false)
-//       }
-//     })
-//   }

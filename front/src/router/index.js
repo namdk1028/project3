@@ -25,6 +25,11 @@ const routes = [
     component: () => import("../views/MainPage.vue"),
   },
   {
+    path: "/maincopy",
+    name: "MainCopy",
+    component: () => import("../views/MainPageCopy.vue"),
+  },
+  {
     path: "/message",
     name: "Message",
     component: () => import("../views/Message.vue"),

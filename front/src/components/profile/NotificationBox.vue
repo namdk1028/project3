@@ -132,6 +132,16 @@ export default {
         this.showProfile = true;
       }
     },
+    mounted: function(){
+      const user = 'suzi'
+      this.$socket.emit('fetch-like-log', { 'user': user });
+      this.$socket.on('fetch-like-log-reply', likeMessages => {
+        console.log(likeMessages)
+        const newMsg = Object.values(likeMessages);
+        //key가 보낸사람 아이디, value가 메세지 내용
+        this.newUsers = newMsg;
+      })
+    }
 }
 </script>
 

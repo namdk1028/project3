@@ -1,29 +1,24 @@
 <template>
-  <div class='main'>
+  <div>
     <Header />
-    <HeartAnimation />
     <Slider />
   </div>
 </template>
 
 <script>
 import Slider from "../components/main/Slider"
-import HeartAnimation from "../components/main/HeartAnimation"
 import Header from "../components/common/Header.vue"
 export default {
   components: {
     Slider,
-    Header,
-    HeartAnimation
+    Header
   },
   mounted: function(){
-    this.$socket.emit('initialize-socket', 'yeonsu')
+    this.$socket.emit('initialize-socket', 'brian')
   }
 }
 </script>
 
 <style>
-.main {
-  background-color: #fefff8;
-}
+
 </style>

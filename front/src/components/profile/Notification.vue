@@ -8,7 +8,8 @@
       </div>
       <div class="notification-content">
         <div class='notification-content-body'>
-          <span class="notification-username" @click="moveToProfile">{{ user.name }}</span>님이 호감을 표시하셨습니다.
+          <!-- <span class="notification-username" @click="moveToProfile">{{ user.name }}</span>님이 호감을 표시하셨습니다. -->
+          <span class="notification-username" @click="moveToProfile">{{ msg.by }}</span>님이 호감을 표시하셨습니다.
         </div>
         <div class="notification-time">
           1시간 전
@@ -28,7 +29,8 @@ export default {
         }
     },
     props: {
-      user: Object
+      user: Object,
+      msg: Object
     },
     methods: {
       moveToProfile() {

@@ -72,7 +72,7 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "Nam",
+      user: "brian",
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
@@ -211,7 +211,6 @@ export default {
     cursor: pointer;
   }
 .chat-content {
-  /* background-color: rgb(240, 240, 240); */
   height: 80%;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

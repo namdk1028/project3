@@ -180,7 +180,8 @@ export default {
 }
 .profile-modal-userinfo .not-about {
   display: flex;
-  height: 80%;
+  min-height: 80%;
+
 }
 .profile-modal-userinfo .base {
   margin: 3px;
@@ -275,10 +276,11 @@ export default {
 }
 .profile-modal-userinfo .about {
   margin: 3px;
-  height: 40%;
+  min-height: 40%;
   display: flex;
-  justify-content: center;
+  text-align: start;
   align-items: center;
+  padding: 10px;
 }
 .profile-modal-userinfo .icon {
   font-size: 1.3rem;
