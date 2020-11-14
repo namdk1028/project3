@@ -1,8 +1,7 @@
 <template>
   <div class='chat-input'>
     <Emoticon @addEmoticon="addEmoticon" />
-    <!-- <File @addFile="addFile" /> -->
-    <div class='chat-input-other' @click="fileBtn">
+    <div class='chat-input-other'>
       <!-- <i class="fas fa-plus"></i> -->
     </div>
     <div class="chat-input-message" @click="exit">
@@ -19,15 +18,21 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
+import { mapGetters } from 'vuex'
 // import File from "../message/File"
 export default {
   props: {
     partner: String
   },
+  computed: {
+    ...mapGetters({
+      userId: "user/getUserInfo.nickname",
+    })
+  },
   data() {
     return {
       chat_text: "",
-      myId: 'Nam',
+      myId: this.userId,
       myPartner: this.partner
     }
   },
@@ -44,20 +49,11 @@ export default {
       emoticon.classList.remove("hide")
       this.exitFile()
     },
-    fileBtn() {
-      var file = document.querySelector(".file")
-      file.classList.remove("hide")
-      this.exitEmoticon()
-    },
     exitEmoticon() {
       document.querySelector('.emoticon').classList.add('hide')
     },
-    exitFile() {
-      document.querySelector('.file').classList.add('hide')
-    },
     exit() {
       this.exitEmoticon()
-      this.exitFile()
     },
     sendBtn() {
       this.exitEmoticon()

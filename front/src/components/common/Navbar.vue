@@ -90,9 +90,8 @@ export default {
       },
     },
     mounted: function() {
-      this.$socket.on('incoming-like-alarm', () => {
-        console.log('incoming-like-alarm')
-        console.log(this)
+      this.$socket.on('incoming-like-alarm', (data) => {
+        console.log(data)
         this.unreadSignal = true;
       })
     }
