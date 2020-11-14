@@ -30,7 +30,6 @@
       color: rgb(241, 141, 141);
     }
     .container-tabs {
-      // display: flex;
       z-index: 1;
       .btn-tab {
         margin: 0px 12px;
@@ -61,8 +60,8 @@
       border-radius: 6px;
       padding: 3px;
       background-color: white;
-      object-fit: cover;
       img {
+        object-fit: cover;
         border-radius: 6px;
         background-size: cover;
         background-position: center;
