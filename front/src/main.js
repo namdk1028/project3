@@ -14,10 +14,10 @@ import 'sweetalert2/dist/sweetalert2.min.css';
  
 import io from 'socket.io-client';
 //const socket = io('http://k3a507.p.ssafy.io:3000');
-var socket = io('http://localhost:8000');
+//var socket = io('http://localhost:8000');
 
 //Initialize socket
-Vue.prototype.$socket = socket;
+//Vue.prototype.$socket = socket;
 Vue.config.productionTip = false
 Vue.prototype.$http = axios;
 
