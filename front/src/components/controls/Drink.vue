@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="drink">
     <select class="select" v-model="selected">
         <option selected>상관 없음</option>
         <option>안마심</option>

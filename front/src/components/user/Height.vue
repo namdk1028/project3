@@ -10,6 +10,14 @@
             </option>
           </select>
         </div>
+        <v-btn
+          class="info-btn mx-auto my-3"
+          color="red lighten-3"
+          dark
+          @click="emitHeight"
+        >
+          확인
+        </v-btn>
       </v-container>
     </v-card-actions>
   </v-card>
