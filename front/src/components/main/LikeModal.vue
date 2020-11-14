@@ -46,11 +46,17 @@ export default {
     return {
       coin: 2,
       state: true,
+      //김연수 추가
+      partner: 'suzi',
+      user: 'yeonsu'
     }
   },
   methods: {
     okBtn() {
       if (this.coin > 0) {
+        //하트 알람 보내기
+        this.$socket.emit('likeAlarm', {sender: this.user, receiver: this.partner});
+
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
         this.$emit("like", this.userData.id)

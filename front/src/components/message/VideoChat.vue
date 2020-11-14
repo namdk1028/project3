@@ -1,11 +1,16 @@
 <template>
-    <div>
+    <div v-if="incomingCall == false">
         <video playsInline muted id="my-video" autoPlay></video>
-        <video v-if="callAccepted=true" playsInline id="partner-video" autoPlay>
-        </video>
-        <p v-if="calling==true">전화를 거는 중</p>
+        <video v-if="callAccepted == true" playsInline id="partner-video" autoPlay></video>
+        <p v-if="calling == true">전화를 거는 중</p>
         <button @click='exit'>Exit</button>
-        <button v-if="incomingCall == true" @click="acceptCall">Accept Call</button>
+    </div>
+    <div v-else-if="incomingCall == true">
+        <button v-if="callAccepted == false" @click="acceptCall">Accept Call</button>
+        <!-- <div v-else>
+            <video playsInline muted id="my-video" autoPlay></video>
+            <video v-if="callAccepted == true" playsInline id="partner-video" autoPlay></video>
+        </div> -->
     </div>
 </template>
 
@@ -15,18 +20,18 @@ const Peer = require('simple-peer');
 
 export default {
     props: {
+        incomingCall: Boolean,
         isInitiator: Boolean,
         caller:String,
         callee:String,
+        callerSignal:Object,
     },
     data(){
         return {
             stream: '',
             calling: false, 
             callAccepted: false,
-            incomingCall: false,
             from: '',
-            callerSignal: '',
         }
         
     },
@@ -42,7 +47,21 @@ export default {
             console.log('Apply for calling')
             const myPeer = new Peer({
                 initiator: true,
-                trickle: false, 
+                trickle: false,
+                config: {
+                    // iceServers: [
+                    // {
+                    //     urls: "stun:numb.viagenie.ca",
+                    //     username: "sultan1640@gmail.com",
+                    //     credential: "98376683"
+                    // },
+                    // {
+                    //     urls: "turn:numb.viagenie.ca",
+                    //     username: "sultan1640@gmail.com",
+                    //     credential: "98376683"
+                    // }
+                    // ]
+                }, 
                 stream: this.stream
             });
             myPeer.on('signal', data => {
@@ -56,36 +75,47 @@ export default {
             })
 
             myPeer.on('stream', stream => {
+                console.log('스트림수신')
                 const partnerVideo = document.querySelector('#partner-video');
+                console.log('partner-video-stream')
+                console.log(stream)
                 if (partnerVideo) {
                     partnerVideo.srcObject = stream;
                 }
             })
 
             this.$socket.on('callAccepted', signal => {
+                console.log('전화연결됨')
+                if (myPeer()) {
+                    console.log(myPeer())
+                }
                 this.callAccepted = true;
                 myPeer.signal(signal);
             })
 
         },
         acceptCall: function(){
+            console.log('answering phone call')
             this.callAccepted = true;
-            const peer = new Peer({
+            const myPeer = new Peer({
                 initiator: false,
                 trickle: false,
                 stream: this.stream,
             })
 
-            peer.on("signal", data => {
-                this.$socket.emit("acceptCall", {signalData: data, caller: this.from})
+            myPeer.on("signal", data => {
+                console.log('accepting call....')
+                this.$socket.emit("acceptCall", {signalData: data, caller: this.caller}, () => {
+                    console.log('acceptCall Event fired!')
+                })
             })
 
-            peer.on('stream', stream => {
+            myPeer.on('stream', stream => {
                 const partnerVideo = document.querySelector('#partner-video');
                 partnerVideo.srcObject = stream
             })
 
-            peer.signal(this.callerSignal);
+            myPeer.signal(this.callerSignal);
         },
 
         exit: function(){
@@ -101,13 +131,8 @@ export default {
             this.setStream(stream);
         })
 
-        this.$socket.on('incoming-call', data => {
-            this.incomingCall = true
-            this.from = data.from
-            this.callerSignal = data.signalData
-        })
-
         if (this.isInitiator) {
+            console.log(`${this.caller}가 ${this.callee}에게 화상통화 연결을 요청합니다.`)
             this.calling = true
             this.callPeer()
         }

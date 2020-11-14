@@ -1,6 +1,6 @@
 <template>
     <div class="container-btns">
-        <div class="wrapper-btn">
+        <div class="wrapper-btn" style="marginBottom:6px;">
             <button class="btn btn-job" @click="selectOption" value="학생">학생</button>
             <button class="btn btn-job" @click="selectOption" value="전문직">전문직</button>
             <button class="btn btn-job" @click="selectOption" value="교육직">교육직</button>
@@ -40,19 +40,13 @@ export default {
                 var index = this.selected.indexOf(event.target.value)
                 this.selected.splice(index, 1)
                 event.target.style.background = "white"
-                event.target.style.borderTop = "1px solid rgb(211, 211, 211)"
-                event.target.style.borderBottom = "1px solid rgb(211, 211, 211)"
-                event.target.style.borderRight = "1px solid rgb(211, 211, 211)"
-                event.target.style.color = "#2c3e50"
+                event.target.style.color = "rgb(119, 116, 139)"
 
 
             }
             else {
                 this.selected.push(event.target.value)
                 event.target.style.background = "rgb(252, 166, 157)"
-                event.target.style.borderTop = "1px solid rgb(252, 166, 157)"
-                event.target.style.borderBottom = "1px solid rgb(252, 166, 157)"
-                event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
                 event.target.style.color = "white"
             }
             this.setJob(this.selected)
