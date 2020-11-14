@@ -32,12 +32,15 @@
 </template>
 
 <script>
-// import axios from "axios"
-// import USERAPI from "@/api/UserApi";
+import axios from "axios"
+import USERAPI from "@/api/UserApi";
 
 export default {
   props: {
     userData: Object,
+  },
+  computed: {
+    config: "user/config"
   },
   data() {
     return {
@@ -51,7 +54,14 @@ export default {
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
         this.$emit("like", this.userData.id)
-        // axios.post(USERAPI.BASE_URL + "/accounts/")
+        console.log(this.userData.id)
+        axios.post(USERAPI.BASE_URL + "/accounts/like/",this.userData.id ,this.config)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err.response)
+        })
         setTimeout(() => {
           document.querySelector('.heart-animation').classList.add('hide')
         }, 2000);
