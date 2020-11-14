@@ -11,8 +11,8 @@ export default {
     profile_saved:false,
     image_saved:false,
     // authToken: cookies.get("auth-token"),
-    authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
-    // authToken: null,
+    // authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
+    authToken: null,
     // userInfo: Object,
     userInfo: {
     },
@@ -40,7 +40,7 @@ export default {
     // isLoggedIn: (state) => !!state.authToken,
     config: (state) => ({
       headers: {
-        Authorization: `${state.authToken}`,
+        Authorization: `JWT ${state.authToken}`,
       },
     }),
     getUserInfo(state) {
@@ -72,7 +72,6 @@ export default {
   },
   actions: {
     login({ commit,state }, res) {
-      router.push({name:"Loading"})
       cookies.set("auth-token", res.data.token);
       state.authToken = res.data.token
       if(res.data.preference) {
@@ -80,7 +79,7 @@ export default {
       }else{
         if (res.data.user.profile_saved === 1) {
           state.profile_saved = true
-          commit("SET_PROFILE", res.data.profile);
+          commit("SET_PROFILE", res.data.profile)
           if (res.data.user.image_saved === 1){
             state.image_saved = true
             router.push({name:"Main"})
@@ -88,12 +87,12 @@ export default {
             router.push({name:"Upload"})
           }
         }
-        // else if(res.data.user.profile_saved === 0){
-        //   console.log('프로필정보 없음')
-        //   commit("SET_UNACTIVE_USER", res);
-        //   // router.push({name:"Userinfo"})
-        // }
+        else if (res.data.user.profile_saved === 0){
+          router.push({name:"UserInfo"})
+        }
       }
+      // router.push({name:"Loading"})
+
     },
     addUserInfo({commit,getters},UserData){
       return new Promise((resolve, reject) => {
