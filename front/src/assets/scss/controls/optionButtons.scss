@@ -12,17 +12,15 @@
     border-radius: 0 6px 6px 0;
   }
   .btn {
-    padding: 5px 8px;
+    padding: 6px 7px;
     background-color: white;
     outline: none;
-    border-top: 1px solid rgb(211, 211, 211);
-    border-bottom: 1px solid rgb(211, 211, 211);
-    border-right: 1px solid rgb(211, 211, 211);
+    border-right: 1.8px solid rgb(250, 237, 237);
     font-size: 0.9rem;
     color: rgb(0, 0, 0, 0.7);
   }
   .btn-left {
-    border-left: 1px solid rgb(211, 211, 211);
+    border-left: 1px solid white;
     border-radius: 6px 0 0 6px;
   }
   .btn-right {
