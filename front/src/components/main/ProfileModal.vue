@@ -1,6 +1,6 @@
 <template>
   <div>
-    <i @click="closeModal" class="far fa-times-circle modal-close"></i>
+    <i @click="closeModal" class="far fa-times-circle profile-modal-close"></i>
     <v-card class='profile-modal'>
       <v-img :src="test.src" class="profile-modal-img">
       </v-img>
@@ -228,7 +228,7 @@ export default {
   text-align: left;
 } */
 
-.swiper-wrapper .modal-close {
+.profile-modal-close {
   color: gray !important;
   background: white;
   font-size: 2rem;
