@@ -6,7 +6,7 @@
       </div>
       <div class="like-modal-body">
         <div class='text'><p class='coin'>코인 2개</p>로</div>
-        <div class='text'><p class="name">{{ test.name }}</p>님에게</div>
+        <div class='text'><p class="name">{{ userData.nickname }}</p>님에게</div>
         <div class="text">하트를 보내시겠습니까?</div>
       </div>
       <div class="like-modal-btns">
@@ -32,9 +32,12 @@
 </template>
 
 <script>
+// import axios from "axios"
+// import USERAPI from "@/api/UserApi";
+
 export default {
   props: {
-    test: Object,
+    userData: Object,
   },
   data() {
     return {
@@ -47,6 +50,8 @@ export default {
       if (this.coin > 0) {
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
+        this.$emit("like", this.userData.id)
+        // axios.post(USERAPI.BASE_URL + "/accounts/")
         setTimeout(() => {
           document.querySelector('.heart-animation').classList.add('hide')
         }, 2000);
@@ -64,6 +69,8 @@ export default {
       this.state = true
       this.$emit('closeModal')
     }
+  },
+  mounted() {
   }
 
 }

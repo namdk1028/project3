@@ -1,8 +1,8 @@
 <template>
   <div>
-    <i @click="closeModal" class="far fa-times-circle modal-close"></i>
+    <i @click="closeModal" class="far fa-times-circle profile-modal-close"></i>
     <v-card class='profile-modal'>
-      <v-img :src="test.src" class="profile-modal-img">
+      <v-img :src="userData.src" class="profile-modal-img">
       </v-img>
       <div class='profile-modal-body'>
         <div v-if="state == 'up'">
@@ -11,17 +11,40 @@
             <div style="background-color: rgb(241, 195, 195);">프로필</div>
             <div class="not-about">
               <v-card class='base'>
-                <i class="far fa-user icon"></i>
                 <div>
-                  <div class="each name">
-                    {{ test.name }} {{ test.age }}
+                  <div class="each titlea">
+                    <h2 class="name">
+                      {{ userData.nickname }}
+                    </h2>
+                    <div class="age">
+                      {{ userData.age }}
+                    </div>
+                    <!-- <div class='blood'>
+                      {{ userData.blood }}
+                    </div> -->
                   </div>
                   <div class='each height'>
                     <div class='category'>
                       키
                     </div>
                     <div class='content'>
-                      161
+                      {{ userData.height }}
+                    </div>
+                  </div>
+                  <div class='each job'>
+                    <div class='category'>
+                      직업
+                    </div>
+                    <div class='content'>
+                      {{ userData.job }}
+                    </div>
+                  </div>
+                  <div class='each body'>
+                    <div class='category'>
+                      체형
+                    </div>
+                    <div class='content'>
+                      {{ userData.body }}
                     </div>
                   </div>
                   <div class='each religion'>
@@ -29,39 +52,51 @@
                       종교
                     </div>
                     <div class='content'>
-                      무교
+                      {{ userData.religion }}
                     </div>
                   </div>
                   <div class="each birth">
                     <i class="fas fa-birthday-cake category"></i>
-                    <div class='content'>1987.04.20</div>
+                    <div class='content'>{{ userData.birth }}</div>
                   </div>
                   <div class="each location">
                     <i class="fas fa-map-marker-alt category"></i>
-                    <div class="content">경기도 이천</div>
+                    <div class="content">{{ userData.area }}</div>
                   </div>
                 </div>
               </v-card>
               <div class='specific'>
                 <v-card class='hobby'>
-                  취미
+                  <div class="titlea category">
+                    취미
+                  </div>
+                  <div class="content">
+                  {{ userData.hobby1 }}
+
+                  </div>
+                  <div class="content">
+                    {{ userData.hobby2 }}
+
+                  </div>
                 </v-card>
                 <v-card class='smoke'>
                   <i class="fas fa-smoking icon category"></i>
-                  <div class="">
-                    No
+                  <div class="content">
+                      {{ userData.smoke }}
                   </div>
                 </v-card>
                 <v-card class='drink'>
                   <i class="fas fa-beer icon category"></i>
-                   2병
+                  <div class="content">
+                   {{ userData.drink }}
+                  </div>
                 </v-card>
               </div>
             </div>
             <div style="background-color: rgb(241, 195, 195); margin-top: 10px;">자기소개</div>
             <v-card class='about'>
-              <div>
-                하윙
+              <div class='intro'>
+                {{ userData.intro }}
               </div>
             </v-card>
           </div>
@@ -78,7 +113,7 @@
 <script>
 export default {
   props: {
-    test: Object,
+    userData: Object,
   },
   data() {
     return {
@@ -107,6 +142,8 @@ export default {
       this.state = "up"
     }
   },
+  mounted() {
+  }
 }
 </script>
 
@@ -150,12 +187,37 @@ export default {
   width: 60%;
 }
 .profile-modal-userinfo .each {
-  padding: 5px 0;
+  padding: 3px 0;
 }
-.profile-modal-userinfo .name {
-  font-size: 1.3rem;
+.profile-modal-userinfo .titlea {
+  display: flex;
+  justify-content: center;
+}
+.profile-modal-userinfo .titlea .name {
+  font-size: 1.4rem !important;
+}
+.profile-modal-userinfo .titlea .age {
+  padding-left: 10px;
+  font-size: 1rem;
+  color: gray;
+  display: flex;
+  align-items: flex-end;
+}
+.profile-modal-userinfo .titlea .blood {
+  position: absolute;
+  right: 0;
+  padding-right: 10px;
+  font-size: 1rem;
 }
 .profile-modal-userinfo .height {
+  display: flex;
+  align-items: center;
+}
+.profile-modal-userinfo .job {
+  display: flex;
+  align-items: center;
+}
+.profile-modal-userinfo .body {
   display: flex;
   align-items: center;
 }
@@ -174,9 +236,22 @@ export default {
 .profile-modal-userinfo .specific {
   width: 40%;
 }
+.profile-modal-userinfo .specific content {
+  font-size: 1rem;
+}
 .profile-modal-userinfo .hobby {
   margin: 3px;
   height: 48%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.profile-modal-userinfo .hobby .titlea {
+  font-size: 1.2rem;
+  color: black;
+  margin-bottom: 4px;
+
 }
 .profile-modal-userinfo .smoke {
   margin: 3px;
@@ -201,6 +276,9 @@ export default {
 .profile-modal-userinfo .about {
   margin: 3px;
   height: 40%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profile-modal-userinfo .icon {
   font-size: 1.3rem;
@@ -228,7 +306,7 @@ export default {
   text-align: left;
 } */
 
-.swiper-wrapper .modal-close {
+.profile-modal-close {
   color: gray !important;
   background: white;
   font-size: 2rem;

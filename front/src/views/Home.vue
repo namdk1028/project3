@@ -42,17 +42,10 @@ export default {
       setTimeout(() => {
         document.querySelector('.small-heart').classList.remove('hide')
       }, 2200);
-      if (this.isLoggedIn) {
-        setTimeout(() => {
-          this.$router.push('/main')
-        }, 3500);
-      }
-      else {
         setTimeout(() => {
           this.$router.push('/user/login')
         }, 3500);
       }
-    }
   },
   computed: {
     ...mapGetters({

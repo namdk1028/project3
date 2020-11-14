@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='main'>
     <Header />
     <HeartAnimation />
     <Slider />
@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style>
-
+.main {
+  background-color: #fefff8;
+}
 </style>

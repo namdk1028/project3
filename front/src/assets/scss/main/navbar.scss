@@ -35,4 +35,17 @@
     height: 1.2rem;
     margin-left: 1.6rem;
   }
+  .navbar-heart {
+    position: absolute;
+    display: flex;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    top: 0.8rem;
+    font-size: 0.5rem;
+    color: red;
+    min-width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 1.5rem;
+  }
 }
