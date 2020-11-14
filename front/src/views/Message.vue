@@ -21,7 +21,7 @@ export default {
     return {
       title: 'Message',
       rooms: [],
-      user: 'Nam'
+      user: 'yeonsu'
     }
   },
   components: {
@@ -31,6 +31,7 @@ export default {
   methods: {
   },
   mounted() {
+    this.$socket.emit('initialize-socket')
     this.$socket.emit('fetch-chatroom', this.user)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = Object.values(rooms);
