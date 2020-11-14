@@ -11,10 +11,11 @@ export default {
     profile_saved:false,
     image_saved:false,
     // authToken: cookies.get("auth-token"),
-    // authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
-    authToken: null,
+    authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
+    // authToken: null,
     // userInfo: Object,
-    userInfo: {},
+    userInfo: {
+    },
     preference: {},
     // userInfo: {
     //   gender: "",
@@ -39,7 +40,7 @@ export default {
     // isLoggedIn: (state) => !!state.authToken,
     config: (state) => ({
       headers: {
-        Authorization: `JWT ${state.authToken}`,
+        Authorization: `${state.authToken}`,
       },
     }),
     getUserInfo(state) {
@@ -47,6 +48,12 @@ export default {
     },
     getAuthToken(state) {
       return state.authToken;
+    },
+    getNickname(state) {
+      return state.userInfo.nickname;
+    },
+    getSimilarity(state) {
+      return state.userInfo.similarity;
     }
   },
   mutations: {
@@ -58,6 +65,9 @@ export default {
     },
     SET_PREFERENCE(state,preference) {
       state.preference = preference
+    },
+    setSimilarity(state, similarity) {
+      state.similarity = similarity
     }
   },
   actions: {

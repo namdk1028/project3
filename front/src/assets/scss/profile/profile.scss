@@ -61,11 +61,8 @@
       border-radius: 6px;
       padding: 3px;
       background-color: white;
-      object-fit: cover;
-      :hover {
-        opacity: 0.8;
-      }
       img {
+        object-fit: cover;
         border-radius: 6px;
         background-size: cover;
         background-position: center;
