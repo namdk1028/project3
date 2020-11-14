@@ -15,8 +15,11 @@ const io = require('socket.io')(server, {
     methods: ['GET', 'POST']
   }
 });
+//TEST
+//server.listen(8000);
 
-server.listen(8000);
+//DEPLOY
+server.listen(3000);
 
 app.get('/', function(req, res) {
  res.json({message: "welcome to websocket for ssafy 507"})
@@ -205,13 +208,27 @@ io.on('connection', (socket) => {
       io.sockets.emit('incoming-like-alarm')
       //DB에 저장
       const likeRef = database.ref(`/Logs/suzi/`)
+      const message = {
+          text: `${sender}님이 당신을 좋아합니다.`,
+          isRead: false,
+          by: `${sender}`
+        }
       likeRef.once('value').then(function(snapshot) {
         if (!snapshot.hasChild('likeLog')){
         likeRef.set('likeLog')
-        likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        likeRef.child(`likeLog/${sender}`).set(message)
         } else {
-          likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+          likeRef.child(`likeLog/${sender}`).set(message)
         }
+      })
+    })
+
+    //좋아요 기록 전송
+    socket.on('fetch-like-log', data => {
+      const user = data.user;
+      const logRef = database.ref(`Logs/${user}/likeLog`)
+      logRef.once('value').then(function(snapshot) {
+        io.sockets.emit('fetch-like-log-reply', snapshot.val())
       })
     })
 })
