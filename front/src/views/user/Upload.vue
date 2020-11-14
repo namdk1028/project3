@@ -21,7 +21,7 @@
             />
             <div v-if="uploadImage">
               <img class="upload-image" :src="uploadPreview" />
-              <img @click="imageDelete(uploadImage)" class="close-icon" src="@/assets/images/icon/close.png">
+              <img @click="uploadDelete()" class="close-icon" src="@/assets/images/icon/close.png">
             </div>
           </div>
         </form>
@@ -47,20 +47,81 @@
             />
             <div v-if="cameraImage">
               <img class="camera-image" :src="cameraPreview" />
-              <img class="close-icon" src="@/assets/images/icon/close.png">
+              <img @click="cameraDelete()" class="close-icon" src="@/assets/images/icon/close.png">
             </div>
           </div>
         </form>
       </div>
-    </div>
+      <!-- <div class="similarity-info"> -->
+        <div class="cell">
+          <div class="card">
+
+            <div v-if="similarity" class="loader">
+                <div class="inner">
+                    <h2> {{this.similarity}}%</h2>
+                </div>
+            </div>
+            <br>
+            <div v-if="onClick" class="loading-bars">
+              <span  class="gauge-loader">Loading&#8230;</span>
+              <div class="box">
+                <div class="loader4"></div>
+                <!-- <p>loader 4</p> -->
+              </div>
+            </div>
+              <!-- <div class="fancy-button">
+                <div class="left-frills frills"></div>
+                <div class="button">{{this.similarity}} %</div>
+                <div class="right-frills frills"></div>
+              </div> -->
+              
+            <!-- <button>{{this.similarity.slice(-5,-2)}}</button> -->
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
     <v-btn
       width="300px"
       height="38px"
       rounded
-      class="mx-auto my-0"
+      class="mx-auto my-2"
       color="#f1c3c3"
       dark
       @click="checkSimilarity"
+      v-if="uploadImage && cameraImage && similarity"
+    >유사도 재측정
+    </v-btn>
+    <v-btn
+      width="300px"
+      height="38px"
+      rounded
+      class="mx-auto my-2"
+      color="white"
+      @click="emitSimilarity()"
+      v-if="uploadImage && cameraImage && similarity"
+    >사진 저장
+    </v-btn>
+    <v-btn
+      width="300px"
+      height="38px"
+      rounded
+      class="mx-auto my-2"
+      color="#f1c3c3"
+      dark
+      :disabled="onClick"
+      @click="checkSimilarity"
+      v-if="uploadImage && cameraImage && !similarity"
+    >유사도 측정
+    </v-btn>
+    <v-btn
+      width="300px"
+      height="38px"
+      rounded
+      class="mx-auto my-2"
+      color="#E5E5E5"
+      dark
+      @click="isValid"
+      v-if="!uploadImage || !cameraImage "
     >유사도 측정
     </v-btn>
   </div>
@@ -71,7 +132,7 @@ import axios from "axios"
 
 import USERAPI from "@/api/UserApi.js"
 import Title from "../../components/common/Title";
-import { mapState } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   name:"Upload",
@@ -81,21 +142,21 @@ export default {
   data(){
     return{
       title:"사진 등록",
+      onClick: false,
       uploadPreview:null,
       cameraPreview:null,
       
       cameraImage:null,
       uploadImage:null,
+      similarity:null,
     }
   },
   computed:{
     ...mapState('user',['authToken']),
+    ...mapGetters('user',['config']),
 
   },
   methods:{
-    // onClickImageUpload() {
-    //     this.$refs.imageInput.click();
-    // },
     onChangeUploadImages(e) {
         // console.log(e.target.files)
         this.uploadImage = this.$refs.imageInput.files[0]
@@ -110,7 +171,7 @@ export default {
           for (let key of formData.entries()){
             console.log(`${key}`)
           }
-          console.log('요청전')
+          // console.log('요청전')
           console.log(formData)
           axios.post(USERAPI.BASE_URL + '/images/upload/', formData, {
             headers:{
@@ -118,12 +179,11 @@ export default {
               'Authorization': `JWT ${this.authToken}`
             }
           })
-
           .then((res)=>{
             console.log(res)
           }).catch((err)=>{
-            console.log('요청후')
-
+            // console.log('요청후')
+            this.$swal('','정확한 분석을 위해\n선명한 사진을 사용해주세요. ','warning')
             console.log(err)
           })
         // })
@@ -137,6 +197,8 @@ export default {
         this.cameraPreview = URL.createObjectURL(file);
     },
     checkSimilarity(){
+      this.similarity = null
+      this.onClick = true
       const formData = new FormData()
       console.log(this.uploadImage)
       formData.append("image1", this.uploadImage)
@@ -155,15 +217,53 @@ export default {
         }
       }).then((res)=>{
         console.log(res)
+        this.similarity = res.data.similarity.slice(-5,-2)
+        this.onClick = 0
+      }).catch(()=>{
+        this.$swal('','정확한 분석을 위해\n선명한 사진을 사용해주세요. ','warning')
+        this.onClick = false
       })
     },
-    imageDelete(image) {
-      console.log(image)
+    uploadDelete() {
+      this.uploadImage = null,
+      this.uploadPreview = null,
+      this.similarity = null
+      // console.log(image)
       // const name = e.target.getAttribute("name");
       // image = null
       // this.files = this.files.filter((data) => data.number !== Number(name));
     },
-  }
+    cameraDelete() {
+      this.cameraImage = null,
+      this.cameraPreview = null
+      this.similarity = null
+
+      },
+    isValid(){
+      this.$swal('','유사도 측정을 위해서는\n'+'사진이 모두 업로드되어야 합니다.','warning')
+    },
+    emitSimilarity(){
+      const similarity = parseInt(this.similarity)
+      console.log(similarity)
+      axios.post(USERAPI.BASE_URL + '/images/similarity/', {'similarity':similarity}, this.config)
+      .then((res)=>{
+        res
+        // console.log(res)
+        this.$router.push({name:'Main'})
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+    }
+  },
+  // watch:{
+  //   showSimilarity(){
+  //     if (this.similarity){
+  //       this.$refs.fan
+
+  //     }
+  //   }
+  // }
 
 }
 </script>
