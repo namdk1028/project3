@@ -2,7 +2,7 @@
   <div>
     <i @click="closeModal" class="far fa-times-circle profile-modal-close"></i>
     <v-card class='profile-modal'>
-      <v-img :src="test.src" class="profile-modal-img">
+      <v-img :src="userData.src" class="profile-modal-img">
       </v-img>
       <div class='profile-modal-body'>
         <div v-if="state == 'up'">
@@ -14,14 +14,14 @@
                 <i class="far fa-user icon"></i>
                 <div>
                   <div class="each name">
-                    {{ test.name }} {{ test.age }}
+                    {{ userData.nickname }} {{ userData.age }}
                   </div>
                   <div class='each height'>
                     <div class='category'>
                       키
                     </div>
                     <div class='content'>
-                      161
+                      {{ userData.height }}
                     </div>
                   </div>
                   <div class='each religion'>
@@ -29,39 +29,41 @@
                       종교
                     </div>
                     <div class='content'>
-                      무교
+                      {{ userData.religion }}
                     </div>
                   </div>
                   <div class="each birth">
                     <i class="fas fa-birthday-cake category"></i>
-                    <div class='content'>1987.04.20</div>
+                    <div class='content'>{{ userData.birth }}</div>
                   </div>
                   <div class="each location">
                     <i class="fas fa-map-marker-alt category"></i>
-                    <div class="content">경기도 이천</div>
+                    <div class="content">{{ userData.area }}</div>
                   </div>
                 </div>
               </v-card>
               <div class='specific'>
                 <v-card class='hobby'>
                   취미
+                  {{ userData.hobby1 }}
+                  {{ userData.hobby2 }}
                 </v-card>
                 <v-card class='smoke'>
                   <i class="fas fa-smoking icon category"></i>
                   <div class="">
-                    No
+                    {{ userData.smoke }}
                   </div>
                 </v-card>
                 <v-card class='drink'>
                   <i class="fas fa-beer icon category"></i>
-                   2병
+                   {{ userData.drink }}
                 </v-card>
               </div>
             </div>
             <div style="background-color: rgb(241, 195, 195); margin-top: 10px;">자기소개</div>
             <v-card class='about'>
               <div>
-                하윙
+                {{ userData.intro }}
               </div>
             </v-card>
           </div>
@@ -78,7 +80,7 @@
 <script>
 export default {
   props: {
-    test: Object,
+    userData: Object,
   },
   data() {
     return {
@@ -107,6 +109,8 @@ export default {
       this.state = "up"
     }
   },
+  mounted() {
+  }
 }
 </script>
 
