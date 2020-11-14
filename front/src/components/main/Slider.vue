@@ -45,7 +45,7 @@
               color="#EF5350"
               @click="likeBtn(user)"
             >
-              <v-icon v-if="likeCheck(user.id)" color="lime lighten-3">
+              <v-icon v-if="user.like" color="lime lighten-3">
                 mdi-heart
               </v-icon>
               <v-icon v-else>
@@ -95,7 +95,6 @@ export default {
   },
   data() {
     return {
-      likes: [1,4],
       dialogProfile: false,
       dialogLike: false,
       dialogAlreadyLike: false,
@@ -119,7 +118,8 @@ export default {
           education: '대학생 이상',
           job: '배우',
           area: '경기도',
-          intro: 'HELLO',
+          intro: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+          like: true,
         },
         {
           id: 2,
@@ -140,6 +140,7 @@ export default {
           job: '배우',
           area: '경기도',
           intro: 'HELLO',
+          like: false,
         },
         {
           id: 3,
@@ -160,6 +161,7 @@ export default {
           job: '배우',
           area: '경기도',
           intro: 'HELLO',
+          like: false,
         },
         {
           id: 4,
@@ -180,6 +182,7 @@ export default {
           job: '배우',
           area: '경기도',
           intro: 'HELLO',
+          like: false,
         },
         {
           id: 5,
@@ -200,6 +203,7 @@ export default {
           job: '배우',
           area: '경기도',
           intro: 'HELLO',
+          like: true,
         },
       ]
     }
@@ -212,18 +216,11 @@ export default {
   
   methods: {
     like(id) {
-      this.likes.push(id)
-    },
-    likeCheck (id) {
-      for (var i = 0; i < this.likes.length; i++) {
-        if (this.likes[i] == id) {
-          return true
-        }
-      }
-      return false
+      this.users[id-1].like = true
+      console.log(this.users[id])
     },
     likeBtn(user) {
-      if (this.likeCheck(user.id)) {
+      if (user.like) {
         this.dialogAlreadyLike = true
       }
       else {
@@ -326,14 +323,17 @@ export default {
     z-index: -1;
   }
   .swiper-bottom-name {
-    margin: 1.4rem 0 0 2.2rem;
+    margin: 1.5rem 0 0 2.2rem;
     text-align: left;
     color: rgb(80, 80, 80);
   }
   .swiper-bottom-introduce {
     margin: 0.5rem 2.2rem 0 2.2rem !important;
+    height: 30%;
+    overflow: hidden;
     text-align: left;
     color: gray;
+    -webkit-line-clamp: 2;
   }
 
   .main-name {
