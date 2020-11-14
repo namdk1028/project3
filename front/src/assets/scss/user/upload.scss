@@ -1,0 +1,55 @@
+.pic-box {
+  display: flex;
+  margin: 50px 0 30px;
+  br {
+    display: block;
+    line-height: 2px;
+    content: "";
+    margin-top: 0;
+  }
+  .image-info {
+    font-size: 12px;
+    color: #c1bbb4;
+  }
+  .upload-pic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin: 0 auto;
+    width: 48vw;
+    height: 40vh;
+    background-color: #fcf5f0;
+    border-radius: 8px;
+  }
+  .icon-pic {
+    width: 40px;
+    height: 40px;
+    // margin: 12vh auto;
+  }
+  .close-icon {
+    position: absolute;
+    right: -1px;
+    width: 20px;
+    height: 20px;
+    z-index: 9999;
+  }
+  input {
+    display: none;
+  }
+  .upload-image {
+    position: relative;
+    margin: 5px auto;
+    width: 45vw;
+    height: 38vh;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .camera-image {
+    margin: 5px auto;
+    width: 45vw;
+    height: 38vh;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}

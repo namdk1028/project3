@@ -13,6 +13,7 @@ export default {
     authToken: null,
     // userInfo: Object,
     userInfo: {},
+    preference: {},
     // userInfo: {
     //   gender: "",
     //   birth: "",
@@ -49,6 +50,9 @@ export default {
     },
     SET_PROFILE(state,userInfo) {
       state.userInfo = userInfo
+    },
+    SET_PREFERENCE(state,preference) {
+      state.preference = preference
     }
   },
   actions: {
@@ -56,19 +60,24 @@ export default {
       router.push({name:"Loading"})
       cookies.set("auth-token", res.data.token);
       state.authToken = res.data.token
-      if (res.data.user.profile_saved === 1) {
-        state.profile_saved = true
-        commit("SET_ACTIVE_USER", res);
-        if (res.data.user.image_saved === 1){
-          state.image_saved = true
-          router.push({name:"Main"})
-        }else{
-          router.push({name:"Upload"})
+      if(res.data.preference) {
+        commit("SET_PREFERENCE", res.data.preference)
+      }else{
+        if (res.data.user.profile_saved === 1) {
+          state.profile_saved = true
+          commit("SET_PROFILE", res.data.profile);
+          if (res.data.user.image_saved === 1){
+            state.image_saved = true
+            router.push({name:"Main"})
+          }else{
+            router.push({name:"Upload"})
+          }
         }
-      }else if(res.data.user.profile_saved === 0){
-        console.log('프로필정보 없음')
-        commit("SET_UNACTIVE_USER", res);
-        // router.push({name:"Userinfo"})
+        // else if(res.data.user.profile_saved === 0){
+        //   console.log('프로필정보 없음')
+        //   commit("SET_UNACTIVE_USER", res);
+        //   // router.push({name:"Userinfo"})
+        // }
       }
     },
     addUserInfo({commit,getters},UserData){

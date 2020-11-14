@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Title :title="title" />
+    <!-- <Title :title="title" /> -->
     <div id="loader">
       <div class="face">
       <!-- <?xml version="1.0" encoding="utf-8" standalone="yes"?> -->
@@ -60,14 +60,14 @@ export default {
     goNext(){
       setTimeout(() => {
         if (this.$store.state.profile_saved === true){
-          console.log(this.$store.state.userInfo)
+          // console.log(this.$store.state.userInfo)
           if (this.$store.state.image_saved === true){
             this.$router.push({name:'Main'})
           }else{
             // console.log('사진첩저장')
             this.$router.push({name:'Upload'})
           }
-        } else{
+        }else{
           this.$router.push({name:'UserInfo'})
         }
         // console.log('2')

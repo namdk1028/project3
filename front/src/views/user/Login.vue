@@ -13,8 +13,8 @@
           </div>
         </v-row>
         <div class="text-center">
-          <v-img class="login-btn" @click="googleLogin" src="@/assets/images/icon/googlelogin.png"></v-img>
-          <v-img class="login-btn" @click="kakaoLogin" src="@/assets/images/icon/kakaologin.png"></v-img>
+          <!-- <button><img class="login-btn" @click="googleLogin" src="@/assets/images/icon/googlelogin.png"></button> -->
+          <button><img class="login-btn" @click="kakaoLogin" src="@/assets/images/icon/kakaologin.png"></button>
           <!-- <v-img class="login-btn" @click="naverLogin" src="@/assets/images/icon/naverlogin.png"></v-img> -->
           <!-- <v-btn @click="googleLogin"><img class="login-btn" src="@/assets/images/icon/googlelogin.png"></v-btn>
           <v-btn @click="kakaoLogin"><img class="login-btn" src="@/assets/images/icon/kakaologin.png"></v-btn>
