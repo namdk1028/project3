@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const {v4:uuidv4} = require('uuid');
 
+
 app.set('view engine', 'ejs');
 
 const server = require('http').Server(app);
@@ -15,8 +16,11 @@ const io = require('socket.io')(server, {
     methods: ['GET', 'POST']
   }
 });
+//TEST
+//server.listen(8000);
 
-server.listen(8000);
+//DEPLOY
+server.listen(3000);
 
 app.get('/', function(req, res) {
  res.json({message: "welcome to websocket for ssafy 507"})
@@ -194,24 +198,47 @@ io.on('connection', (socket) => {
     })
 
     //좋아요 알림 처리 함수
+    //경로: FROM (LikeModal) TO (NavBar)
     socket.on('likeAlarm', data => {
       //좋아요 보낸 유저
-      const sender = data.user;
+      const sender = data.senderId;
+      const nickname = data.sendernickname;
       //받는사람
       const receiver = data.receiver;
+      //Front의 NavBar로 전송할 내용
+      const alarmInfo = {
+        'fromId': sender,
+        'fromNickName': nickname,
+        'receiver': receiver
+      }
       //받는사람한테 보내기
       //io.to(socketId[receiver]).emit('incomingAlarm', {sender: sender});
       //TEST용 전소켓 메세지
-      io.sockets.emit('incoming-like-alarm')
+      io.sockets.emit('incoming-like-alarm', alarmInfo)
       //DB에 저장
       const likeRef = database.ref(`/Logs/suzi/`)
+      const message = {
+          text: `${sender}님이 당신을 좋아합니다.`,
+          isRead: false,
+          senderId: `${sender}`,
+          senderNickName: `${nickName}`
+        }
       likeRef.once('value').then(function(snapshot) {
         if (!snapshot.hasChild('likeLog')){
         likeRef.set('likeLog')
-        likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        likeRef.child(`likeLog/${sender}`).set(message)
         } else {
-          likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+          likeRef.child(`likeLog/${sender}`).set(message)
         }
+      })
+    })
+
+    //좋아요 기록 전송
+    socket.on('fetch-like-log', data => {
+      const user = data.user;
+      const logRef = database.ref(`Logs/${user}/likeLog`)
+      logRef.once('value').then(function(snapshot) {
+        io.sockets.emit('fetch-like-log-reply', snapshot.val())
       })
     })
 })
