@@ -1,7 +1,7 @@
 <template>
   <div class="container-notificationBox">
       <!-- <Notification v-for="user in users" :key="user.i" :user="user" /> -->
-      <Notification v-for="msg in newUsers" :key="msg.key" :msg="msg" />
+      <Notification v-for="msg in newMessages" :key="msg.key" :msg="msg" />
   </div>
 </template>
 
@@ -42,7 +42,8 @@ export default {
             age: '25',
           },
         ],
-        newUsers: []
+        newUsers: [],
+        newMessages: []
         }
     },
     methods: {
@@ -52,10 +53,9 @@ export default {
       const user = 'suzi'
       this.$socket.emit('fetch-like-log', { 'user': user });
       this.$socket.on('fetch-like-log-reply', likeMessages => {
-        console.log(likeMessages)
         const newMsg = Object.values(likeMessages);
         //key가 보낸사람 아이디, value가 메세지 내용
-        this.newUsers = newMsg;
+        this.newMessages = newMsg;
       })
     }
 }

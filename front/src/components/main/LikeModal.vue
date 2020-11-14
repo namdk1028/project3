@@ -47,7 +47,7 @@ export default {
       coin: 2,
       state: true,
       //김연수 추가
-      partner: 'suzi',
+      partner: this.userData.id,
       user: 'yeonsu'
     }
   },

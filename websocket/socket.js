@@ -221,7 +221,7 @@ io.on('connection', (socket) => {
           text: `${sender}님이 당신을 좋아합니다.`,
           isRead: false,
           senderId: `${sender}`,
-          senderNickName: `${nickName}`
+          senderNickName: `${nickname}`
         }
       likeRef.once('value').then(function(snapshot) {
         if (!snapshot.hasChild('likeLog')){
