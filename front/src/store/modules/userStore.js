@@ -107,9 +107,8 @@ export default {
             reject()
           })
         })
-      },
-
-    updateProfile(userData, getters) {
+    },
+    updateProfile({getters}, userData) {
       axios.put(`${USERAPI.BASE_URL}/profiles/`, userData, getters.config)
       .then(res => {
         this.userInfo = userData
@@ -120,5 +119,5 @@ export default {
       })
   
     }
-  }
+    },
 }
