@@ -1,6 +1,7 @@
 <template>
   <v-card>
     <v-card-title class="card headline"> 당신의 취미는? </v-card-title>
+    <p class="card-info">(취미는 최대 2개까지만 선택가능합니다.)</p>
     <v-card-actions class="d-block">
       <v-divider></v-divider>
       <div class="container-btns">

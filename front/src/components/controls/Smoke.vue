@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="smoke">
     <select class="select" v-model="selected">
         <option selected>상관 없음</option>
         <option>비흡연</option>
