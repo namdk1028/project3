@@ -18,10 +18,6 @@ export default {
   },
   mounted: function(){
     this.$socket.emit('initialize-socket', 'yeonsu')
-    this.$socket.emit('ping')
-    this.$socket.on('pong', function(){
-      console.log('핑핑핑퐁퐁퐁!!!')
-    })
   }
 }
 </script>

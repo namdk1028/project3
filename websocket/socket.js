@@ -192,6 +192,28 @@ io.on('connection', (socket) => {
       console.log(socketId[to])
       io.to(socketId[to]).emit('callAccepted', signal)
     })
+
+    //좋아요 알림 처리 함수
+    socket.on('likeAlarm', data => {
+      //좋아요 보낸 유저
+      const sender = data.user;
+      //받는사람
+      const receiver = data.receiver;
+      //받는사람한테 보내기
+      //io.to(socketId[receiver]).emit('incomingAlarm', {sender: sender});
+      //TEST용 전소켓 메세지
+      io.sockets.emit('incoming-like-alarm')
+      //DB에 저장
+      const likeRef = database.ref(`/Logs/suzi/`)
+      likeRef.once('value').then(function(snapshot) {
+        if (!snapshot.hasChild('likeLog')){
+        likeRef.set('likeLog')
+        likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        } else {
+          likeRef.child('likeLog').push(`${sender}님이 당신을 좋아합니다.`)
+        }
+      })
+    })
 })
 
 const checkPartnerSocketId = function(partnerId) {

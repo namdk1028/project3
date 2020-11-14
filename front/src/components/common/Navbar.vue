@@ -86,6 +86,12 @@ export default {
         this.profileActive = true;
       },
     },
+    mounted: function() {
+      this.$socket.on('incoming-like-alarm', () => {
+        console.log('incoming-like-alarm')
+        console.log(this)
+      })
+    }
 }
 </script>
 
