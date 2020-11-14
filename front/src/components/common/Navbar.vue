@@ -87,7 +87,6 @@ export default {
         this.chatActive = false;
         this.profileActive = true;
         this.unreadSignal = false;
-        //
       },
     },
     mounted: function() {
