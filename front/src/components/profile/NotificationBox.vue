@@ -10,6 +10,7 @@
 <script>
 import Notification from "./Notification"
 import ProfileModal from "@/components/main/ProfileModal"
+import { mapGetters } from 'vuex';
 
 
 export default {
@@ -17,6 +18,13 @@ export default {
     components: {
         Notification,
         ProfileModal,
+    },
+    computed: {
+      ...mapGetters({
+        config: "user/config",
+        userId: "user/getUserInfo.id",
+        nickname: "user/getUserInfo.nickname"
+      })
     },
     data() {
         return {
@@ -133,8 +141,7 @@ export default {
       }
     },
     mounted: function(){
-      const user = 'suzi'
-      this.$socket.emit('fetch-like-log', { 'user': user });
+      this.$socket.emit('fetch-like-log', { 'user': this.userId });
       this.$socket.on('fetch-like-log-reply', likeMessages => {
         console.log(likeMessages)
         const newMsg = Object.values(likeMessages);

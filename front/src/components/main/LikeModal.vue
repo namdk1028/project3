@@ -34,28 +34,33 @@
 <script>
 import axios from "axios"
 import USERAPI from "@/api/UserApi";
+import { mapGetters } from 'vuex';
 
 export default {
   props: {
     userData: Object,
   },
   computed: {
-    config: "user/config"
+    ...mapGetters({
+      config: "user/config",
+      user: "user/getUserInfo.id",
+      nickname: "user/getUserInfo.nickname"
+    })
   },
   data() {
     return {
       coin: 2,
       state: true,
       //김연수 추가
-      partner: 'suzi',
-      user: 'yeonsu'
+      partner: this.userData.id,
+      // user: 'yeonsu'
     }
   },
   methods: {
     okBtn() {
       if (this.coin > 0) {
         //하트 알람 보내기
-        this.$socket.emit('likeAlarm', {sender: this.user, receiver: this.partner});
+        this.$socket.emit('likeAlarm', {senderId: this.user, senderNickname: this.nickname ,receiver: this.partner});
 
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
