@@ -5,6 +5,7 @@ const app = express();
 const cors = require('cors');
 const {v4:uuidv4} = require('uuid');
 
+
 app.set('view engine', 'ejs');
 
 const server = require('http').Server(app);
@@ -197,21 +198,30 @@ io.on('connection', (socket) => {
     })
 
     //좋아요 알림 처리 함수
+    //경로: FROM (LikeModal) TO (NavBar)
     socket.on('likeAlarm', data => {
       //좋아요 보낸 유저
-      const sender = data.user;
+      const sender = data.senderId;
+      const nickname = data.sendernickname;
       //받는사람
       const receiver = data.receiver;
+      //Front의 NavBar로 전송할 내용
+      const alarmInfo = {
+        'fromId': sender,
+        'fromNickName': nickname,
+        'receiver': receiver
+      }
       //받는사람한테 보내기
       //io.to(socketId[receiver]).emit('incomingAlarm', {sender: sender});
       //TEST용 전소켓 메세지
-      io.sockets.emit('incoming-like-alarm')
+      io.sockets.emit('incoming-like-alarm', alarmInfo)
       //DB에 저장
       const likeRef = database.ref(`/Logs/suzi/`)
       const message = {
           text: `${sender}님이 당신을 좋아합니다.`,
           isRead: false,
-          by: `${sender}`
+          senderId: `${sender}`,
+          senderNickName: `${nickName}`
         }
       likeRef.once('value').then(function(snapshot) {
         if (!snapshot.hasChild('likeLog')){
