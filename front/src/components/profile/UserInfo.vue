@@ -63,7 +63,7 @@
         >
           <div class="info-key">관심지역</div>
           <div class="info-value">
-            {{ this.UserData.area }}
+            {{ this.UserData.area.name }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_area" max-width="280">
@@ -138,7 +138,7 @@
           >
             <div class="info-key">종교</div>
             <div class="info-value info-value-half">
-              {{ this.UserData.religion }}
+              {{ this.UserData.religion.name }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_religion" max-width="280">
@@ -216,7 +216,7 @@
           >
             <div class="info-key">체형</div>
             <div class="info-value info-value-half">
-              {{ this.UserData.body }}
+              {{ this.UserData.body.name }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_body" max-width="280">
@@ -233,7 +233,7 @@
           >
             <div class="info-key">직업</div>
             <div class="info-value info-value-half">
-              {{ this.UserData.job }}
+              {{ this.UserData.job.name }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_job" max-width="280">
@@ -386,28 +386,28 @@ export default {
     },
     closeGender() {
       this.dialog_gender = false;
-      this.dialog_birth = true;
+      // this.dialog_birth = true;
     },
     getBirth(birth) {
       this.UserData.birth = birth;
     },
     closeBirth() {
       this.dialog_birth = false;
-      this.dialog_nickname = true;
+      // this.dialog_nickname = true;
     },
     getNickname(nickname) {
       this.UserData.nickname = nickname;
     },
     closeNickname() {
       this.dialog_nickname = false;
-      this.dialog_area = true;
+      // this.dialog_area = true;
     },
     getArea(area) {
       this.UserData.area = area;
     },
     closeArea() {
       this.dialog_area = false;
-      this.dialog_hobby = true;
+      // this.dialog_hobby = true;
     },
     getHobby(hobbies) {
       this.hobbies = hobbies;
@@ -416,63 +416,63 @@ export default {
     },
     closeHobby() {
       this.dialog_hobby = false;
-      this.dialog_height = true;
+      // this.dialog_height = true;
     },
     getHeight(height) {
       this.UserData.height = height;
     },
     closeHeight() {
       this.dialog_height = false;
-      this.dialog_blood = true;
+      // this.dialog_blood = true;
     },
     getBlood(blood) {
       this.UserData.blood = blood;
     },
     closeBlood() {
       this.dialog_blood = false;
-      this.dialog_religion = true;
+      // this.dialog_religion = true;
     },
     getReligion(religion) {
       this.UserData.religion = religion;
     },
     closeReligion() {
       this.dialog_religion = false;
-      this.dialog_drink = true;
+      // this.dialog_drink = true;
     },
     getDrink(drink) {
       this.UserData.drink = drink;
     },
     closeDrink() {
       this.dialog_drink = false;
-      this.dialog_smoke = true;
+      // this.dialog_smoke = true;
     },
     getSmoke(smoke) {
       this.UserData.smoke = smoke;
     },
     closeSmoke() {
       this.dialog_smoke = false;
-      this.dialog_education = true;
+      // this.dialog_education = true;
     },
     getEducation(education) {
       this.UserData.education = education;
     },
     closeEducation() {
       this.dialog_education = false;
-      this.dialog_body = true;
+      // this.dialog_body = true;
     },
     getBody(body) {
       this.UserData.body = body;
     },
     closeBody() {
       this.dialog_body = false;
-      this.dialog_job = true;
+      // this.dialog_job = true;
     },
     getJob(job) {
       this.UserData.job = job;
     },
     closeJob() {
       this.dialog_job = false;
-      this.dialog_intro = true;
+      // this.dialog_intro = true;
     },
     getIntro(intro) {
       this.UserData.intro = intro;

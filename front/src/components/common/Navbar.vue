@@ -56,7 +56,7 @@ export default {
         chatActive: false,
         profileActive: false,
         unreadMessageCount: 4,
-        unreadSignal: 3,
+        unreadSignal: false,
       }
     },
     computed: {
@@ -86,6 +86,8 @@ export default {
         this.mainActive = false;
         this.chatActive = false;
         this.profileActive = true;
+
+        //
       },
     },
     mounted: function() {
