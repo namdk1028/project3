@@ -6,9 +6,9 @@
         <button class="btn" value="안마심" text @click="emitDrink">
           안마심
         </button>
-        <button class="btn" value="가끔" text @click="emitDrink;">가끔</button>
+        <button class="btn" value="가끔" text @click="emitDrink">가끔</button>
         <button class="btn" value="자주" text @click="emitDrink">자주</button>
-        <button class="btn" value="매일" text @click="emitDrink;">매일</button>
+        <button class="btn" value="매일" text @click="emitDrink">매일</button>
       </div>
     </v-card-actions>
   </v-card>

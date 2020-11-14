@@ -1,7 +1,8 @@
-// import axios from "axios";
+import axios from "axios";
 
 import cookies from "vue-cookies";
-// import router from '@/router';
+import USERAPI from "@/api/UserApi"
+import router from '@/router';
 
 
 export default {
@@ -9,8 +10,10 @@ export default {
   state: {
     profile_saved:false,
     image_saved:false,
-    authToken: cookies.get("auth-token"),
-    userInfo: Object,
+    authToken: null,
+    // userInfo: Object,
+    userInfo: {},
+    preference: {},
     // userInfo: {
     //   gender: "",
     //   birth: "",
@@ -34,45 +37,73 @@ export default {
     // isLoggedIn: (state) => !!state.authToken,
     config: (state) => ({
       headers: {
-        Authorization: `${state.authToken}`,
+        Authorization: `JWT ${state.authToken}`,
       },
     }),
+    getUserInfo(state) {
+      return state.userInfo;
+    }
   },
   mutations: {
-    SET_UNACTIVE_USER(state, res) {
-      cookies.set("auth-token", res.data.token);
-    },
     SET_ACTIVE_USER(state, res) {
-      console.log(res.data)
-      cookies.set("auth-token", res.data.token);
       state.userInfo = res.data.profile;
-      if (res.data.user.profile_saved === 1){
-        state.profile_saved = true
-        if (res.data.user.image_saved === 1){
-          state.image_saved = true
-        }
-      }
     },
+    SET_PROFILE(state,userInfo) {
+      state.userInfo = userInfo
+    },
+    SET_PREFERENCE(state,preference) {
+      state.preference = preference
+    }
   },
   actions: {
-    login({ commit }, res) {
-      if (res.data.user.profile_saved === 1) {
-        console.log('프로필정보 있음')
-        commit("SET_ACTIVE_USER", res);
-        console.log('프로필정보 저장')
-
-        // if (res.data.user.image_saved === 1){
-          // router.push({name:"Main"})
-        // }else{
-          // router.push({name})
-          // console.log('사진등록 페이지로 푸쉬')
+    login({ commit,state }, res) {
+      router.push({name:"Loading"})
+      cookies.set("auth-token", res.data.token);
+      state.authToken = res.data.token
+      if(res.data.preference) {
+        commit("SET_PREFERENCE", res.data.preference)
+      }else{
+        if (res.data.user.profile_saved === 1) {
+          state.profile_saved = true
+          commit("SET_PROFILE", res.data.profile);
+          if (res.data.user.image_saved === 1){
+            state.image_saved = true
+            router.push({name:"Main"})
+          }else{
+            router.push({name:"Upload"})
+          }
+        }
+        // else if(res.data.user.profile_saved === 0){
+        //   console.log('프로필정보 없음')
+        //   commit("SET_UNACTIVE_USER", res);
+        //   // router.push({name:"Userinfo"})
         // }
-      }else if(res.data.user.profile_saved === 0){
-        console.log('프로필정보 없음')
-
-        commit("SET_UNACTIVE_USER", res);
-        // router.push({name:"Userinfo"})
       }
     },
-  },
-};
+    addUserInfo({commit,getters},UserData){
+      return new Promise((resolve, reject) => {
+        axios.post(USERAPI.BASE_URL + '/profiles/', UserData, getters.config)
+          .then((res)=>{
+            commit("SET_PROFILE", res.data)
+            
+            resolve()
+          })
+          .catch(()=>{
+            reject()
+          })
+        })
+      },
+
+    updateProfile(userData, getters) {
+      axios.put(`${USERAPI.BASE_URL}/profiles/`, userData, getters.config)
+      .then(res => {
+        this.userInfo = userData
+        console.log(res)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  
+    }
+  }
+}

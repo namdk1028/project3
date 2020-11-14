@@ -20,6 +20,7 @@
     "vue-cookies": "^1.7.4",
     "vue-router": "^3.2.0",
     "vue-socket.io": "^3.0.10",
+    "vue-sweetalert2": "^4.1.1",
     "vue2-touch-events": "^2.3.2",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0",

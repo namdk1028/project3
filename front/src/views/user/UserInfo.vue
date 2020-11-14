@@ -304,9 +304,21 @@
         height="38px"
         rounded
         class="info-btn mx-auto my-3"
+        color="#FEFEFE"
+        v-if="isValid"
+        @click="emitUserInfo(UserData)"
+      >
+        다음
+      </v-btn>
+      <v-btn
+        v-else
+        width="300px"
+        height="38px"
+        rounded
+        class="info-btn mx-auto my-3"
         color="#DDDDDD"
         dark
-        @click="emitUserInfo"
+        @click="isNotValid"
       >
         다음
       </v-btn>
@@ -331,6 +343,8 @@ import Education from "../../components/user/Education.vue";
 import Body from "../../components/user/Body.vue";
 import Job from "../../components/user/Job.vue";
 import Intro from "../../components/user/Intro.vue";
+
+import { mapActions } from 'vuex';
 
 export default {
   components: {
@@ -409,13 +423,24 @@ export default {
     },
   },
   methods: {
-    emitUserInfo() {
-      if (this.isValid) {
-        console.log("요청보내기!");
-        alert('사진저장 page로 Go')
-      } else {
-        alert("모든 항목은 필수입니다.");
-      }
+    ...mapActions('user',['addUserInfo']),
+    emitUserInfo(UserData){
+      this.addUserInfo(UserData)
+      .then(()=>{
+        // console.log('완료')
+        this.$router.push({name:"Upload"})
+        
+      })
+      .catch(()=>{
+        this.$swal('','오류가 발생했습니다.\n다시 시도해주세요. ','warning');
+
+      })
+      // .
+    },
+    isNotValid(){
+      // alert('모든 항목은 필수입니다.')
+      // swal.fire('모든 항목은 필수입니다.')
+      this.$swal('','모든 항목은 필수입니다.','warning');
     },
     getGender(gender) {
       this.UserData.gender = gender;

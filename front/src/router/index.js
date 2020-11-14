@@ -6,6 +6,10 @@ import Home from "../views/Home.vue";
 import Login from "../views/user/Login.vue";
 import Signup from "../views/user/Signup.vue";
 import UserInfo from "../views/user/UserInfo.vue";
+import Upload from "../views/user/Upload.vue";
+import Loading from "../views/user/Loading.vue";
+
+
 
 Vue.use(VueRouter);
 
@@ -54,8 +58,18 @@ const routes = [
   },
   {
     path: "/user/userinfo",
-    name: "Userinfo",
+    name: "UserInfo",
     component: UserInfo,
+  },
+  {
+    path: "/user/upload",
+    name: "Upload",
+    component: Upload,
+  },
+  {
+    path: "/user/loading",
+    name: "Loading",
+    component: Loading,
   },
 ];
 

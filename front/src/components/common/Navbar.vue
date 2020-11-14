@@ -25,6 +25,7 @@
                 <!-- <img class="navbar-btn-img" src="@/assets/images/navbar/user.png" alt=""> -->
                 <profileSVG v-if="!profileActive" />
                 <profilefilledSVG v-if="profileActive" />
+                <i class="navbar-heart fas fa-heart" v-if="unreadSignal"></i>
               </button>
           </div>
       </div>
@@ -55,6 +56,7 @@ export default {
         chatActive: false,
         profileActive: false,
         unreadMessageCount: 4,
+        unreadSignal: 3,
       }
     },
     computed: {

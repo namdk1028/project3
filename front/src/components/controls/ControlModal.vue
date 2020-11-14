@@ -41,6 +41,8 @@ import Height from "@/components/controls/Height.vue"
 import BodyType from "@/components/controls/BodyType.vue"
 import ControlDetails from "@/components/controls/ControlDetails.vue"
 
+import { mapActions } from "vuex";
+
 export default {
     components: {
         Region,
@@ -57,12 +59,15 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            updateControls: "control/updateControls",
+        }),
         closeControls() {
             document.querySelector(".container-controls").classList.add("hide");
             this.closeDetails();
         },
         confirmChanges() {
-
+            this.updateControls();
         },
         openDetails() {
             this.showDetails = true;
