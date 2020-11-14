@@ -8,7 +8,7 @@
     </div>
     <div class="header-item">
         <button class="header-btn" @click="openControlModal">
-            <img class="header-btn-img" src="@/assets/images/header/settings.png" alt="">
+            <img class="header-btn-img" src="@/assets/images/header/typing.png" alt="">
         </button>
     </div>
     </div>

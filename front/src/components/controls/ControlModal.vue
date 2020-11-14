@@ -3,7 +3,6 @@
       <div class="background-controls" @click="closeControls"></div>
       <div class="modal-controls">
         <div class="modal-header">
-            <!-- <button class="btn-close" @click="closeControls">✖</button> -->
             <h2 class="header-title">나의 이상형 찾기</h2>
             <button class="btn-confirm" @click="confirmChanges">✔</button>
         </div>
@@ -31,6 +30,7 @@
                 <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
                 <button class="btn-detail" v-if="showDetails" @click="closeDetails">접기</button>
             </div>
+            <!-- <button class="btn-toTop" @click="toTop">⬆</button> -->
             <button class="btn-close" @click="closeControls">닫기</button>
         </div>
       </div>
@@ -85,7 +85,7 @@ export default {
             var background = document.querySelector(".background-controls");
             // modal.style.height = "80%";
             background.style.height = "100vh";
-        }
+        },
     }
 }
 </script>

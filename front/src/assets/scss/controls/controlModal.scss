@@ -26,6 +26,16 @@
   z-index: 10;
 }
 
+// .sub-background-controls {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100vw;
+//   height: 20vh;
+//   background-color: #fca69d9a;
+//   z-index: -1;
+// }
+
 .modal-header {
   height: 50px;
   width: 100%;
@@ -73,8 +83,11 @@
   justify-content: space-between;
   .btn-detail {
     color: #966b6b;
-    // font-size: 0.9rem;
+    color: #919191;
     outline: none;
+  }
+  .btn-close {
+    color: #fca69d;
   }
 }
 
