@@ -235,8 +235,8 @@ export default {
           event.target.style.borderRight = "1px solid rgb(252, 166, 157)";
           event.target.style.color = "white";
         } else {
-          //   console.log("2개까지만!");
-          alert("취미는 2개까지만 선택가능합니다");
+          // alert("취미는 2개까지만 선택가능합니다");
+          this.$swal('','취미는 2개까지만 선택가능합니다','warning')
         }
       }
     },
