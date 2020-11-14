@@ -5,15 +5,21 @@
         <v-dialog
           v-model="dialogProfile"
         >
-          <ProfileModal @closeModal="dialogProfile = false" :test="test" />
+          <ProfileModal @closeModal="dialogProfile = false" :userData="userData" />
         </v-dialog>
         <v-dialog
           v-model="dialogLike"
           width="70vw"
         >
-          <LikeModal @closeModal="dialogLike = false" :test="test" />
+          <LikeModal @closeModal="dialogLike = false" :userData="userData" @like="like" />
         </v-dialog>
-        <v-img v-for="user in users" :key="user.i"
+        <v-dialog
+          v-model="dialogAlreadyLike"
+          width="70vw"
+        >
+          <AlreadyLikeModal @closeModal="dialogAlreadyLike = false" />
+        </v-dialog>
+        <v-img v-for="user in users" :key="user.id"
           class='swiper-slide'
           :src=user.src
           aspect-ratio="1.2"
@@ -24,12 +30,11 @@
               fab
               dark
               small
-              color="green"
-              @click="$router.push('/chat/test')"
-            ><i class="fas fa-comment main-message"></i>
+              color="#B2DFDB"
+              @click="dialogProfile = true; userData = user;"
+            ><i class="fas fa-user main-message"></i>
             </v-btn>
-            <div class='swiper-similar'
-          @click="dialogProfile = true; test = user;">
+            <div class='swiper-similar'>
               78%
             </div>
             <v-btn
@@ -37,10 +42,10 @@
               fab
               dark
               small
-              color="pink"
-              @click="likeBtn"
+              color="#EF5350"
+              @click="likeBtn(user)"
             >
-              <v-icon v-if="like" color="yellow">
+              <v-icon v-if="likeCheck(user.id)" color="lime lighten-3">
                 mdi-heart
               </v-icon>
               <v-icon v-else>
@@ -49,8 +54,8 @@
             </v-btn>
           </div>
           <div class='swiper-bottom'>
-            <h1 class="swiper-bottom-name">{{ user.name }}, {{ user.age }} </h1>
-            <p class='swiper-bottom-introduce'>이곳은 자기소개를 작성하는 곳입니다.</p>
+            <h1 class="swiper-bottom-name">{{ user.nickname }}, {{ user.age }} </h1>
+            <p class='swiper-bottom-introduce'>{{ user.intro }}</p>
           
           </div>
           </v-img>
@@ -64,6 +69,7 @@
 <script>
 import ProfileModal from "../main/ProfileModal"
 import LikeModal from "../main/LikeModal"
+import AlreadyLikeModal from "../main/AlreadyLikeModal"
 import Swiper from 'swiper';
 import SwiperCore, { Navigation, Pagination, Scrollbar, A11y, EffectCube, EffectCoverflow } from 'swiper';
 // import Swiper styles
@@ -85,38 +91,115 @@ export default {
   components: {
     ProfileModal,
     LikeModal,
+    AlreadyLikeModal,
   },
   data() {
     return {
-      like: false,
+      likes: [1,4],
       dialogProfile: false,
       dialogLike: false,
-      test: {},
+      dialogAlreadyLike: false,
+      userData: {},
       users: [
         {
+          id: 1,
           src: "https://img1.yna.co.kr/etc/inner/KR/2019/10/16/AKR20191016056700005_01_i_P2.jpg",
-          name: '천우희',
+          nickname: '천우희',
           age: '34',
+          gender: 0,
+          birth: "1987.01.04",
+          height: 161,
+          body: "날씬",
+          hobby1: "영화보기",
+          hobby2: "멍때리기",
+          blood: 'A형',
+          religion: '무교',
+          smoke: '안함',
+          drink: '가끔',
+          education: '대학생 이상',
+          job: '배우',
+          area: '경기도',
+          intro: 'HELLO',
         },
         {
+          id: 2,
           src: "https://www.newstap.co.kr/news/photo/202001/102741_170863_4955.jpg",
-          name: '수지',
+          nickname: '수지',
           age: '28',
+          gender: 0,
+          birth: "1987.01.04",
+          height: 161,
+          body: "날씬",
+          hobby1: "영화보기",
+          hobby2: "멍때리기",
+          blood: 'A형',
+          religion: '무교',
+          smoke: '안함',
+          drink: '가끔',
+          education: '대학생 이상',
+          job: '배우',
+          area: '경기도',
+          intro: 'HELLO',
         },
         {
+          id: 3,
           src: "https://sccdn.chosun.com/news/html/2020/08/22/2020082301001930000129551.jpg",
-          name: '아이유',
+          nickname: '아이유',
           age: '28',
+          gender: 0,
+          birth: "1987.01.04",
+          height: 161,
+          body: "날씬",
+          hobby1: "영화보기",
+          hobby2: "멍때리기",
+          blood: 'A형',
+          religion: '무교',
+          smoke: '안함',
+          drink: '가끔',
+          education: '대학생 이상',
+          job: '배우',
+          area: '경기도',
+          intro: 'HELLO',
         },
         {
+          id: 4,
           src: "https://lh3.googleusercontent.com/proxy/m9B8jQBoPmKpwUP9fkQVqPKm2BJZ6cJnfiMRxx-R1U7EPxt6DYCcBvwtid5KZhQaMytCX2vBnhCDTBgzlDAoKUhELnC9EwxWF9yS4nfyUcOWeJeiM3Wb8dA",
-          name: '한소희',
+          nickname: '한소희',
           age: '27',
+          gender: 0,
+          birth: "1987.01.04",
+          height: 161,
+          body: "날씬",
+          hobby1: "영화보기",
+          hobby2: "멍때리기",
+          blood: 'A형',
+          religion: '무교',
+          smoke: '안함',
+          drink: '가끔',
+          education: '대학생 이상',
+          job: '배우',
+          area: '경기도',
+          intro: 'HELLO',
         },
         {
+          id: 5,
           src: "https://img.vogue.co.kr/vogue/2019/05/style_5cc94e4e98ff8.jpg",
-          name: '사나',
+          nickname: '사나',
           age: '25',
+          gender: 0,
+          birth: "1987.01.04",
+          height: 161,
+          body: "날씬",
+          hobby1: "영화보기",
+          hobby2: "멍때리기",
+          blood: 'A형',
+          religion: '무교',
+          smoke: '안함',
+          drink: '가끔',
+          education: '대학생 이상',
+          job: '배우',
+          area: '경기도',
+          intro: 'HELLO',
         },
       ]
     }
@@ -128,10 +211,25 @@ export default {
   },
   
   methods: {
-    likeBtn() {
-      this.like = !this.like
-      this.dialogLike = true
-      console.log(this.like)
+    like(id) {
+      this.likes.push(id)
+    },
+    likeCheck (id) {
+      for (var i = 0; i < this.likes.length; i++) {
+        if (this.likes[i] == id) {
+          return true
+        }
+      }
+      return false
+    },
+    likeBtn(user) {
+      if (this.likeCheck(user.id)) {
+        this.dialogAlreadyLike = true
+      }
+      else {
+        this.dialogLike = true
+      }
+      this.userData = user
     },
     swiperDetail() {
 
@@ -162,8 +260,7 @@ export default {
         loop: true,
 
       });
-      console.log(SERVER_URL)
-      console.log(this.config)
+      console.log(this.users)
     },
 }
 </script>
