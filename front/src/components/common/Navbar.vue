@@ -86,7 +86,7 @@ export default {
         this.mainActive = false;
         this.chatActive = false;
         this.profileActive = true;
-
+        this.unreadSignal = false;
         //
       },
     },
@@ -94,6 +94,7 @@ export default {
       this.$socket.on('incoming-like-alarm', () => {
         console.log('incoming-like-alarm')
         console.log(this)
+        this.unreadSignal = true;
       })
     }
 }
