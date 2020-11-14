@@ -68,6 +68,9 @@ export default {
             this.$router.push({name:'Upload'})
           }
         }
+        else{
+          this.$router.push({name:'UserInfo'})
+        }
         // else{
           // this.$router.push({name:'UserInfo'})
         // }
