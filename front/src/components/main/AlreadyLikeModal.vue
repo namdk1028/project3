@@ -1,6 +1,7 @@
 <template>
   <div class='alreadylike'>
-    이미 하트를 보낸 상대입니다
+    <img class="like-modal-sorry" src="../../assets/images/icon/sorry.png" alt="">
+    <div>이미 하트를 보낸 상대입니다</div> 
     <i @click="exitBtn" class="far fa-times-circle modal-close"></i>
   </div>
 </template>
@@ -19,10 +20,13 @@ export default {
 .alreadylike {
   position: relative;
   background-color: white;
-  height: 14vh;
+  height: 20vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: gray;
+  font-size: 0.8rem;
 }
 .alreadylike .modal-close {
   color: gray !important;
