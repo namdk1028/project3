@@ -32,10 +32,11 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  // position: sticky;
   .header-title {
     font-size: 19px;
     font-weight: 1000;
-    color: #b2dfdb;
+    color: #fca69d;
     line-height: 50px;
   }
 }
@@ -54,22 +55,25 @@
     padding: 12px;
     .control-title {
       text-align: left;
-      //   margin-bottom: 10px;
+      color: #4c4c4c;
+      margin-bottom: 6px !important;
     }
   }
 }
 
 /* 모달 푸터 */
 .modal-footer {
+  .container-btns {
+  }
   padding: inherit;
   bottom: 0;
   left: 0;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   .btn-detail {
-    color: #b2dfdb;
-    font-size: 0.9rem;
+    color: #966b6b;
+    // font-size: 0.9rem;
     outline: none;
   }
 }

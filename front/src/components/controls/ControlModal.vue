@@ -27,8 +27,11 @@
             <ControlDetails v-if="showDetails"/>
         </div>
         <div class="modal-footer">
-            <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
-            <button class="btn-detail" v-if="showDetails" @click="closeDetails">접기</button>
+            <div class="container-btns">
+                <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
+                <button class="btn-detail" v-if="showDetails" @click="closeDetails">접기</button>
+            </div>
+            <button class="btn-close" @click="closeControls">닫기</button>
         </div>
       </div>
   </div>
