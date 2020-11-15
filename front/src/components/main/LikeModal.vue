@@ -62,7 +62,7 @@ export default {
     okBtn() {
       if (this.coin > 0) {
         //하트 알람 보내기
-        this.$socket.emit('likeAlarm', {senderId: this.myId, senderNickname: this.myNickname ,receiver: this.partner});
+        this.$socket.emit('likeAlarm', {senderId: this.myId, senderNickname: this.myNickname, receiver: this.partner});
 
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
