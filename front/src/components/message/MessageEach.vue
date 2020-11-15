@@ -5,7 +5,7 @@
         right: () => swipe('Right'),
       }"
     >
-    <div class='message-each' @click="$router.push(`/main/chat/${room.messages[0].reciever}`)">
+    <div class='message-each' @click="$router.push(`/main/chat/${room.messages[0].receiver}`)">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
@@ -14,7 +14,7 @@
       </div>
       <div class='message-content'>
         <div class='message-content-username'>
-          {{ room.messages[0].reciever }}
+          {{ room.messages[0].receiver }}
         </div>
         <div class='message-content-body'>
           {{ recentText }}
@@ -62,7 +62,7 @@ export default {
         unreadMessageCount: "user/unreadMessageCount"
     }),
     deleteMessage() {
-      this.$socket.emit('delete', this.room.messages[0].reciever)
+      this.$socket.emit('delete', this.room.messages[0].receiver)
     },
     swipe(direction) {
       const message = document.querySelectorAll('.message-delete')[this.number]
@@ -81,10 +81,10 @@ export default {
     this.unread = this.room.unread
     // console.log(Object.values(recentMsg)[0])
     var len = Object.values(recentMsg).length
-    this.partner = Object.values(recentMsg)[0].reciever
+    this.partner = Object.values(recentMsg)[0].receiver
     this.recentText = Object.values(recentMsg)[len-1].text
     this.recentDate = Object.values(recentMsg)[0].date
-    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.room.messages[0].reciever}?alt=media`
+    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.room.messages[0].receiver}?alt=media`
 
   }
 }
