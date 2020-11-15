@@ -59,6 +59,9 @@ export default {
     setSmoke(state, smoke) {
       state.controlInfo.smoke = smoke;
     },
+    setPreferences(state, controlInfo) {
+      state.controlInfo = controlInfo;
+    }
   },
   actions: {
     updateControls({getters, rootGetters}) {

@@ -55,7 +55,9 @@ export default {
     getSimilarity(state) {
       return state.userInfo.user.similarity;
     },
-    
+    getPreference(state) {
+      return state.preference;
+    }
   },
   mutations: {
     SET_ACTIVE_USER(state, res) {
@@ -72,6 +74,39 @@ export default {
     },
     SET_SIMILARITY(state, similarity) {
       state.userInfo.user.similarity = similarity
+    },
+    initialPreferences({ getters, commit }) {
+      var initialBodies = getters.getPreference.body;
+      var initialEdus = getters.getPreference.education;
+      var initialJobs = getters.getPreference.job;
+      var initialReligions = getters.getPreference.religion;
+      var body = []
+      var education = []
+      var job = []
+      var religion = []
+      for (var initBody of initialBodies) {
+        body.push(initBody.name)
+      }
+      for (var initEdu of initialEdus) {
+        education.push(initEdu.name)
+      }
+      for (var initJob of initialJobs) {
+        job.push(initJob.name)
+      }
+      for (var initReligion of initialReligions) {
+        religion.push(initReligion.name)
+      }
+      commit('control/setRegion', getters.getPreference.region, { root: true })
+      commit('control/setMaxAge', getters.getPreference.maxAge, { root: true })
+      commit('control/setMinAge', getters.getPreference.minAge, { root: true })
+      commit('control/setMaxHeight', getters.getPreference.maxHeight, { root: true })
+      commit('control/setMinHeight', getters.getPreference.minHeight, { root: true })
+      commit('control/setBody', body, { root: true })
+      commit('control/setEducation', education, { root: true })
+      commit('control/setJob', job, { root: true })
+      commit('control/setReligion', religion, { root: true })
+      commit('control/setDrink', getters.getPreference.drink, { root: true })
+      commit('control/setSmoke', getters.getPreference.smoke, { root: true })
     }
   },
   actions: {
@@ -80,6 +115,7 @@ export default {
       state.authToken = res.data.token
       if(res.data.preference) {
         commit("SET_PREFERENCE", res.data.preference)
+        commit("initalPreference")
       }else{
         if (res.data.user.profile_saved === 1) {
           state.profile_saved = true
@@ -125,6 +161,39 @@ export default {
     },
     setSimilarity({commit}, similarity) {
       commit('SET_SIMILARITY',similarity)
-    }
     },
+    // initialPreferences({ getters, commit }) {
+    //   var initialBodies = getters.getPreference.body;
+    //   var initialEdus = getters.getPreference.education;
+    //   var initialJobs = getters.getPreference.job;
+    //   var initialReligions = getters.getPreference.religion;
+    //   var body = []
+    //   var education = []
+    //   var job = []
+    //   var religion = []
+    //   for (var initBody of initialBodies) {
+    //     body.push(initBody.name)
+    //   }
+    //   for (var initEdu of initialEdus) {
+    //     education.push(initEdu.name)
+    //   }
+    //   for (var initJob of initialJobs) {
+    //     job.push(initJob.name)
+    //   }
+    //   for (var initReligion of initialReligions) {
+    //     religion.push(initReligion.name)
+    //   }
+    //   commit('control/setRegion', getters.getPreference.region, { root: true })
+    //   commit('control/setMaxAge', getters.getPreference.maxAge, { root: true })
+    //   commit('control/setMinAge', getters.getPreference.minAge, { root: true })
+    //   commit('control/setMaxHeight', getters.getPreference.maxHeight, { root: true })
+    //   commit('control/setMinHeight', getters.getPreference.minHeight, { root: true })
+    //   commit('control/setBody', body, { root: true })
+    //   commit('control/setEducation', education, { root: true })
+    //   commit('control/setJob', job, { root: true })
+    //   commit('control/setReligion', religion, { root: true })
+    //   commit('control/setDrink', getters.getPreference.drink, { root: true })
+    //   commit('control/setSmoke', getters.getPreference.smoke, { root: true })
+    // }
+  },
 }
