@@ -3,7 +3,7 @@
   <div class="container-profile">
     <div class="profile-header">
       <div class="header-background">
-        <h2 class="header-title">{{ nickname }}님의 프로필</h2>
+        <div class="header-title"><span class="nickname">{{ nickname }}</span></div>
         <div class="container-tabs">
           <button id="tab-notifications" class="btn-tab" @click="openNotifications">알림함</button>
           <button id="tab-userinfo" class="btn-tab" @click="openUserInfo">회원정보 수정</button>
