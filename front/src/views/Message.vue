@@ -45,8 +45,8 @@ export default {
     this.$socket.emit('fetch-chatroom', this.userInfo.id)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = Object.values(rooms);
+      console.log(this.rooms)
     })
-    console.log(this.rooms)
   }
 
 }

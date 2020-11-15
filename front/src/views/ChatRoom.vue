@@ -145,7 +145,6 @@ export default {
           'sender': this.userInfo.id,
           'receiver': this.partner
         };
-        
       console.log(chatInfo)
       //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
