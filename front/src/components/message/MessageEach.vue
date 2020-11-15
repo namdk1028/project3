@@ -5,7 +5,7 @@
         right: () => swipe('Right'),
       }"
     >
-    <div class='message-each' @click="$router.push('/main/chat/'+room[0])">
+    <div class='message-each' @click="$router.push(`/main/chat/${room[0]}`)">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
@@ -14,7 +14,7 @@
       </div>
       <div class='message-content'>
         <div class='message-content-username'>
-          {{ partner }}
+          {{ room[0] }}
         </div>
         <div class='message-content-body'>
           {{ recentText }}
@@ -62,7 +62,7 @@ export default {
         unreadMessageCount: "user/unreadMessageCount"
     }),
     deleteMessage() {
-      console.log("check")
+      this.$socket.emit('delete', this.room[0])
     },
     swipe(direction) {
       const message = document.querySelectorAll('.message-delete')[this.number]
