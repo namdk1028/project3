@@ -34,8 +34,8 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: this.userInfo.nickname,
-      myPartner: this.partner
+      myId: '',
+      myPartner: ''
     }
   },
   components: {
@@ -63,10 +63,11 @@ export default {
     },
     sendBtn() {
       this.exitEmoticon()
+      console.log(this.chat_text)
       if (this.chat_text) {
         const messageInfo = {
           'sender': this.myId,
-          'reciever': this.myPartner,
+          'reciever': this.partner,
           'text': this.chat_text
         }
         this.$socket.emit('new-message', messageInfo)
@@ -77,7 +78,7 @@ export default {
     addEmoticon(emoticon) {
       const messageInfo = {
         'sender': this.myId,
-        'reciever': this.myPartner,
+        'reciever': this.partner,
         'text': emoticon
       }
       this.$socket.emit('new-message', messageInfo)

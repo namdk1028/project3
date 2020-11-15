@@ -21,7 +21,7 @@
         <ChatBubble 
         v-for="log in chatlog" 
         v-bind:key="log.id" 
-        v-bind:user="user" 
+        v-bind:user="userInfo.nickname" 
         v-bind:chatlog="log"/>
       </div>
       <div class="chat-input">
@@ -35,8 +35,8 @@
   <div v-else-if="incomingCall == true">
     <VideoChat 
     v-bind:incomingCall="true"
-    v-bind:caller="myPartner" 
-    v-bind:callee="user"
+    v-bind:caller="partner" 
+    v-bind:callee="userInfo.nickname"
     v-bind:callerSignal='callerSignal'
     v-bind:isInitiator="isInitiator"
     v-on:endcall="endCall"/>
@@ -44,8 +44,8 @@
   <div v-else-if="activeVideoCall == true">
     <VideoChat
     v-bind:incomingCall="false" 
-    v-bind:caller="user" 
-    v-bind:callee="myPartner"
+    v-bind:caller="userInfo.nickname" 
+    v-bind:callee="partner"
     v-bind:isInitiator="isInitiator" 
     v-on:endcall="endCall"/>
   </div>
@@ -68,8 +68,6 @@ export default {
   data() {
     return {
       title:"Message",
-      user: this.userInfo,
-      myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
       chats: [],
@@ -100,7 +98,7 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      this.$socket.emit('fetch-chatlog', {'sender': this.userInfo.nickname, 'receiver': this.myPartner});
+      this.$socket.emit('fetch-chatlog', {'sender': this.userInfo.nickname, 'receiver': this.partner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
         this.chatlog = chatlog
@@ -134,8 +132,8 @@ export default {
     }
   },
   mounted: function() {
-      console.log(this.userInfo)
-      this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
+      console.log(this.userInfo)``
+      // this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       this.$socket.on('new-message-pre-flight-receiving side', ()=>{
         console.log("#1. preflight success - receiver")
       })
@@ -143,8 +141,8 @@ export default {
         console.log("#1. preflight success - sender")
       })
       const chatInfo = {
-          'sender': this.user,
-          'receiver': this.myPartner
+          'sender': this.userInfo.nickname,
+          'receiver': this.partner
         };
       //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
