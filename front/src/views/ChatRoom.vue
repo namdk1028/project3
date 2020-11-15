@@ -35,7 +35,7 @@
   <div v-else-if="incomingCall == true">
     <VideoChat 
     v-bind:incomingCall="true"
-    v-bind:caller="myPartner" 
+    v-bind:caller="partner" 
     v-bind:callee="this.userInfo.nickname"
     v-bind:callerSignal='callerSignal'
     v-bind:isInitiator="isInitiator"
@@ -45,7 +45,7 @@
     <VideoChat
     v-bind:incomingCall="false" 
     v-bind:caller="this.userInfo.nickname" 
-    v-bind:callee="myPartner"
+    v-bind:callee="partner"
     v-bind:isInitiator="isInitiator" 
     v-on:endcall="endCall"/>
   </div>
@@ -68,7 +68,6 @@ export default {
   data() {
     return {
       title:"Message",
-      myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
       chats: [],
@@ -99,7 +98,7 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      this.$socket.emit('fetch-chatlog', {'sender': this.userInfo.nickname, 'receiver': this.myPartner});
+      this.$socket.emit('fetch-chatlog', {'sender': this.userInfo.nickname, 'receiver': this.partner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
         this.chatlog = chatlog
@@ -143,7 +142,7 @@ export default {
       })
       const chatInfo = {
           'sender': this.userInfo.nickname,
-          'receiver': this.myPartner
+          'receiver': this.partner
         };
       //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
