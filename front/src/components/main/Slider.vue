@@ -234,6 +234,7 @@ export default {
     getPartner() {
       axios.get(SERVER_URL+'/profiles/partners/', this.config)
       .then((res) => {
+        console.log("check")
         console.log(res)
       })
       .catch((err) => {
@@ -242,6 +243,7 @@ export default {
     }
   },
   mounted() {
+    this.getPartner()
       new Swiper('.swiper-container', {
         effect: 'coverflow',
         grabCursor: true,

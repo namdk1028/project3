@@ -176,7 +176,8 @@ export default {
   width: 100%;
   padding: 1vh;
   height: 42vh;
-  overflow: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .profile-modal-userinfo .not-about {
   display: flex;
@@ -249,7 +250,7 @@ export default {
   align-items: center;
 }
 .profile-modal-userinfo .hobby .titlea {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: black;
   margin-bottom: 4px;
 
@@ -267,7 +268,7 @@ export default {
   align-items: center;
 }
 .profile-modal-userinfo .category {
-  width: 30%;
+  width: 40%;
   color: rgb(130, 130, 130)
 }
 .profile-modal-userinfo .content {
