@@ -79,18 +79,12 @@
           @click.stop="dialog_hobby = true"
         >
           <div class="info-key">취미</div>
-          <!-- <div v-if="this.hobbies.length === 1" class="info-value">
-            {{ UserData.hobby1 }}
-          </div>
-          <div v-if="this.hobbies.length === 2" class="info-value">
-            {{ UserData.hobby1 }}, {{ UserData.hobby2 }}
-          </div> -->
             <div class="info-value">
               <span v-if="UserData.hobby1">
                 {{ UserData.hobby1 }}
               </span>
               <span v-if="UserData.hobby2">
-                {{ UserData.hobby2 }}
+                , {{ UserData.hobby2 }}
               </span>
             </div>
         </v-btn>
