@@ -74,6 +74,7 @@ export default {
     }
   },
   mounted: function(){
+    console.log(this.room)
     this.unreadMessageCount(this.room[1].unread)
     console.log(this.number)
     const recentMsg = this.room[1].messages

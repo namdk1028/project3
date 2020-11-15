@@ -45,11 +45,9 @@ export default {
     this.$socket.emit('fetch-chatroom', this.userInfo.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
-        console.log([key, value])
         this.rooms.push([key, value])
       }))
     })
-    console.log(this.rooms)
   }
 
 }
