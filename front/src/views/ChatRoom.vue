@@ -66,7 +66,6 @@ export default {
     ...mapGetters ({
       nickname: "user/userInfo.nickname"
     }),
-    src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.partner}?alt=media`
   },
   data() {
     return {
@@ -83,6 +82,7 @@ export default {
       from: false,
       callerSignal: '',
       refreshSignal: false,
+      src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.partner}?alt=media`
     }
   },
   components: {
