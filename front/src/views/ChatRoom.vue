@@ -141,10 +141,13 @@ export default {
       this.$socket.on('new-message-pre-flight-sender', ()=>{
         console.log("#1. preflight success - sender")
       })
+      console.log(chatInfo)
       const chatInfo = {
           'sender': this.userInfo.id,
           'receiver': this.partner
         };
+        
+      console.log(chatInfo)
       //Emit event to receieve chat log
       this.$socket.emit('fetch-chatlog', chatInfo);
       this.$socket.on('fetch-chatlog-callback', chatlog => {
