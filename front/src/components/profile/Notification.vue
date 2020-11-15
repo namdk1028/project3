@@ -9,7 +9,7 @@
       <div class="notification-content">
         <div class='notification-content-body'>
           <span class="notification-username">{{ msg.senderNickName }}</span>님이 호감을 표시하셨습니다.
-          <div @click="$router.push(`/main/chat/${msg.senderNickname}`)">대화하기</div>
+          <div @click="$router.push(`/main/chat/${msg.senderNickName}`)">대화하기</div>
         </div>
         <div class="notification-time">
           1시간 전
@@ -29,10 +29,8 @@ export default {
         return {
           showProfile: false,
           user: {},
+          src: '',
         }
-    },
-    computed: {
-      // src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.nickname}.jpeg?alt=media`
     },
     props: {
       msg: Object,
@@ -53,6 +51,8 @@ export default {
     },
     mounted() {
       this.getUserProfile()
+      this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.senderNickName}.jpeg?alt=media`
+      console.log(this.msg)
     }
 }
 </script>
