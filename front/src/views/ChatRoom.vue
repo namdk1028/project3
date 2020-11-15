@@ -61,7 +61,7 @@ import { mapState } from 'vuex'
 
 export default {
   props: {
-    partner: Number,
+    partner: String,
   },
   computed: {
     ...mapState ('user',['userInfo']),
@@ -141,7 +141,6 @@ export default {
       this.$socket.on('new-message-pre-flight-sender', ()=>{
         console.log("#1. preflight success - sender")
       })
-      console.log(chatInfo)
       const chatInfo = {
           'sender': this.userInfo.id,
           'receiver': this.partner
