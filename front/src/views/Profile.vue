@@ -15,7 +15,7 @@
           <button class="btn btn-uploadimg" v-if="showUserInfo" @click="openProfilePic"><i class="fas fa-camera"></i></button>
         </div>
         <div class="img-similarity">
-          <!-- 유사도: {{ similarity }}% -->
+          유사도: {{ similarity }}%
         </div>
       </div>
     </div>
@@ -51,7 +51,7 @@ export default {
   computed: {
     ...mapGetters({
       nickname: "user/getNickname",
-      // similarity: "user/getSimilarity",
+      similarity: "user/getSimilarity",
     }),
     myImageURL() {
       // return `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.nickname}?alt=media`
