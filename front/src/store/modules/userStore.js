@@ -15,6 +15,7 @@ export default {
     // authToken: null,
     // userInfo: Object,
     userInfo: {
+      id: 103,
     },
     preference: {},
     // userInfo: {

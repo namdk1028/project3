@@ -10,7 +10,7 @@
 import Slider from "../components/main/Slider"
 import HeartAnimation from "../components/main/HeartAnimation"
 import Header from "../components/common/Header.vue"
-import { mapGetters } from "vuex"
+import { mapState } from 'vuex'
 
 export default {
   components: {
@@ -19,12 +19,11 @@ export default {
     HeartAnimation
   },
   computed: {
-    ...mapGetters ({
-      myId: "user/userInfo.id"
-    })
+    ...mapState('user',['userInfo'])
   },
   mounted: function(){
-    this.$socket.emit('initialize-socket', this.myId)
+    console.log(this.userInfo)
+    this.$socket.emit('initialize-socket', this.userInfo.id)
   }
 }
 </script>
