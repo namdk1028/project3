@@ -60,8 +60,19 @@
             
             </div>
             </v-img>
-          <v-card class='swiper-slide' @click='refresh'>
-            새로고침
+          <v-card class='swiper-slide refresh-slide'>
+            <div @click='refresh'>
+              <img src="@/assets/images/icon/anonymous (1).png">
+              <button class="btn-refresh">
+                <h2 class="refresh-title">
+                  다른 매칭 상대 보기
+                </h2>
+              </button>
+            </div>
+            <div class="refresh-content">
+              <p>이 버튼을 누르면 현재 매칭 정보는 다시 볼 수 없습니다.</p>
+              <p>신중하세요!</p>
+            </div>
           </v-card>
       </div>
       <!-- Add Pagination -->
@@ -179,7 +190,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
   .swiper {
     font-size: 14px;
     color: #000;
@@ -267,6 +278,30 @@ export default {
   
   .main-message {
     font-size: 20px;
+  }
+
+  .refresh-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #faeded !important;
+    img {
+      width: 50%;
+    }
+    .btn-refresh {    
+      // margin-bottom: 12px;
+      border-radius: 6px;
+      // box-shadow: 3px 3px 30px white;
+      outline: none;
+      h2 {
+        color: #1e1e1ecc;
+      }
+    }
+    p {
+      color: rgb(172, 170, 170);
+      font-size: 0.7rem;
+    }
   }
 
 </style>
