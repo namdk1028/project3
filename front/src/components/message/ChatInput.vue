@@ -18,6 +18,7 @@
 
 <script>
 import Emoticon from "../message/Emoticon"
+import axios from "axios"
 import { mapGetters } from 'vuex'
 // import File from "../message/File"
 export default {
@@ -27,12 +28,13 @@ export default {
   computed: {
     ...mapGetters({
       userId: "user/getUserInfo.nickname",
+      config: "user/config"
     })
   },
   data() {
     return {
       chat_text: "",
-      myId: this.userId,
+      myId: "test",
       myPartner: this.partner
     }
   },
@@ -42,6 +44,15 @@ export default {
   },
   mounted() {
     document.querySelector(".content").focus()
+    axios.get("https://k3a507.p.ssafy.io:8000/profiles/", {
+      headers: {
+        Authorization: 'JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDIsInVzZXJuYW1lIjoiXHViMGE4XHViM2Q5XHVhZGRjZ29vZ2xlIiwiZXhwIjoxNjA1OTYzOTc5LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNjA1MzU5MTc5fQ.xB_N9qx9AK6GSTx03FnNWhQWgaakg_XqY2Vy8NCQeN0'
+      }
+    })
+    .then(res => {
+      this.myId = res.data.nickname
+      console.log(this.myId)
+    })
   },
   methods: {
     emoticonBtn() {
