@@ -102,7 +102,6 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      console.log(this.nickname.nickname)
       this.$socket.emit('fetch-chatlog', {'sender': this.nickname.nickname, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
@@ -136,7 +135,8 @@ export default {
       console.log('-----SCREEN AT BOTTOM-----')
     }
   },
-  created: function() {
+  mounted: function() {
+      console.log(this.nickname)
       this.$socket.emit('initialize-socket', {userId: this.nickname.id, userNickname: this.nickname.nickname})
       this.$socket.on('new-message-pre-flight-receiving side', ()=>{
         console.log("#1. preflight success - receiver")
