@@ -63,7 +63,7 @@
         >
           <div class="info-key">관심지역</div>
           <div class="info-value">
-            {{ UserData.area.name }}
+            {{ UserData.area }}
           </div>
         </v-btn>
         <v-dialog v-model="dialog_area" max-width="280">
@@ -146,7 +146,7 @@
           >
             <div class="info-key">종교</div>
             <div class="info-value info-value-half">
-              {{ UserData.religion.name }}
+              {{ UserData.religion }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_religion" max-width="280">
@@ -202,7 +202,7 @@
           >
             <div class="info-key">학력</div>
             <div class="info-value info-value-half">
-              {{ UserData.education.name }}
+              {{ UserData.education }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_education" max-width="280">
@@ -224,7 +224,7 @@
           >
             <div class="info-key">체형</div>
             <div class="info-value info-value-half">
-              {{ UserData.body.name }}
+              {{ UserData.body }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_body" max-width="280">
@@ -241,7 +241,7 @@
           >
             <div class="info-key">직업</div>
             <div class="info-value info-value-half">
-              {{ UserData.job.name }}
+              {{ UserData.job }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_job" max-width="280">
@@ -283,6 +283,8 @@
 </template>
 
 <script>
+import USERAPI from '@/api/UserApi';
+import axios from 'axios'
 import { mapGetters, mapActions } from "vuex";
 
 import Gender from "../../components/user/Gender.vue";
@@ -321,23 +323,7 @@ export default {
   data() {
     return {
       title: "프로필등록",
-      // UserData: {
-      //   gender: "",
-      //   birth: "",
-      //   nickname: "",
-      //   area: "",
-      //   hobby1: "",
-      //   hobby2: "",
-      //   height: "",
-      //   blood: "",
-      //   religion: "",
-      //   drink: "",
-      //   smoke: "",
-      //   education: "",
-      //   body: "",
-      //   job: "",
-      //   intro: "",
-      // },
+      UserData: {},
       dialog_gender: false,
       dialog_birth: false,
       dialog_nickname: false,
@@ -356,7 +342,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      UserData: "user/getUserInfo",
+      // UserData: "user/getUserInfo",
+      config: "user/config"
     }), 
     isValid() {
       return (
@@ -489,6 +476,15 @@ export default {
     },
   },
   watch: {},
+  mounted() {
+    axios.get(USERAPI.BASE_URL + '/profiles/', this.config)
+    .then(res => {
+      console.log(res)
+      this.UserData = res.data
+      this.UserData.user.delete
+    })
+    .catch(err => console.log(err.response))
+  }
 };
 </script>
 

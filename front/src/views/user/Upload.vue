@@ -213,7 +213,7 @@ export default {
       axios.post(USERAPI.BASE_URL + '/images/analysis/', formData, {
         headers:{
           'Content-Type': 'multipart/form-data',
-          'Authorization': `JWT ${this.authToken}`
+          // 'Authorization': `JWT ${this.authToken}`
         }
       }).then((res)=>{
         console.log(res)
