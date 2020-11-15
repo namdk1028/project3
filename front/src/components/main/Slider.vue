@@ -19,46 +19,50 @@
         >
           <AlreadyLikeModal @closeModal="dialogAlreadyLike = false" />
         </v-dialog>
-        <v-img v-for="user in users" :key="user.id"
-          class='swiper-slide'
-          :src=user.src
-          aspect-ratio="1.2"
-        >
-          <div class='swiper-btns'>
-            <v-btn
-              class="mx-2"
-              fab
-              dark
-              small
-              color="#B2DFDB"
-              @click="dialogProfile = true; userData = user;"
-            ><i class="fas fa-user main-message"></i>
-            </v-btn>
-            <div class='swiper-similar'>
-              78%
+          <v-img v-for="(user, idx) in users" :key="idx"
+            class='swiper-slide'
+            :src=src[idx]
+            aspect-ratio="1.2"
+          >
+            <div :v-model="check"></div>
+            <div class='swiper-btns'>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="#B2DFDB"
+                @click="dialogProfile = true; userData = user;"
+              ><i class="fas fa-user main-message"></i>
+              </v-btn>
+              <div class='swiper-similar'>
+                {{ user.user.similarity }}%
+              </div>
+              <v-btn
+                class="mx-2"
+                fab
+                dark
+                small
+                color="#EF5350"
+                @click="likeBtn(user)"
+              >
+                <v-icon v-if="user.like" color="lime lighten-3">
+                  mdi-heart
+                </v-icon>
+                <v-icon v-else>
+                  mdi-heart
+                </v-icon>
+              </v-btn>
             </div>
-            <v-btn
-              class="mx-2"
-              fab
-              dark
-              small
-              color="#EF5350"
-              @click="likeBtn(user)"
-            >
-              <v-icon v-if="user.like" color="lime lighten-3">
-                mdi-heart
-              </v-icon>
-              <v-icon v-else>
-                mdi-heart
-              </v-icon>
-            </v-btn>
-          </div>
-          <div class='swiper-bottom'>
-            <h1 class="swiper-bottom-name">{{ user.nickname }}, {{ user.age }} </h1>
-            <p class='swiper-bottom-introduce'>{{ user.intro }}</p>
-          
-          </div>
-          </v-img>
+            <div class='swiper-bottom'>
+              <h1 class="swiper-bottom-name">{{ user.nickname }}, {{ user.age }} </h1>
+              <p class='swiper-bottom-introduce'>{{ user.intro }}</p>
+            
+            </div>
+            </v-img>
+          <v-card class='swiper-slide' @click='refresh'>
+            새로고침
+          </v-card>
       </div>
       <!-- Add Pagination -->
       <div class="swiper-pagination"></div>
@@ -99,119 +103,21 @@ export default {
       dialogLike: false,
       dialogAlreadyLike: false,
       userData: {},
+      src: ["2","2","2","2","2"],
       users: [
-        {
-          id: 1,
-          src: "https://img1.yna.co.kr/etc/inner/KR/2019/10/16/AKR20191016056700005_01_i_P2.jpg",
-          nickname: '천우희',
-          age: '34',
-          gender: 0,
-          birth: "1987.01.04",
-          height: 161,
-          body: "날씬",
-          hobby1: "영화보기",
-          hobby2: "멍때리기",
-          blood: 'A형',
-          religion: '무교',
-          smoke: '안함',
-          drink: '가끔',
-          education: '대학생 이상',
-          job: '배우',
-          area: '경기도',
-          intro: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-          like: true,
-        },
-        {
-          id: 2,
-          src: "https://www.newstap.co.kr/news/photo/202001/102741_170863_4955.jpg",
-          nickname: '수지',
-          age: '28',
-          gender: 0,
-          birth: "1987.01.04",
-          height: 161,
-          body: "날씬",
-          hobby1: "영화보기",
-          hobby2: "멍때리기",
-          blood: 'A형',
-          religion: '무교',
-          smoke: '안함',
-          drink: '가끔',
-          education: '대학생 이상',
-          job: '배우',
-          area: '경기도',
-          intro: 'HELLO',
-          like: false,
-        },
-        {
-          id: 3,
-          src: "https://sccdn.chosun.com/news/html/2020/08/22/2020082301001930000129551.jpg",
-          nickname: '아이유',
-          age: '28',
-          gender: 0,
-          birth: "1987.01.04",
-          height: 161,
-          body: "날씬",
-          hobby1: "영화보기",
-          hobby2: "멍때리기",
-          blood: 'A형',
-          religion: '무교',
-          smoke: '안함',
-          drink: '가끔',
-          education: '대학생 이상',
-          job: '배우',
-          area: '경기도',
-          intro: 'HELLO',
-          like: false,
-        },
-        {
-          id: 4,
-          src: "https://lh3.googleusercontent.com/proxy/m9B8jQBoPmKpwUP9fkQVqPKm2BJZ6cJnfiMRxx-R1U7EPxt6DYCcBvwtid5KZhQaMytCX2vBnhCDTBgzlDAoKUhELnC9EwxWF9yS4nfyUcOWeJeiM3Wb8dA",
-          nickname: '한소희',
-          age: '27',
-          gender: 0,
-          birth: "1987.01.04",
-          height: 161,
-          body: "날씬",
-          hobby1: "영화보기",
-          hobby2: "멍때리기",
-          blood: 'A형',
-          religion: '무교',
-          smoke: '안함',
-          drink: '가끔',
-          education: '대학생 이상',
-          job: '배우',
-          area: '경기도',
-          intro: 'HELLO',
-          like: false,
-        },
-        {
-          id: 5,
-          src: "https://img.vogue.co.kr/vogue/2019/05/style_5cc94e4e98ff8.jpg",
-          nickname: '사나',
-          age: '25',
-          gender: 0,
-          birth: "1987.01.04",
-          height: 161,
-          body: "날씬",
-          hobby1: "영화보기",
-          hobby2: "멍때리기",
-          blood: 'A형',
-          religion: '무교',
-          smoke: '안함',
-          drink: '가끔',
-          education: '대학생 이상',
-          job: '배우',
-          area: '경기도',
-          intro: 'HELLO',
-          like: true,
-        },
-      ]
+        {age:"",area:{id:"",name:""},birth:"",blood:"",body:{id:"",name:""},drink:"",education:{id:"",name:""},gender:"",height:"",hobby1:"",hobby2:"",id:"",intro:"",job:{id:"",name:""},like:false,nicknmae:"",religion:"",smoke:"",user:{id:"",similarity:""}},
+        {age:"",area:{id:"",name:""},birth:"",blood:"",body:{id:"",name:""},drink:"",education:{id:"",name:""},gender:"",height:"",hobby1:"",hobby2:"",id:"",intro:"",job:{id:"",name:""},like:false,nicknmae:"",religion:"",smoke:"",user:{id:"",similarity:""}},
+        {age:"",area:{id:"",name:""},birth:"",blood:"",body:{id:"",name:""},drink:"",education:{id:"",name:""},gender:"",height:"",hobby1:"",hobby2:"",id:"",intro:"",job:{id:"",name:""},like:false,nicknmae:"",religion:"",smoke:"",user:{id:"",similarity:""}},
+        {age:"",area:{id:"",name:""},birth:"",blood:"",body:{id:"",name:""},drink:"",education:{id:"",name:""},gender:"",height:"",hobby1:"",hobby2:"",id:"",intro:"",job:{id:"",name:""},like:false,nicknmae:"",religion:"",smoke:"",user:{id:"",similarity:""}},
+        {age:"",area:{id:"",name:""},birth:"",blood:"",body:{id:"",name:""},drink:"",education:{id:"",name:""},gender:"",height:"",hobby1:"",hobby2:"",id:"",intro:"",job:{id:"",name:""},like:false,nicknmae:"",religion:"",smoke:"",user:{id:"",similarity:""}},
+        ],
+      check: true,
     }
   },
   computed: {
     ...mapGetters({
       config: "user/config"
-    }) 
+    }),
   },
   
   methods: {
@@ -232,34 +138,43 @@ export default {
 
     },
     getPartner() {
-      axios.get(SERVER_URL+'/profiles/partners/', this.config)
+      axios.get(SERVER_URL+'/profiles/partners/', {
+      headers: {
+        Authorization: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDIsInVzZXJuYW1lIjoiXHViMGE4XHViM2Q5XHVhZGRjZ29vZ2xlIiwiZXhwIjoxNjA1OTYzOTc5LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNjA1MzU5MTc5fQ.xB_N9qx9AK6GSTx03FnNWhQWgaakg_XqY2Vy8NCQeN0"
+      }
+    })
       .then((res) => {
-        console.log("check")
-        console.log(res)
+        for (var i=0; i < 5; i++) {
+          this.src[i] = res.data[i].nickname
+          this.users[i] = res.data[i]
+        }
+        this.check = !this.check
+        console.log(this.src)
       })
       .catch((err) => {
         console.log(err.response)
       })
+    },
+    refresh() {
+      this.$router.go()
     }
   },
   mounted() {
-    this.getPartner()
-      new Swiper('.swiper-container', {
-        effect: 'coverflow',
-        grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        coverflowEffect: {
-          rotate: 50,
-          stretch: 0,
-          depth: 400,
-          modifier: 1,
-          slideShadows: true,
-        },
-        loop: true,
-
-      });
-      console.log(this.users)
+    this.getPartner() 
+    new Swiper('.swiper-container', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      coverflowEffect: {
+        rotate: 50,
+        stretch: 0,
+        depth: 400,
+        modifier: 1,
+        slideShadows: true,
+      },
+      loop: true,
+    });
     },
 }
 </script>
