@@ -13,7 +13,7 @@
             <button class="btn btn-religion" @click="selectOption" value="무교">무교</button>
         </div>
         <div class="wrapper-btn wrapper-right">
-            <button class="btn btn-religion-all btn-right" @click="selectAll" value="상관 없음">상관 없음</button>
+            <button class="btn btn-religion btn-right" @click="selectOption" value="기타">기타</button>
         </div>
     </div>
 </template>
@@ -26,7 +26,6 @@ export default {
     data() {
         return {
             selected: [],
-            allReligions: false,
         }
     },
     computed: {
@@ -52,35 +51,17 @@ export default {
                 event.target.style.background = "rgb(252, 166, 157)"
                 event.target.style.color = "white"
             }
+            if(this.selected.length === 0) {
+                this.selected = "상관 없음"
+            }
             this.setReligion(this.selected)
-        },
-        selectAll(event) {
-            var btns = document.querySelectorAll(".btn-religion");
-            btns.forEach((btn) => {
-                btn.style.background = "white"
-                btn.style.color = "rgb(119, 116, 139)"
-            })
-            if (this.selected === "상관 없음") {
-                event.target.style.background = "white"
-                event.target.style.color = "rgb(119, 116, 139)"
+            if(this.selected === "상관 없음") {
                 this.selected = []
             }
-            else {
-                this.selected = "상관 없음";
-                this.allReligions = true;
-                event.target.style.background = "rgb(252, 166, 157)"
-                event.target.style.color = "white"
-            }
-            this.setReligion(this.selected)
-        }
+        },
     },
     mounted() {
       var religions = this.controlInfo.religion
-      if (religions.length === 0) {
-          var btnAll = document.querySelector(".btn-religion-all");
-          btnAll.style.background = "rgb(252, 166, 157)"
-          btnAll.style.color = "white"
-      }
       var btns = document.querySelectorAll(".btn-religion");
       for (var religion of religions) {
         for (var btn of btns) {

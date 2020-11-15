@@ -12,7 +12,7 @@ export default {
       min_age: 20,
       max_height: 200,
       min_height: 140,
-      body: ["마른"],
+      body: [],
       education: [],
       job: [],
       religion: [],
