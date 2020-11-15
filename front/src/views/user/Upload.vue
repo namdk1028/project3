@@ -132,7 +132,7 @@ import axios from "axios"
 
 import USERAPI from "@/api/UserApi.js"
 import Title from "../../components/common/Title";
-import { mapGetters, mapState } from 'vuex';
+import { mapGetters, mapState,mapActions } from 'vuex';
 
 export default {
   name:"Upload",
@@ -152,11 +152,14 @@ export default {
     }
   },
   computed:{
-    ...mapState('user',['authToken']),
+    ...mapState('user',['authToken','userInfo']),
     ...mapGetters('user',['config']),
+    // ...mapMutations('user',['setSimilarity'])
 
   },
   methods:{
+    ...mapActions('user',['setSimilarity']),
+
     onChangeUploadImages(e) {
         // console.log(e.target.files)
         this.uploadImage = this.$refs.imageInput.files[0]
@@ -215,7 +218,7 @@ export default {
       axios.post(USERAPI.BASE_URL + '/images/analysis/', formData, {
         headers:{
           'Content-Type': 'multipart/form-data',
-          // 'Authorization': `JWT ${this.authToken}`
+          'Authorization': `JWT ${this.authToken}`
         }
       }).then((res)=>{
         console.log(res)
@@ -262,11 +265,14 @@ export default {
     },
     emitSimilarity(){
       const similarity = parseInt(this.similarity)
-      console.log(similarity)
+      // console.log(similarity)
       axios.post(USERAPI.BASE_URL + '/images/similarity/', {'similarity':similarity}, this.config)
       .then((res)=>{
         res
         // console.log(res)
+        // this.setSimilarity(res.data.similarity)
+        // console.log(res.data.similarity)
+        this.setSimilarity(similarity)
         this.$router.push({name:'Main'})
       })
       .catch((err)=>{
@@ -274,6 +280,9 @@ export default {
       })
     }
   },
+  created(){
+    console.log(this.userInfo)
+  }
   // watch:{
   //   showSimilarity(){
   //     if (this.similarity){
