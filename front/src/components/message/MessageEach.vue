@@ -9,7 +9,7 @@
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
-              src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
+              :src=src></v-img>
         </v-avatar>
       </div>
       <div class='message-content'>
@@ -51,7 +51,8 @@ export default {
       partner: '',
       recentText: '',
       recentDate: '',
-      unread: 0
+      unread: 0,
+      src: '',
     }
   },
   computed: {
@@ -82,6 +83,7 @@ export default {
     this.partner = Object.values(recentMsg)[0].reciever
     this.recentText = Object.values(recentMsg)[0].text
     this.recentDate = Object.values(recentMsg)[0].date
+    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.room[0]}?alt=media`
 
   }
 }
