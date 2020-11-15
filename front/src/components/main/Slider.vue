@@ -155,7 +155,7 @@ export default {
       axios.get(SERVER_URL+'/profiles/partners/', this.config)
       .then((res) => {
         for (var i=0; i < 5; i++) {
-          this.src[i] = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${res.data[i].nickname}?alt=media`
+          this.src[i] = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${res.data[i].nickname}.jpeg?alt=media`
           this.users[i] = res.data[i]
         }
         this.check = !this.check

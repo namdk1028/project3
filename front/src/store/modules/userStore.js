@@ -54,7 +54,8 @@ export default {
     },
     getSimilarity(state) {
       return state.userInfo.user.similarity;
-    }
+    },
+    
   },
   mutations: {
     SET_ACTIVE_USER(state, res) {
@@ -67,6 +68,9 @@ export default {
       state.preference = preference
     },
     setSimilarity(state, similarity) {
+      state.userInfo.user.similarity = similarity
+    },
+    SET_SIMILARITY(state, similarity) {
       state.userInfo.user.similarity = similarity
     }
   },
@@ -118,6 +122,9 @@ export default {
         console.log(err)
       })
   
+    },
+    setSimilarity({commit}, similarity) {
+      commit('SET_SIMILARITY',similarity)
     }
     },
 }

@@ -32,7 +32,7 @@ export default {
         }
     },
     computed: {
-      // src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.nickname}?alt=media`
+      // src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.nickname}.jpeg?alt=media`
     },
     props: {
       msg: Object,
