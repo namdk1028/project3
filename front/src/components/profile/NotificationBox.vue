@@ -1,8 +1,12 @@
 <template>
   <div class="container-notificationBox">
       <!-- <Notification v-for="user in users" :key="user.i" :user="user" /> -->
-      <div v-if="newMessages">
+      <div v-if="newMessages[0]">
         <Notification v-for="msg in newMessages" :key="msg.key" :msg="msg" @clickProfile="onClickProfile" />
+      </div>
+      <div class="notifications-empty" v-else>
+        <img class='icon' src="@/assets/images/icon/heart.png" alt="">
+        <div class='text'>메시지함이 비었습니다.</div>
       </div>
       <v-dialog v-model="showProfile">
         <ProfileModal @closeModal="showProfile=false" :userData="user" />
