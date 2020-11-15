@@ -79,12 +79,20 @@
           @click.stop="dialog_hobby = true"
         >
           <div class="info-key">취미</div>
-          <div v-if="this.hobbies.length === 1" class="info-value">
+          <!-- <div v-if="this.hobbies.length === 1" class="info-value">
             {{ UserData.hobby1 }}
           </div>
           <div v-if="this.hobbies.length === 2" class="info-value">
             {{ UserData.hobby1 }}, {{ UserData.hobby2 }}
-          </div>
+          </div> -->
+            <div class="info-value">
+              <span v-if="UserData.hobby1">
+                {{ UserData.hobby1 }}
+              </span>
+              <span v-if="UserData.hobby2">
+                {{ UserData.hobby2 }}
+              </span>
+            </div>
         </v-btn>
         <v-dialog v-model="dialog_hobby" max-width="280">
           <Hobby @closeHobby="closeHobby" @getHobby="getHobby" />
@@ -194,7 +202,7 @@
           >
             <div class="info-key">학력</div>
             <div class="info-value info-value-half">
-              {{ UserData.education }}
+              {{ UserData.education.name }}
             </div>
           </v-btn>
           <v-dialog v-model="dialog_education" max-width="280">
@@ -330,7 +338,6 @@ export default {
       //   job: "",
       //   intro: "",
       // },
-      hobbies: [],
       dialog_gender: false,
       dialog_birth: false,
       dialog_nickname: false,
