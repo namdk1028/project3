@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div v-else class='chat-bubble-partner'>
+    <div v-if="chatlog.receiver == partner" class='chat-bubble-partner'>
       <div class='chat-bubble-left chat-bubble--left'>
         <div v-if="checkEmoticon()">
           <i :class="chatlog.text" style="font-size: 40px;"></i>
@@ -29,6 +29,7 @@ export default {
   props: {
     user: String,
     chatlog: Object,
+    partner: String,
   },
   methods : {
     checkEmoticon() {

@@ -22,6 +22,7 @@
         v-for="log in chatlog" 
         v-bind:key="log.id" 
         v-bind:user="userInfo.nickname" 
+        :partner= "partner"
         v-bind:chatlog="log"/>
       </div>
       <div class="chat-input">

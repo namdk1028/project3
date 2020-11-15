@@ -51,7 +51,7 @@ export default {
     },
     mounted() {
       this.getUserProfile()
-      this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.senderNickName}.jpeg?alt=media`
+      this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.msg.senderNickName}?alt=media`
       console.log(this.msg)
     }
 }
