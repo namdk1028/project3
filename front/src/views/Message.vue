@@ -44,6 +44,7 @@ export default {
   mounted() {
     this.$socket.emit('fetch-chatroom', this.userInfo.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
+      console.log("check", Object.values(Object.values(rooms)))
       Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
         this.rooms.push([key, value])
       }))

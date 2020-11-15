@@ -80,8 +80,9 @@ export default {
     const recentMsg = this.room[1].messages
     this.unread = this.room[1].unread
     // console.log(Object.values(recentMsg)[0])
+    var len = Object.values(recentMsg).length
     this.partner = Object.values(recentMsg)[0].reciever
-    this.recentText = Object.values(recentMsg)[0].text
+    this.recentText = Object.values(recentMsg)[len].text
     this.recentDate = Object.values(recentMsg)[0].date
     this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.room[0]}?alt=media`
 

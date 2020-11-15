@@ -61,7 +61,6 @@ export default {
     },
     computed: {
       ...mapState({
-        userInfo: "user/userInfo",
         unreadMessage: "user/unreadMessage"
       }),
       unreadMessageCount() {
@@ -78,14 +77,12 @@ export default {
         this.mainActive = true;
         this.chatActive = false;
         this.profileActive = false;
-        this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       },
       moveToChat() {
         this.$router.push("/main/message")
         this.mainActive = false;
         this.chatActive = true;
         this.profileActive = false;
-        this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       },
       moveToProfile() {
         this.$router.push("/main/profile")
@@ -93,7 +90,6 @@ export default {
         this.chatActive = false;
         this.profileActive = true;
         this.unreadSignal = false;
-        this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       },
     },
     mounted: function() {
