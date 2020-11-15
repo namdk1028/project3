@@ -127,7 +127,7 @@ export default {
     }
   },
   computed: {
-    src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.userData.nickname}?alt=media`
+    src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.userData.nickname }?alt=media`
   },
   methods: {
     closeModal() {
