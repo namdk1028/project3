@@ -137,7 +137,7 @@ export default {
     }
   },
   created: function() {
-      this.$socket.emit('initialize-socket', this.user)
+      this.$socket.emit('initialize-socket', {userId: this.user.id, userNickname: this.user.nickname})
       this.$socket.on('new-message-pre-flight-receiving side', ()=>{
         console.log("#1. preflight success - receiver")
       })
