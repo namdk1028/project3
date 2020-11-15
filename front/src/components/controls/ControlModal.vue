@@ -12,15 +12,21 @@
         <div class="modal-body">
             <div class="control-item">
                 <p class="control-title">지역</p>
-                <Region />
+                <div class="items-padding">
+                    <Region />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">나이</p>
-                <Age />
+                <div class="items-padding">
+                    <Age />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">키</p>
-                <Height />
+                <div class="items-padding">
+                    <Height />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">체형</p>

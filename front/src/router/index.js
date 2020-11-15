@@ -21,7 +21,7 @@ const routes = [
   {
     path: "/user",
     name: "User",
-    component: () => import("@/views/user/Login.vue"),
+    component: () => import("@/App.vue"), 
     children: accountPageRouter,
   },
 ];
