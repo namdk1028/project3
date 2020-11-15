@@ -49,7 +49,7 @@ export default {
         console.log(key)
         this.rooms.push(value)
       })
-      // console.log(rooms)
+      console.log(rooms)
     })
   }
 
