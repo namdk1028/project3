@@ -76,18 +76,17 @@ export default {
         this.profileActive = false;
       },
       moveToChat() {
-        this.$router.push("/message")
+        this.$router.push("/main/message")
         this.mainActive = false;
         this.chatActive = true;
         this.profileActive = false;
       },
       moveToProfile() {
-        this.$router.push("/profile")
+        this.$router.push("/main/profile")
         this.mainActive = false;
         this.chatActive = false;
         this.profileActive = true;
         this.unreadSignal = false;
-        //
       },
     },
     mounted: function() {
