@@ -42,11 +42,7 @@ export default {
         this.$emit("clickProfile", this.user);
       },
       getUserProfile() {
-        axios.get(`https://j3a507.p.ssafy.io/profiles/${this.msg.id}/`,{
-          headers: {
-            Authorization: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDIsInVzZXJuYW1lIjoiXHViMGE4XHViM2Q5XHVhZGRjZ29vZ2xlIiwiZXhwIjoxNjA1OTYzOTc5LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNjA1MzU5MTc5fQ.xB_N9qx9AK6GSTx03FnNWhQWgaakg_XqY2Vy8NCQeN0"
-          }
-        })
+        axios.get(`https://j3a507.p.ssafy.io/profiles/${this.msg.id}/`, this.config)
         .then (res => {
           this.user = res.data
         })
