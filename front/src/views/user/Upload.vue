@@ -6,7 +6,7 @@
         <form enctype="multipart/form-data">
           <div class="text-center">
             <label for="upload-image">
-              <div v-if="!uploadImage">
+              <div class="image-info" v-if="!uploadImage">
                 <img class="icon-pic" src="@/assets/images/icon/album.png">
                 <br>
                 <small class="image-info">프로필로 등록할<br>사진을 선택해주세요</small>
@@ -31,10 +31,10 @@
         <form enctype="multipart/form-data">
           <div class="text-center">
             <label for="camera-image">
-              <div v-if="!cameraImage">
+              <div class="image-slogan" v-if="!cameraImage">
                 <img class="icon-pic" src="@/assets/images/icon/camera2.png">
                 <br>
-                <small class="image-info">유사도 측정을 위해<br>사진 촬영을 해주세요</small>
+                <small class="image-info">유사도 측정을 위해<br>사진 촬영을 해주세요<br><small class="mt-0">( 해당 사진은 저장되지 않습니다. )</small></small>
               </div>
             </label>
             <input
