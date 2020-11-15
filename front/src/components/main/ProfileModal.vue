@@ -146,8 +146,10 @@ export default {
       this.state = "up"
     }
   },
-  mounted() {
-    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
+  watch: {
+    nickname() {
+      this.src =  `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
+    }
   }
 }
 </script>
