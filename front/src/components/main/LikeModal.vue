@@ -66,11 +66,14 @@ export default {
 
         this.coin = this.coin - 2
         document.querySelector('.heart-animation').classList.remove('hide')
-        this.$emit("like", this.userData.id)
         // console.log(this.userData.id)
-        axios.post(USERAPI.BASE_URL + "/accounts/like/",this.userData.id ,this.config)
-        .then(res => {
-          console.log(res)
+        axios.post(USERAPI.BASE_URL + "/accounts/like/", { id: this.userData.id} ,{
+            headers: {
+              Authorization: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDIsInVzZXJuYW1lIjoiXHViMGE4XHViM2Q5XHVhZGRjZ29vZ2xlIiwiZXhwIjoxNjA1OTYzOTc5LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNjA1MzU5MTc5fQ.xB_N9qx9AK6GSTx03FnNWhQWgaakg_XqY2Vy8NCQeN0"
+            }
+          })
+        .then(() => {
+          this.$emit("like", this.userData.id)
         })
         .catch(err => {
           console.log(err.response)
@@ -102,7 +105,7 @@ export default {
     .then(res => {
       this.myId = res.data.id
       this.myNickname = res.data.nickname
-      console.log(this.myId)
+      console.log(this.myId, this.myNickname)
     })
   }
 

@@ -122,8 +122,11 @@ export default {
   
   methods: {
     like(id) {
-      this.users[id-1].like = true
-      console.log(this.users[id])
+      for (var i = 0; i < 5; i++) {
+        if(this.users[i].id == id) {
+        this.users[i].like = true
+        }
+      }
     },
     likeBtn(user) {
       if (user.like) {
@@ -145,11 +148,10 @@ export default {
     })
       .then((res) => {
         for (var i=0; i < 5; i++) {
-          this.src[i] = res.data[i].nickname
+          this.src[i] = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${res.data[i].nickname}?alt=media`
           this.users[i] = res.data[i]
         }
         this.check = !this.check
-        console.log(this.src)
       })
       .catch((err) => {
         console.log(err.response)
