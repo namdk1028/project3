@@ -63,14 +63,12 @@ export default {
     partner: String,
   },
   computed: {
-    ...mapState ({
-      nickname: "user/userInfo"
-    }),
+    ...mapState ('user',['userInfo']),
   },
   data() {
     return {
       title:"Message",
-      user: this.nickname,
+      user: this.userInfo,
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
@@ -102,7 +100,7 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      this.$socket.emit('fetch-chatlog', {'sender': this.nickname.nickname, 'receiver': this.myPartner});
+      this.$socket.emit('fetch-chatlog', {'sender': this.userInfo.nickname, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
         this.chatlog = chatlog
@@ -136,8 +134,8 @@ export default {
     }
   },
   mounted: function() {
-      console.log(this.nickname)
-      this.$socket.emit('initialize-socket', {userId: this.nickname.id, userNickname: this.nickname.nickname})
+      console.log(this.userInfo)
+      this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       this.$socket.on('new-message-pre-flight-receiving side', ()=>{
         console.log("#1. preflight success - receiver")
       })

@@ -26,9 +26,7 @@ export default {
     partner: String
   },
   computed: {
-    ...mapState({
-      userInfo: "user/userInfo",
-    }),
+    ...mapState('user',['userInfo']),
     ...mapGetters({
       config: "user/config"
     })
