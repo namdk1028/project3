@@ -56,7 +56,7 @@ export default {
         chatActive: false,
         profileActive: false,
         unreadMessageCount: 4,
-        unreadSignal: false,
+        unreadSignal: true,
       }
     },
     computed: {
