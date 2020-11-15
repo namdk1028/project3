@@ -2,9 +2,12 @@
   <div class="container-controls hide">
       <div class="background-controls" @click="closeControls"></div>
       <div class="modal-controls">
+        <!-- <div class="modal-deco-top"></div> -->
         <div class="modal-header">
             <h2 class="header-title">나의 이상형 찾기</h2>
-            <button class="btn-confirm" @click="confirmChanges">✔</button>
+            <button class="btn-confirm" @click="confirmChanges">
+                <img src="@/assets/images/icon/check-mark.png">
+            </button>
         </div>
         <div class="modal-body">
             <div class="control-item">
