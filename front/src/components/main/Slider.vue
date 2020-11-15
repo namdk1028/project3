@@ -141,11 +141,7 @@ export default {
 
     },
     getPartner() {
-      axios.get(SERVER_URL+'/profiles/partners/', {
-      headers: {
-        Authorization: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxMDIsInVzZXJuYW1lIjoiXHViMGE4XHViM2Q5XHVhZGRjZ29vZ2xlIiwiZXhwIjoxNjA1OTYzOTc5LCJlbWFpbCI6IiIsIm9yaWdfaWF0IjoxNjA1MzU5MTc5fQ.xB_N9qx9AK6GSTx03FnNWhQWgaakg_XqY2Vy8NCQeN0"
-      }
-    })
+      axios.get(SERVER_URL+'/profiles/partners/', this.config)
       .then((res) => {
         for (var i=0; i < 5; i++) {
           this.src[i] = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${res.data[i].nickname}?alt=media`

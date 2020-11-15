@@ -102,7 +102,7 @@ export default {
                 formData,
                 {
                     headers: {
-                        Authorization: this.authToken,
+                        Authorization: "JWT "+this.authToken,
                         "Content-Type": "multipart/form-data",
                     }
                 }
