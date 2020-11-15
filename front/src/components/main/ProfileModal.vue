@@ -2,7 +2,7 @@
   <div>
     <i @click="closeModal" class="far fa-times-circle profile-modal-close"></i>
     <v-card class='profile-modal'>
-      <v-img :src="userData.src" class="profile-modal-img">
+      <v-img :src="src" class="profile-modal-img">
       </v-img>
       <div class='profile-modal-body'>
         <div v-if="state == 'up'">
@@ -52,7 +52,7 @@
                       종교
                     </div>
                     <div class='content'>
-                      {{ userData.religion }}
+                      {{ userData.religion.name }}
                     </div>
                   </div>
                   <div class="each birth">
@@ -114,6 +114,7 @@
 export default {
   props: {
     userData: Object,
+    nickname: String,
   },
   data() {
     return {
@@ -123,8 +124,11 @@ export default {
         {"Job": 'artist'},
         {"Location": 'Seoul'},
         {"About": "hello i'm"},
-      ]
+      ],
+      src: ''
     }
+  },
+  computed: {
   },
   methods: {
     closeModal() {
@@ -143,6 +147,7 @@ export default {
     }
   },
   mounted() {
+    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
   }
 }
 </script>

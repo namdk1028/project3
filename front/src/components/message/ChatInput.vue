@@ -19,22 +19,24 @@
 <script>
 import Emoticon from "../message/Emoticon"
 import axios from "axios"
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 // import File from "../message/File"
 export default {
   props: {
     partner: String
   },
   computed: {
+    ...mapState({
+      userInfo: "user/userInfo",
+    }),
     ...mapGetters({
-      userId: "user/getUserInfo.nickname",
       config: "user/config"
     })
   },
   data() {
     return {
       chat_text: "",
-      myId: "test",
+      myId: this.userInfo.nickname,
       myPartner: this.partner
     }
   },
@@ -54,7 +56,6 @@ export default {
     emoticonBtn() {
       var emoticon = document.querySelector(".emoticon")
       emoticon.classList.remove("hide")
-      this.exitFile()
     },
     exitEmoticon() {
       document.querySelector('.emoticon').classList.add('hide')

@@ -21,14 +21,20 @@
 <script>
 import MessageEach from '../components/message/MessageEach.vue'
 import Title from '../components/common/Title'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       title: 'Message',
       rooms: [],
-      user: 'test'
+      nickname: this.user.nickname,
     }
+  },
+  computed: {
+    ...mapGetters ({
+      user: "user/userInfo"
+    })
   },
   components: {
     MessageEach,
@@ -38,7 +44,7 @@ export default {
   },
   mounted() {
     this.$socket.emit('initialize-socket')
-    this.$socket.emit('fetch-chatroom', this.user)
+    this.$socket.emit('fetch-chatroom', this.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = Object.values(rooms);
     })

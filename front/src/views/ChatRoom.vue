@@ -9,7 +9,7 @@
         <div class='chat-profile'>
           <v-avatar style='background-color: white;' size='30'>
             <v-img
-                src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
+                :src="src"></v-img>
           </v-avatar>
           {{ $route.params.partner }}
         </div>
@@ -56,15 +56,21 @@ import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
 import VideoChat from "../components/message/VideoChat"
 import Title from "../components/common/Title"
+import { mapState } from 'vuex'
 
 export default {
   props: {
     partner: String,
   },
+  computed: {
+    ...mapState ({
+      nickname: "user/userInfo"
+    }),
+  },
   data() {
     return {
       title:"Message",
-      user: "test",
+      user: this.nickname,
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
@@ -76,6 +82,7 @@ export default {
       from: false,
       callerSignal: '',
       refreshSignal: false,
+      src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.partner}?alt=media`
     }
   },
   components: {
@@ -95,7 +102,8 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': this.myPartner});
+      console.log(this.nickname.nickname)
+      this.$socket.emit('fetch-chatlog', {'sender': this.nickname.nickname, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
         this.chatlog = chatlog
