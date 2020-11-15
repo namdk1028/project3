@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 // import LoginInfo from '../components/profile/LoginInfo.vue'
 import NotificationBox from "@/components/profile/NotificationBox.vue"
@@ -49,6 +49,7 @@ export default {
     }
   },
   computed: {
+    ...mapState('user',['userInfo']),
     ...mapGetters({
       nickname: "user/getNickname",
       similarity: "user/getSimilarity",
@@ -74,6 +75,9 @@ export default {
     openProfilePic() {
       document.querySelector(".container-profilepic").classList.remove("hide");
     }
+  },
+  mounted() {
+    this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
   }
 }
 </script>
