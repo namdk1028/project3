@@ -49,7 +49,13 @@ export default {
                 event.target.style.background = "rgb(252, 166, 157)"
                 event.target.style.color = "white"
             }
+            if(this.selected.length === 0) {
+                this.selected = "상관 없음"
+            }
             this.setJob(this.selected)
+            if(this.selected === "상관 없음") {
+                this.selected = []
+            }
         }
     },
     mounted() {
