@@ -21,14 +21,20 @@
 <script>
 import MessageEach from '../components/message/MessageEach.vue'
 import Title from '../components/common/Title'
+import { mapGetters } from 'vuex'
 
 export default {
   data() {
     return {
       title: 'Message',
       rooms: [],
-      user: 'test'
+      user: this.nickname
     }
+  },
+  computed: {
+    ...mapGetters ({
+      nickname: "user/userInfo.nickname"
+    })
   },
   components: {
     MessageEach,
