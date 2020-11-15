@@ -29,7 +29,7 @@ export default {
   props: {
     user: String,
     chatlog: Object,
-    partner: String,
+    partner: Number,
   },
   methods : {
     checkEmoticon() {

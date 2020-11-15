@@ -23,7 +23,7 @@ import { mapState, mapGetters } from 'vuex'
 // import File from "../message/File"
 export default {
   props: {
-    partner: String
+    partner: Number
   },
   computed: {
     ...mapState('user',['userInfo']),

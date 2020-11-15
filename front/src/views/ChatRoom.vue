@@ -61,7 +61,7 @@ import { mapState } from 'vuex'
 
 export default {
   props: {
-    partner: String,
+    partner: Number,
   },
   computed: {
     ...mapState ('user',['userInfo']),
