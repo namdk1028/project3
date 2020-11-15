@@ -62,7 +62,6 @@ export default {
         ...mapGetters({
             authToken: "user/getAuthToken",
             config: "user/config",
-            // similarity: "user/getSimilarity",
         }),
     },
     methods: {
