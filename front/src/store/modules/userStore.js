@@ -109,9 +109,10 @@ export default {
     },
     updateProfile({getters}, userData) {
       axios.put(`${USERAPI.BASE_URL}/profiles/`, userData, getters.config)
-      .then(res => {
+      .then(() => {
         this.userInfo = userData
-        console.log(res)
+        alert("수정 완료 되었습니다")
+        this.$router.go();
       })
       .catch(err => {
         console.log(err)

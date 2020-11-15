@@ -55,7 +55,7 @@ export default {
     }),
     myImageURL() {
       // return `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.nickname}?alt=media`
-      return `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/동키짱짱짱?alt=media`
+      return `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.nickname}?alt=media`
     }
   },
   methods: {
