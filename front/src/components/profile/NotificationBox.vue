@@ -45,6 +45,7 @@ export default {
       console.log(this.userInfo.id)
       this.$socket.emit('fetch-like-log', { 'user': this.userInfo.id });
       this.$socket.on('fetch-like-log-reply', likeMessages => {
+        console.log(likeMessages)
         const newMsg = Object.values(likeMessages);
         //key가 보낸사람 아이디, value가 메세지 내용
         this.newMessages = newMsg;

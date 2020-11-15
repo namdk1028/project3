@@ -44,7 +44,7 @@ export default {
         })
     },
     mounted() {
-        this.selected = this.controlInfo.region;
+        this.selected = this.controlInfo.area;
     },
     watch: {
         selected() {
