@@ -46,7 +46,7 @@ export default {
     document.querySelector(".content").focus()
     axios.get("https://k3a507.p.ssafy.io:8000/profiles/", this.config)
     .then(res => {
-      this.myId = res.data.nickname
+      this.myId = res.data.id
       console.log(this.myId)
     })
   },
