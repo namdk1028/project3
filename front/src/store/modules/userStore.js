@@ -53,7 +53,7 @@ export default {
       return state.userInfo.nickname;
     },
     getSimilarity(state) {
-      return state.userInfo.similarity;
+      return state.userInfo.user.similarity;
     }
   },
   mutations: {
@@ -67,7 +67,7 @@ export default {
       state.preference = preference
     },
     setSimilarity(state, similarity) {
-      state.similarity = similarity
+      state.userInfo.user.similarity = similarity
     }
   },
   actions: {
