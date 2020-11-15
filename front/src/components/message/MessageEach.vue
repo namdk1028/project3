@@ -5,7 +5,7 @@
         right: () => swipe('Right'),
       }"
     >
-    <div class='message-each' @click="$router.push('/chat/'+partner)">
+    <div class='message-each' @click="$router.push('/main/chat/'+this.room[0])">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
@@ -76,7 +76,6 @@ export default {
   mounted: function(){
     console.log(this.room)
     this.unreadMessageCount(this.room[1].unread)
-    console.log(this.number)
     const recentMsg = this.room[1].messages
     this.unread = this.room[1].unread
     // console.log(Object.values(recentMsg)[0])
