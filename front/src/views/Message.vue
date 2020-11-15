@@ -4,7 +4,7 @@
     <div class="message-body">
       <div v-if="rooms">
         <MessageEach 
-        v-for="(room, idx) in rooms"
+        v-for="(room, idx) in rooms[0]"
         v-bind:room="room" 
         v-bind:key="idx"
         :number="idx"
@@ -45,7 +45,6 @@ export default {
     this.$socket.emit('fetch-chatroom', this.userInfo.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = Object.values(rooms);
-    console.log(this.rooms)
     })
   }
 
