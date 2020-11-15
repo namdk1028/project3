@@ -36,7 +36,7 @@
           <Birth @closeBirth="closeBirth" @getBirth="getBirth" />
         </v-dialog>
       </v-row>
-      <v-row class="my-2" justify="center">
+      <!-- <v-row class="my-2" justify="center">
         <v-btn
           width="300px"
           rounded
@@ -52,7 +52,7 @@
         <v-dialog v-model="dialog_nickname" max-width="280">
           <Nickname @closeNickname="closeNickname" @getNickname="getNickname" />
         </v-dialog>
-      </v-row>
+      </v-row> -->
       <v-row class="my-2" justify="center">
         <v-btn
           width="300px"
@@ -283,7 +283,7 @@ import { mapGetters, mapActions } from "vuex";
 
 import Gender from "../../components/user/Gender.vue";
 import Birth from "../../components/user/Birth.vue";
-import Nickname from "../../components/user/Nickname.vue";
+// import Nickname from "../../components/user/Nickname.vue";
 import Area from "../../components/user/Area.vue";
 import Hobby from "../../components/user/Hobby.vue";
 import Height from "../../components/user/Height.vue";
@@ -300,7 +300,7 @@ export default {
   components: {
     Gender,
     Birth,
-    Nickname,
+    // Nickname,
     Area,
     Hobby,
     Height,
@@ -320,7 +320,7 @@ export default {
       UserData: {},
       dialog_gender: false,
       dialog_birth: false,
-      dialog_nickname: false,
+      // dialog_nickname: false,
       dialog_area: false,
       dialog_hobby: false,
       dialog_height: false,
@@ -383,9 +383,9 @@ export default {
       this.dialog_birth = false;
       // this.dialog_nickname = true;
     },
-    getNickname(nickname) {
-      this.UserData.nickname = nickname;
-    },
+    // getNickname(nickname) {
+    //   this.UserData.nickname = nickname;
+    // },
     closeNickname() {
       this.dialog_nickname = false;
       // this.dialog_area = true;

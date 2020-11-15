@@ -34,7 +34,7 @@ export default {
   data() {
     return {
       chat_text: "",
-      myId: "test",
+      myId: this.userId,
       myPartner: this.partner
     }
   },
