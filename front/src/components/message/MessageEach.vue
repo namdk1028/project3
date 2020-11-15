@@ -43,7 +43,7 @@ import { mapMutations } from 'vuex'
 
 export default {
   props:{
-    room: Object,
+    room: Array,
     number: Number,
   },
   data() {
@@ -74,10 +74,10 @@ export default {
     }
   },
   mounted: function(){
-    this.unreadMessageCount(this.room.unread)
+    this.unreadMessageCount(this.room[1].unread)
     console.log(this.number)
-    const recentMsg = this.room.messages
-    this.unread = this.room.unread
+    const recentMsg = this.room[1].messages
+    this.unread = this.room[1].unread
     // console.log(Object.values(recentMsg)[0])
     this.partner = Object.values(recentMsg)[0].reciever
     this.recentText = Object.values(recentMsg)[0].text

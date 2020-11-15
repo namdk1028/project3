@@ -4,7 +4,7 @@
     <div class="message-body">
       <div v-if="rooms">
         <MessageEach 
-        v-for="(room, idx) in rooms[0]"
+        v-for="(room, idx) in rooms"
         v-bind:room="room" 
         v-bind:key="idx"
         :number="idx"
@@ -48,8 +48,8 @@ export default {
         console.log([key, value])
         this.rooms.push([key, value])
       }))
-      console.log(this.rooms)
     })
+    console.log(this.rooms)
   }
 
 }
