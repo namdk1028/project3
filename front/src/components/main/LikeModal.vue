@@ -34,7 +34,7 @@
 <script>
 import axios from "axios"
 import USERAPI from "@/api/UserApi";
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 export default {
   props: {
@@ -43,9 +43,8 @@ export default {
   computed: {
     ...mapGetters({
       config: "user/config",
-      user: "user/getUserInfo.id",
-      nickname: "user/getUserInfo.nickname"
-    })
+    }),
+    ...mapState(('user',['userInfo']),)
   },
   data() {
     return {

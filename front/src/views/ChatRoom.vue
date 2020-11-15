@@ -143,7 +143,7 @@ export default {
         console.log("#1. preflight success - sender")
       })
       const chatInfo = {
-          'sender': this.user,
+          'sender': this.userInfo.nickname,
           'receiver': this.myPartner
         };
       //Emit event to receieve chat log
