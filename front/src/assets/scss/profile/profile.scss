@@ -28,6 +28,10 @@
     .header-title {
       margin: 0px 12px;
       color: rgb(241, 141, 141);
+      font-size: 1rem;
+      .nickname {
+        font-size: 1.3rem;
+      }
     }
     .container-tabs {
       z-index: 1;
