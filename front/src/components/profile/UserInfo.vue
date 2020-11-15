@@ -277,6 +277,8 @@
 </template>
 
 <script>
+import USERAPI from '@/api/UserApi';
+import axios from 'axios'
 import { mapGetters, mapActions } from "vuex";
 
 import Gender from "../../components/user/Gender.vue";
@@ -315,23 +317,7 @@ export default {
   data() {
     return {
       title: "프로필등록",
-      // UserData: {
-      //   gender: "",
-      //   birth: "",
-      //   nickname: "",
-      //   area: "",
-      //   hobby1: "",
-      //   hobby2: "",
-      //   height: "",
-      //   blood: "",
-      //   religion: "",
-      //   drink: "",
-      //   smoke: "",
-      //   education: "",
-      //   body: "",
-      //   job: "",
-      //   intro: "",
-      // },
+      UserData: {},
       dialog_gender: false,
       dialog_birth: false,
       dialog_nickname: false,
@@ -350,7 +336,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      UserData: "user/getUserInfo",
+      // UserData: "user/getUserInfo",
+      config: "user/config"
     }), 
     isValid() {
       return (
@@ -483,6 +470,15 @@ export default {
     },
   },
   watch: {},
+  mounted() {
+    axios.get(USERAPI.BASE_URL + '/profiles/', this.config)
+    .then(res => {
+      console.log(res)
+      this.UserData = res.data
+      this.UserData.user.delete
+    })
+    .catch(err => console.log(err.response))
+  }
 };
 </script>
 
