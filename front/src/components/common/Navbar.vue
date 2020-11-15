@@ -14,8 +14,8 @@
                 <chatSVG v-if="!chatActive" />
                 <chatfilledSVG v-if="chatActive" />
               </button>
-              <div class="unread-meesage" v-if="unreadMessage">
-                <div>{{ unreadMessage }}</div>
+              <div class="unread-meesage" v-if="unreadMessageCount">
+                <div>{{ unreadMessageCount }}</div>
               </div>
               <div v-else>
               </div>
@@ -63,7 +63,7 @@ export default {
       ...mapState({
         unreadMessage: "user/unreadMessage"
       }),
-      unreadMessage() {
+      unreadMessageCount() {
         var count = this.unreadMessage
         if (count > 99) {
           count = "99+"
