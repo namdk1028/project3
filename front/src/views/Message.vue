@@ -2,7 +2,7 @@
   <div>
     <Title :title="title" />
     <div class="message-body">
-      <div v-if="rooms[0]">
+      <div v-if="rooms">
         <MessageEach 
         v-for="(room, idx) in rooms"
         v-bind:room="room" 
@@ -10,7 +10,7 @@
         :number="idx"
         />
       </div>
-      <div class="message-empty" v-else>
+      <div class="message-empty">
         <img class='icon' src="../assets/images/icon/box.png" alt="">
         <div class='text'>메시지함이 비었습니다.</div>
       </div>
@@ -20,21 +20,21 @@
 
 <script>
 import MessageEach from '../components/message/MessageEach.vue'
-import Title from '../components/common/Title'
-import { mapGetters } from 'vuex'
+import Title from '../components/common/Title.vue'
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
-      title: 'Message',
       rooms: [],
-      nickname: this.user.nickname,
+      nickname: this.userInfo.nickname,
     }
   },
   computed: {
-    ...mapGetters ({
-      user: "user/userInfo"
-    })
+    ...mapState ('user',['userInfo']),
+    title() {
+      return 'Message'
+    } 
   },
   components: {
     MessageEach,
