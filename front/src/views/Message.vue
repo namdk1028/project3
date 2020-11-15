@@ -46,7 +46,7 @@ export default {
     this.$socket.on('fetch-chatroom-callback', rooms => {
       Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
         console.log([key, value])
-        this.rooms.push({key: value})
+        this.rooms.push([key, value])
       }))
       console.log(this.rooms)
     })
