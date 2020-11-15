@@ -21,7 +21,7 @@
         <ChatBubble 
         v-for="log in chatlog" 
         v-bind:key="log.id" 
-        v-bind:user="this.userInfo.nickname" 
+        v-bind:user="userInfo.nickname" 
         v-bind:chatlog="log"/>
       </div>
       <div class="chat-input">
@@ -36,7 +36,7 @@
     <VideoChat 
     v-bind:incomingCall="true"
     v-bind:caller="partner" 
-    v-bind:callee="this.userInfo.nickname"
+    v-bind:callee="userInfo.nickname"
     v-bind:callerSignal='callerSignal'
     v-bind:isInitiator="isInitiator"
     v-on:endcall="endCall"/>
@@ -44,7 +44,7 @@
   <div v-else-if="activeVideoCall == true">
     <VideoChat
     v-bind:incomingCall="false" 
-    v-bind:caller="this.userInfo.nickname" 
+    v-bind:caller="userInfo.nickname" 
     v-bind:callee="partner"
     v-bind:isInitiator="isInitiator" 
     v-on:endcall="endCall"/>
@@ -132,8 +132,8 @@ export default {
     }
   },
   mounted: function() {
-      console.log(this.userInfo)
-      this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
+      console.log(this.userInfo)``
+      // this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
       this.$socket.on('new-message-pre-flight-receiving side', ()=>{
         console.log("#1. preflight success - receiver")
       })
