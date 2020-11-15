@@ -25,8 +25,6 @@ export default {
     computed: {
       ...mapGetters({
         config: "user/config",
-        userId: "user/getUserInfo.id",
-        nickname: "user/getUserInfo.nickname"
       }),
       ...mapState('user',['userInfo'])
     },

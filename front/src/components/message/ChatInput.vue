@@ -19,22 +19,24 @@
 <script>
 import Emoticon from "../message/Emoticon"
 import axios from "axios"
-import { mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 // import File from "../message/File"
 export default {
   props: {
     partner: String
   },
   computed: {
+    ...mapState({
+      userInfo: "user/userInfo",
+    }),
     ...mapGetters({
-      userId: "user/getUserInfo.nickname",
       config: "user/config"
     })
   },
   data() {
     return {
       chat_text: "",
-      myId: this.userId,
+      myId: this.userInfo.nickname,
       myPartner: this.partner
     }
   },

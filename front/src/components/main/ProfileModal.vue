@@ -125,7 +125,7 @@ export default {
         {"Location": 'Seoul'},
         {"About": "hello i'm"},
       ],
-      src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
+      src: ''
     }
   },
   computed: {
@@ -147,6 +147,7 @@ export default {
     }
   },
   mounted() {
+    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
   }
 }
 </script>

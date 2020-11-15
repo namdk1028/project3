@@ -28,12 +28,12 @@ export default {
     return {
       title: 'Message',
       rooms: [],
-      user: this.nickname
+      nickname: this.user.nickname,
     }
   },
   computed: {
     ...mapGetters ({
-      nickname: "user/userInfo.nickname"
+      user: "user/userInfo"
     })
   },
   components: {
@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     this.$socket.emit('initialize-socket')
-    this.$socket.emit('fetch-chatroom', this.user)
+    this.$socket.emit('fetch-chatroom', this.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       this.rooms = Object.values(rooms);
     })
