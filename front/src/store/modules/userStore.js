@@ -116,7 +116,11 @@ export default {
       state.authToken = res.data.token
       if(res.data.preference) {
         commit("SET_PREFERENCE", res.data.preference)
+        commit("SET_PROFILE", res.data.profile)
         commit("initalPreference")
+        state.profile_saved = true
+        state.image_saved = true
+        router.push({name:"Main"})
       }else{
         if (res.data.user.profile_saved === 1) {
           state.profile_saved = true
