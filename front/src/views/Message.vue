@@ -44,13 +44,11 @@ export default {
   mounted() {
     this.$socket.emit('fetch-chatroom', this.userInfo.nickname)
     this.$socket.on('fetch-chatroom-callback', rooms => {
-      // this.rooms = 
-      Object.entries(Object.values(Object.values(rooms))).map(([key, value]) => {
-        console.log(key)
-        this.rooms.push(value)
-      })
-      console.log(rooms)
+      Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
+        this.rooms.push([key, value])
+      }))
     })
+    // this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
   }
 
 }
