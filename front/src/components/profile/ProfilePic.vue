@@ -10,13 +10,13 @@
               <div class="upload-img">
                   <div class="upload-preview" @click="clickUploadBtn"></div>
                   <label><img class="icon-pic" src="@/assets/images/icon/album.png"></label>
-                  <input type="file" accept="image/png, image/jpeg" id="uploadedImg" @change="previewUpload">
+                  <input type="file" accept="image/jpg, image/jpeg" id="uploadedImg" @change="previewUpload">
               </div>
               <div class="border"></div>
               <div class="camera-img">
                   <div class="camera-preview" @click="clickCameraBtn"></div>
                   <label><img class="icon-pic" src="@/assets/images/icon/camera2.png"></label>
-                  <input type="file" accept="image/*" capture="camera" id="cameraImg" @change="previewCamera">
+                  <input type="file" accept="image/jpg, image/jpeg" capture="camera" id="cameraImg" @change="previewCamera">
               </div>
               <div class="similarity" v-if="!similarityChecked">
                   <Loading v-if="loading" />
