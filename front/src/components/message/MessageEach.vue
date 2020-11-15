@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   props:{
     room: Object,
@@ -52,7 +54,12 @@ export default {
       unread: 0
     }
   },
+  computed: {
+  },
   methods : {
+    ...mapMutations({
+        unreadMessageCount: "user/unreadMessageCount"
+    }),
     deleteMessage() {
       console.log("check")
     },
@@ -67,6 +74,7 @@ export default {
     }
   },
   mounted: function(){
+    this.unreadMessageCount(this.room.unread)
     console.log(this.number)
     const recentMsg = this.room.messages
     this.unread = this.room.unread
@@ -74,6 +82,7 @@ export default {
     this.partner = Object.values(recentMsg)[0].reciever
     this.recentText = Object.values(recentMsg)[0].text
     this.recentDate = Object.values(recentMsg)[0].date
+
   }
 }
 </script>
