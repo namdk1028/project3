@@ -56,15 +56,15 @@ import ChatBubble from "../components/message/ChatBubble"
 import ChatInput from "../components/message/ChatInput"
 import VideoChat from "../components/message/VideoChat"
 import Title from "../components/common/Title"
-import { mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   props: {
     partner: String,
   },
   computed: {
-    ...mapGetters ({
-      nickname: "user/userInfo.nickname"
+    ...mapState ({
+      nickname: "user/userInfo"
     }),
   },
   data() {
@@ -102,7 +102,8 @@ export default {
       this.unreadCount = count;
     },
     refreshLogs: function() {
-      this.$socket.emit('fetch-chatlog', {'sender': this.user, 'receiver': this.myPartner});
+      console.log(this.nickname.nickname)
+      this.$socket.emit('fetch-chatlog', {'sender': this.nickname.nickname, 'receiver': this.myPartner});
       this.$socket.on('fetch-chatlog-callback', chatlog => {
         console.log('채팅로그 업데이트중')
         this.chatlog = chatlog

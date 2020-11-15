@@ -42,10 +42,9 @@ export default {
         this.user = user;
         this.showProfile = true;
       }
-    },
-    // 여기 닉네임으로 받나요?? 
+    }, 
     mounted: function(){
-      console.log
+      console.log(this.userInfo.id)
       this.$socket.emit('fetch-like-log', { 'user': this.userInfo.id });
       this.$socket.on('fetch-like-log-reply', likeMessages => {
         const newMsg = Object.values(likeMessages);
