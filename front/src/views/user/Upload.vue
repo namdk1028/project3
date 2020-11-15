@@ -224,17 +224,29 @@ export default {
         console.log(res)
         this.similarity = res.data.similarity.slice(-5,-2)
         this.onClick = 0
-      }).catch(()=>{
-        // this.$swal('','정확한 분석을 위해\n선명한 사진을 사용해주세요. ','warning')
-        this.$swal({
-          title: '',
-          text: '유사도 측정이 어렵습니다.\n셀프 촬영시, 핸드폰을 사진처럼\n오른쪽으로 90도 회전해서 촬영해보세요.',
-          imageUrl: 'https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/rotate_pic.png?alt=media&token=09ff0dc0-deb7-4652-8a02-73ab30698b57',
-          imageWidth: 150,
-          imageHeight: 100,
-          confirmButtonText: '확인',
-          imageAlt: 'Custom image',
-        })
+      }).catch((err)=>{
+        console.log(err.response.data.msg)
+        if (err.response.data.msg === "2"){
+          this.$swal({
+            title: '',
+            text: '왼쪽 사진에서 얼굴이 인식되지 않습니다. \n선명한 사진을 업로드해주세요.',
+            imageUrl: 'https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/face-recognition.png?alt=media&token=09ff0dc0-deb7-4652-8a02-73ab30698b57',
+            imageWidth: 100,
+            imageHeight: 100,
+            confirmButtonText: '확인',
+            imageAlt: 'Custom image',
+          })
+        }else{
+          this.$swal({
+            title: '',
+            text: '유사도 측정이 어렵습니다.\n셀프 촬영시, 핸드폰을 사진처럼\n오른쪽으로 90도 회전해서 촬영해보세요.',
+            imageUrl: 'https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/rotate_pic.png?alt=media&token=09ff0dc0-deb7-4652-8a02-73ab30698b57',
+            imageWidth: 150,
+            imageHeight: 100,
+            confirmButtonText: '확인',
+            imageAlt: 'Custom image2',
+          })
+        }
 
         this.onClick = false
       })
