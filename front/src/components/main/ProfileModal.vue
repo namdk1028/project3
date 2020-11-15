@@ -36,7 +36,7 @@
                       직업
                     </div>
                     <div class='content'>
-                      {{ userData.job }}
+                      {{ userData.job.name }}
                     </div>
                   </div>
                   <div class='each body'>
@@ -44,7 +44,7 @@
                       체형
                     </div>
                     <div class='content'>
-                      {{ userData.body }}
+                      {{ userData.body.name }}
                     </div>
                   </div>
                   <div class='each religion'>
@@ -61,7 +61,7 @@
                   </div>
                   <div class="each location">
                     <i class="fas fa-map-marker-alt category"></i>
-                    <div class="content">{{ userData.area }}</div>
+                    <div class="content">{{ userData.area.name }}</div>
                   </div>
                 </div>
               </v-card>
@@ -196,11 +196,11 @@ export default {
   justify-content: center;
 }
 .profile-modal-userinfo .titlea .name {
-  font-size: 1.4rem !important;
+  font-size: 1rem !important;
 }
 .profile-modal-userinfo .titlea .age {
   padding-left: 10px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: gray;
   display: flex;
   align-items: flex-end;
