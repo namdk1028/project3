@@ -54,7 +54,6 @@ export default {
     emoticonBtn() {
       var emoticon = document.querySelector(".emoticon")
       emoticon.classList.remove("hide")
-      this.exitFile()
     },
     exitEmoticon() {
       document.querySelector('.emoticon').classList.add('hide')

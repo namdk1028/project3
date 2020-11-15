@@ -5,7 +5,7 @@
         <v-dialog
           v-model="dialogProfile"
         >
-          <ProfileModal @closeModal="dialogProfile = false" :userData="userData" />
+          <ProfileModal @closeModal="dialogProfile = false" :userData="userData" :nickname="userData.nickname" />
         </v-dialog>
         <v-dialog
           v-model="dialogLike"

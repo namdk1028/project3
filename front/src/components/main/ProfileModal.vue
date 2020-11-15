@@ -114,6 +114,7 @@
 export default {
   props: {
     userData: Object,
+    nickname: String,
   },
   data() {
     return {
@@ -124,7 +125,7 @@ export default {
         {"Location": 'Seoul'},
         {"About": "hello i'm"},
       ],
-      src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.userData.nickname }?alt=media`
+      src: `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${ this.nickname }?alt=media`
     }
   },
   computed: {

@@ -13,7 +13,7 @@
 <script>
 import Notification from "./Notification"
 import ProfileModal from "@/components/main/ProfileModal"
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 
 
 export default {
@@ -27,7 +27,8 @@ export default {
         config: "user/config",
         userId: "user/getUserInfo.id",
         nickname: "user/getUserInfo.nickname"
-      })
+      }),
+      ...mapState('user',['userInfo'])
     },
     data() {
         return {
@@ -44,7 +45,8 @@ export default {
     },
     // 여기 닉네임으로 받나요?? 
     mounted: function(){
-      this.$socket.emit('fetch-like-log', { 'user': this.userId });
+      console.log
+      this.$socket.emit('fetch-like-log', { 'user': this.userInfo.id });
       this.$socket.on('fetch-like-log-reply', likeMessages => {
         const newMsg = Object.values(likeMessages);
         //key가 보낸사람 아이디, value가 메세지 내용
