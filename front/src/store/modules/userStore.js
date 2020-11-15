@@ -10,9 +10,9 @@ export default {
   state: {
     profile_saved:false,
     image_saved:false,
-    // authToken: cookies.get("auth-token"),
-    // authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
     authToken: null,
+    // authToken: "JWT eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6Ilx1ZDE0Y1x1YzJhNFx1ZDJiOFx1YWNjNFx1YzgxNTExIiwiZXhwIjoxNjA1ODYyNzM4LCJlbWFpbCI6InRlc3QxMUB0ZXN0LmNvbSIsIm9yaWdfaWF0IjoxNjA1MjU3OTM4fQ.fFSK0Yt9wBNF9F-uRUShbSjQ9AkC8p1DajS2RnsNhA0",
+    // authToken: null,
     // userInfo: Object,
     userInfo: {
     },
@@ -53,7 +53,7 @@ export default {
       return state.userInfo.nickname;
     },
     getSimilarity(state) {
-      return state.userInfo.similarity;
+      return state.userInfo.user.similarity;
     }
   },
   mutations: {
@@ -67,7 +67,7 @@ export default {
       state.preference = preference
     },
     setSimilarity(state, similarity) {
-      state.similarity = similarity
+      state.userInfo.user.similarity = similarity
     }
   },
   actions: {

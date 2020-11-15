@@ -62,7 +62,6 @@ export default {
         ...mapGetters({
             authToken: "user/getAuthToken",
             config: "user/config",
-            // similarity: "user/getSimilarity",
         }),
     },
     methods: {
@@ -103,7 +102,7 @@ export default {
                 formData,
                 {
                     headers: {
-                        Authorization: this.authToken,
+                        Authorization: "JWT "+this.authToken,
                         "Content-Type": "multipart/form-data",
                     }
                 }

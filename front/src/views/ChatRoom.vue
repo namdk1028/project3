@@ -4,7 +4,7 @@
     <div class='chat'>
       <div class='chat-header'>
         <div class='chat-back'>
-          <i class="fas fa-chevron-left" @click="$router.push('/message')"></i>
+          <i class="fas fa-chevron-left" @click="$router.push('/main/message')"></i>
         </div>
         <div class='chat-profile'>
           <v-avatar style='background-color: white;' size='30'>
@@ -18,14 +18,6 @@
         </div>
       </div>
       <div id="app_chat_list" class='chat-content'>
-        <!-- <ChatBubble :user=user />
-        <ChatBubble :user=emoticon />
-        <ChatBubble :user="!user" />
-        <ChatBubble :user=user />
-        <ChatBubble :user="user" />
-        <ChatBubble :user=emoticon />
-        <ChatBubble :user="!user" />
-        <ChatBubble :user=user /> -->
         <ChatBubble 
         v-for="log in chatlog" 
         v-bind:key="log.id" 
@@ -72,7 +64,7 @@ export default {
   data() {
     return {
       title:"Message",
-      user: "Nam",
+      user: "test",
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
