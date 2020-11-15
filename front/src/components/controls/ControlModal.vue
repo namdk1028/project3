@@ -70,7 +70,14 @@ export default {
             this.closeDetails();
         },
         confirmChanges() {
-            this.updateControls();
+            let result = this.updateControls()
+            if (result) {
+                this.$router.go();
+            }
+            else {
+                alert("모든 조건을 설정해주세요.")
+            }
+            
         },
         openDetails() {
             this.showDetails = true;
