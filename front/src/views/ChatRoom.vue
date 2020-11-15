@@ -21,7 +21,7 @@
         <ChatBubble 
         v-for="log in chatlog" 
         v-bind:key="log.id" 
-        v-bind:user="user" 
+        v-bind:user="this.userInfo.nickname" 
         v-bind:chatlog="log"/>
       </div>
       <div class="chat-input">
@@ -36,7 +36,7 @@
     <VideoChat 
     v-bind:incomingCall="true"
     v-bind:caller="myPartner" 
-    v-bind:callee="user"
+    v-bind:callee="this.userInfo.nickname"
     v-bind:callerSignal='callerSignal'
     v-bind:isInitiator="isInitiator"
     v-on:endcall="endCall"/>
@@ -44,7 +44,7 @@
   <div v-else-if="activeVideoCall == true">
     <VideoChat
     v-bind:incomingCall="false" 
-    v-bind:caller="user" 
+    v-bind:caller="this.userInfo.nickname" 
     v-bind:callee="myPartner"
     v-bind:isInitiator="isInitiator" 
     v-on:endcall="endCall"/>
@@ -68,7 +68,6 @@ export default {
   data() {
     return {
       title:"Message",
-      user: this.userInfo.nickname,
       myPartner: this.partner,
       emoticon: 'emoticon',
       chatlog: '',
