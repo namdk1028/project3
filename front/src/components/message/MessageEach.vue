@@ -5,7 +5,7 @@
         right: () => swipe('Right'),
       }"
     >
-    <div class='message-each' @click="$router.push('/main/chat/'+this.room[0])">
+    <div class='message-each' @click="$router.push('/main/chat/'+room[0])">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
