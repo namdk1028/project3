@@ -17,6 +17,7 @@ export default {
     userInfo: {
       id: 103,
     },
+    unreadMessage: 0,
     preference: {},
     // userInfo: {
     //   gender: "",
@@ -75,6 +76,9 @@ export default {
     },
     SET_SIMILARITY(state, similarity) {
       state.userInfo.user.similarity = similarity
+    },
+    unreadMessageCount(state, res) {
+      state.unreadMessage += res;
     },
     initialPreferences({ getters, commit }) {
       var initialBodies = getters.getPreference.body;

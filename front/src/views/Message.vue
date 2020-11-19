@@ -10,7 +10,7 @@
         :number="idx"
         />
       </div>
-      <div class="message-empty">
+      <div v-else class="message-empty">
         <img class='icon' src="../assets/images/icon/box.png" alt="">
         <div class='text'>메시지함이 비었습니다.</div>
       </div>
@@ -44,9 +44,12 @@ export default {
   mounted() {
     this.$socket.emit('fetch-chatroom', this.userInfo.id)
     this.$socket.on('fetch-chatroom-callback', rooms => {
-      this.rooms = Object.values(rooms);
-      console.log(this.rooms)
+      Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
+        this.rooms.push([key, value])
+      }))
     })
+    // this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
+
   }
 
 }

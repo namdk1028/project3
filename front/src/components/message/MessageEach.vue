@@ -5,16 +5,16 @@
         right: () => swipe('Right'),
       }"
     >
-    <div class='message-each' @click="$router.push('/chat/'+partner)">
+    <div class='message-each' @click="$router.push(`/main/chat/${room[0]}`)">
       <div class='message-profile-img'>
         <v-avatar style='background-color: white;' class='mx-auto' size='50'>
           <v-img
-              src="https://www.popularitas.com/wp-content/uploads/2018/04/user-hero-blue.png"></v-img>
+              :src=src></v-img>
         </v-avatar>
       </div>
       <div class='message-content'>
         <div class='message-content-username'>
-          {{ partner }}
+          {{ room[0] }}
         </div>
         <div class='message-content-body'>
           {{ recentText }}
@@ -39,9 +39,11 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   props:{
-    room: Object,
+    room: Array,
     number: Number,
   },
   data() {
@@ -49,12 +51,18 @@ export default {
       partner: '',
       recentText: '',
       recentDate: '',
-      unread: 0
+      unread: 0,
+      src: '',
     }
   },
+  computed: {
+  },
   methods : {
+    ...mapMutations({
+        unreadMessageCount: "user/unreadMessageCount"
+    }),
     deleteMessage() {
-      console.log("check")
+      this.$socket.emit('delete', this.room[0])
     },
     swipe(direction) {
       const message = document.querySelectorAll('.message-delete')[this.number]
@@ -67,13 +75,18 @@ export default {
     }
   },
   mounted: function(){
-    console.log(this.number)
-    const recentMsg = this.room.messages
-    this.unread = this.room.unread
+    console.log(this.room)
+    this.unreadMessageCount(this.room[1].unread)
+    const recentMsg = this.room[1].messages
+    this.unread = this.room[1].unread
     // console.log(Object.values(recentMsg)[0])
+    var len = Object.values(recentMsg).length
+    console.log("len",len)
     this.partner = Object.values(recentMsg)[0].reciever
-    this.recentText = Object.values(recentMsg)[0].text
+    this.recentText = Object.values(recentMsg)[len-1].text
     this.recentDate = Object.values(recentMsg)[0].date
+    this.src = `https://firebasestorage.googleapis.com/v0/b/focused-zephyr-294413.appspot.com/o/${this.room[0]}?alt=media`
+
   }
 }
 </script>

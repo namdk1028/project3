@@ -1,7 +1,7 @@
 <template>
     <div class="container-btns">
         <div class="wrapper-btn wrapper-left">
-            <button class="btn btn-education btn-left" @click="selectOption" value="고등학교">고등학교 졸업</button>
+            <button class="btn btn-education btn-left" @click="selectOption" value="고등학교 졸업">고등학교 졸업</button>
         </div>
         <div class="wrapper-btn">
             <button class="btn btn-education" @click="selectOption" value="대학교 졸업">대학교 졸업</button>

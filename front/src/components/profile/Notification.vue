@@ -9,7 +9,7 @@
       <div class="notification-content">
         <div class='notification-content-body'>
           <span class="notification-username">{{ msg.senderNickName }}</span>님이 호감을 표시하셨습니다.
-          <div style="display: flex; jusitfy-content:center; align-items:center; border: gray 2px solid; padding: 2px; border-radius: 1px 1px;" @click="$router.push(`/main/chat/${msg.senderId}`)">대화하기</div>
+          <div style="display: flex; jusitfy-content:center; align-items:center; border: gray 2px solid; padding: 2px; border-radius: 1px 1px;" @click="$router.push(`/main/chat/${msg.senderNickName}`)">대화하기</div>
         </div>
         <div class="notification-time">
           1시간 전

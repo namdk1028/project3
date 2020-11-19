@@ -14,8 +14,8 @@
                 <chatSVG v-if="!chatActive" />
                 <chatfilledSVG v-if="chatActive" />
               </button>
-              <div class="unread-meesage" v-if="unreadMessage">
-                <div>{{ unreadMessage }}</div>
+              <div class="unread-meesage" v-if="unreadMessageCount">
+                <div>{{ unreadMessageCount }}</div>
               </div>
               <div v-else>
               </div>
@@ -39,6 +39,7 @@ import profileSVG from "@/components/image_svg/profileSVG.vue"
 import homefilledSVG from "@/components/image_svg/homefilledSVG.vue"
 import chatfilledSVG from "@/components/image_svg/chatfilledSVG.vue"
 import profilefilledSVG from "@/components/image_svg/profilefilledSVG.vue"
+import { mapState } from 'vuex'
 
 export default {
     name: "Navbar",
@@ -55,13 +56,15 @@ export default {
         mainActive: true,
         chatActive: false,
         profileActive: false,
-        unreadMessageCount: 4,
-        unreadSignal: false,
+        unreadSignal: true,
       }
     },
     computed: {
-      unreadMessage() {
-        var count = this.unreadMessageCount
+      ...mapState({
+        unreadMessage: "user/unreadMessage"
+      }),
+      unreadMessageCount() {
+        var count = this.unreadMessage
         if (count > 99) {
           count = "99+"
         }
