@@ -42,13 +42,14 @@ export default {
   methods: {
   },
   mounted() {
-    this.$socket.emit('fetch-chatroom', this.userInfo.nickname)
+    this.$socket.emit('fetch-chatroom', this.userInfo.id)
     this.$socket.on('fetch-chatroom-callback', rooms => {
       Object.fromEntries(Object.entries(rooms).map(([key, value]) => {
         this.rooms.push([key, value])
       }))
     })
     // this.$socket.emit('initialize-socket', {userId: this.userInfo.id, userNickname: this.userInfo.nickname})
+
   }
 
 }
