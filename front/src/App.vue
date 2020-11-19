@@ -2,6 +2,9 @@
   <v-app id="app">
     <Navbar />
     <router-view />
+=======
+  <v-app id='app'>
+    <h1>HELLO</h1>
   </v-app>
 </template>
 
@@ -13,6 +16,12 @@ export default {
 
   components: {
     Navbar,
+=======
+
+export default {
+  name: 'App',
+
+  components: {
   },
 
   data: () => ({

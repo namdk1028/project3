@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
-//user
 import Login from '../views/user/Login.vue'
 import Signup from '../views/user/Signup.vue'
 import UserInfo from '../views/user/UserInfo.vue'
