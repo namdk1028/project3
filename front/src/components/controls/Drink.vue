@@ -1,21 +1,42 @@
 <template>
-<div>
+<div class="drink">
     <select class="select" v-model="selected">
         <option selected>상관 없음</option>
-        <option>안함</option>
+        <option>안마심</option>
         <option>가끔</option>
         <option>자주</option>
+        <option>매일</option>
     </select>
 </div>
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+
 export default {
     name: "Drink",
     data() {
         return {
             selected: "상관 없음",
         }
+    },
+    computed: {
+        ...mapGetters({
+            controlInfo: "control/getControlInfo",
+        }),
+    },
+    methods: {
+        ...mapMutations({
+            setDrink: "control/setDrink",
+        })
+    },
+    mounted() {
+        this.selected = this.controlInfo.drink;
+    },
+    watch: {
+        selected() {
+            this.setDrink(this.selected);
+        } 
     }
 }
 </script>

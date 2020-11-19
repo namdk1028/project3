@@ -1,21 +1,24 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createPersistedState from "vuex-persistedstate";
+import Vue from "vue";
+import Vuex from "vuex";
 
-Vue.use(Vuex)
+import createPersistedState from "vuex-persistedstate";
+import controlStore from "@/store/modules/controlStore";
+import userStore from "@/store/modules/userStore";
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
   modules: {
+    control: controlStore,
+    user: userStore,
   },
   plugins: [
     createPersistedState({
-      paths: [],
+      storage: window.sessionStorage,
+      paths: [
+        "control",
+        "user"
+      ],
     }),
   ],
-})
+});

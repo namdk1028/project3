@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
 export default {
     name: "BodyType",
     data() {
@@ -33,29 +34,48 @@ export default {
             selected: []
         }
     },
+    computed: {
+      ...mapGetters({
+        controlInfo: "control/getControlInfo",
+      })
+    },
     methods: {
-        selectOption(event) {
-            if (this.selected.includes(event.target.value)) {
-                var index = this.selected.indexOf(event.target.value)
-                this.selected.splice(index, 1)
-                console.log(this.selected)
-                event.target.style.background = "white"
-                event.target.style.borderTop = "1px solid rgb(211, 211, 211)"
-                event.target.style.borderBottom = "1px solid rgb(211, 211, 211)"
-                event.target.style.borderRight = "1px solid rgb(211, 211, 211)"
-                event.target.style.color = "#2c3e50"
+      ...mapMutations({
+        setBody: "control/setBody",
+      }),
+      selectOption(event) {
+          if (this.selected.includes(event.target.value)) {
+              var index = this.selected.indexOf(event.target.value)
+              this.selected.splice(index, 1)
+              event.target.style.background = "white"
+              event.target.style.color = "rgb(119, 116, 139)"
 
 
-            }
-            else {
-                this.selected.push(event.target.value)
-                event.target.style.background = "rgb(252, 166, 157)"
-                event.target.style.borderTop = "1px solid rgb(252, 166, 157)"
-                event.target.style.borderBottom = "1px solid rgb(252, 166, 157)"
-                event.target.style.borderRight = "1px solid rgb(252, 166, 157)"
-                event.target.style.color = "white"
-            }
+          }
+          else {
+              this.selected.push(event.target.value)
+              event.target.style.background = "rgb(252, 166, 157)"
+              event.target.style.color = "white"
+          }
+          if(this.selected.length === 0) {
+            this.selected = "상관 없음"
+          }
+          this.setBody(this.selected);
+          if(this.selected === "상관 없음") {
+            this.selected = []
+          }
+      }
+    },
+    mounted() {
+      var bodyTypes = this.controlInfo.body;
+      var btns = document.querySelectorAll(".btn-body");
+      for (var bodyType of bodyTypes) {
+        for (var btn of btns) {
+          if (bodyType === btn["value"]) {
+            btn.click();
+          }
         }
+      }
     }
 }
 </script>

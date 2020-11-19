@@ -12,13 +12,15 @@
         <p class="control-title">종교</p>
         <Religion />
     </div>
-    <div class="control-item">
-        <p class="control-title">음주 여부</p>
-        <Drink />
-    </div>
-    <div class="control-item">
-        <p class="control-title">흡연 여부</p>
-        <Smoke />
+    <div class="drink-smoke">
+      <div class="control-item item-drink">
+          <p class="control-title">음주 여부</p>
+          <Drink />
+      </div>
+      <div class="control-item item-smoke">
+          <p class="control-title">흡연 여부</p>
+          <Smoke />
+      </div>
     </div>
   </div>
 </template>

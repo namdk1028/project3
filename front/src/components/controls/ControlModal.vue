@@ -2,23 +2,31 @@
   <div class="container-controls hide">
       <div class="background-controls" @click="closeControls"></div>
       <div class="modal-controls">
+        <!-- <div class="modal-deco-top"></div> -->
         <div class="modal-header">
-            <button class="btn-close" @click="closeControls">✖</button>
-            <p class="header-title">나의 이상형 찾기</p>
-            <button class="btn-confirm" @click="confirmChanges">✔</button>
+            <h2 class="header-title">나의 이상형 찾기</h2>
+            <button class="btn-confirm" @click="confirmChanges">
+                <img src="@/assets/images/icon/check-mark.png">
+            </button>
         </div>
         <div class="modal-body">
             <div class="control-item">
                 <p class="control-title">지역</p>
-                <Region />
+                <div class="items-padding">
+                    <Region />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">나이</p>
-                <Age />
+                <div class="items-padding">
+                    <Age />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">키</p>
-                <Height />
+                <div class="items-padding">
+                    <Height />
+                </div>
             </div>
             <div class="control-item">
                 <p class="control-title">체형</p>
@@ -27,8 +35,12 @@
             <ControlDetails v-if="showDetails"/>
         </div>
         <div class="modal-footer">
-            <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
-            <button class="btn-detail" v-if="showDetails" @click="closeDetails">닫기</button>
+            <div class="container-btns">
+                <button class="btn-detail" v-if="!showDetails" @click="openDetails">세부 설정</button>
+                <button class="btn-detail" v-if="showDetails" @click="closeDetails">접기</button>
+            </div>
+            <!-- <button class="btn-toTop" @click="toTop">⬆</button> -->
+            <button class="btn-close" @click="closeControls">닫기</button>
         </div>
       </div>
   </div>
@@ -40,6 +52,8 @@ import Age from "@/components/controls/Age.vue"
 import Height from "@/components/controls/Height.vue"
 import BodyType from "@/components/controls/BodyType.vue"
 import ControlDetails from "@/components/controls/ControlDetails.vue"
+
+import { mapActions } from "vuex";
 
 export default {
     components: {
@@ -57,12 +71,22 @@ export default {
         }
     },
     methods: {
+        ...mapActions({
+            updateControls: "control/updateControls",
+        }),
         closeControls() {
             document.querySelector(".container-controls").classList.add("hide");
             this.closeDetails();
         },
         confirmChanges() {
-
+            let result = this.updateControls()
+            if (result) {
+                this.$router.go();
+            }
+            else {
+                alert("모든 조건을 설정해주세요.")
+            }
+            
         },
         openDetails() {
             this.showDetails = true;
@@ -77,7 +101,7 @@ export default {
             var background = document.querySelector(".background-controls");
             // modal.style.height = "80%";
             background.style.height = "100vh";
-        }
+        },
     }
 }
 </script>

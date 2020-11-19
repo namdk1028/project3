@@ -1,20 +1,20 @@
 <template>
   <div class="header">
-      <div class="container-header">
-        <div class="header-item">
-        </div>
-        <div class="header-item">
-            <h2 class="header-logo-name">나는 어때?</h2>
-        </div>
-        <div class="header-item">
-            <button class="header-btn" @click="openControlModal">
-                <img class="header-btn-img" src="@/assets/images/header/settings.png" alt="">
-            </button>
-        </div>
-      </div>
-      <div class="control-modal">
-        <ControlModal /> 
-      </div>
+    <div class="container-header">
+    <div class="header-item">
+    </div>
+    <div class="header-item">
+        <h2 class="header-logo-name">나는 어때?</h2>
+    </div>
+    <div class="header-item">
+        <button class="header-btn" @click="openControlModal">
+            <img class="header-btn-img" src="@/assets/images/header/typing.png" alt="">
+        </button>
+    </div>
+    </div>
+    <div class="modal-component">
+        <ControlModal />
+    </div>
   </div>
 </template>
 

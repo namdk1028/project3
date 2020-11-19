@@ -1,27 +1,16 @@
 <template>
   <v-app id="app">
-    <Navbar />
     <router-view />
-=======
-  <v-app id='app'>
-    <h1>HELLO</h1>
+    <!-- <router-view name="a" /> -->
   </v-app>
 </template>
 
 <script>
-import Navbar from "@/components/common/Navbar.vue";
-
 export default {
   name: "App",
 
   components: {
     Navbar,
-=======
-
-export default {
-  name: 'App',
-
-  components: {
   },
 
   data: () => ({
@@ -44,5 +33,7 @@ export default {
   p {
     margin: 0;
   }
+
 }
+
 </style>
